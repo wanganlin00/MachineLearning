@@ -3,3 +3,60 @@
 [![典型建模过程的原理图](images/modeling-process.svg){fig-align="center"}](https://www.tmwr.org/software-modeling#ref-bolstad2004)
 
 ## 探索性数据分析
+
+```{r}
+library(tidymodels)
+data(ames)
+
+ggplot(ames, aes(x = Sale_Price)) + 
+  geom_histogram(bins = 50, col= "white")
+
+
+
+
+ames <- ames %>% mutate(Sale_Price = log10(Sale_Price))
+
+ggplot(ames, aes(x = Sale_Price)) + 
+  geom_histogram(bins = 50, col= "white")+
+    geom_vline(xintercept =quantile(ames$Sale_Price),lty=5 )
+```
+
+## 拆分训练集、验证集和测试集
+
+### 简单抽样
+
+```{r}
+set.seed(10)
+ames_split <- initial_split(ames, prop = c(0.8))
+ames_split
+
+ames_train <- training(ames_split)
+ames_test  <-  testing(ames_split)
+dim(ames_train)
+```
+
+### 分层抽样
+
+```{r}
+set.seed(100)
+ames_split <- initial_split(ames, prop = 0.80, strata = Sale_Price)
+ames_train <- training(ames_split)
+ames_test  <-  testing(ames_split)
+
+dim(ames_train)
+```
+
+### 验证集
+
+```{r}
+set.seed(101)
+
+# To put 60% into training, 20% in validation, and remaining 20% in testing:
+ames_split <- initial_validation_split(ames, prop = c(0.6, 0.2),
+                                       strata = Sale_Price)
+ames_split
+
+ames_train <- training(ames_split)
+ames_test <- testing(ames_split)
+ames_valid <- validation(ames_split)
+```
