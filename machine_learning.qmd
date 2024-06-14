@@ -1,3 +1,5 @@
 # 机器学习 {.unnumbered style="color:red"}
 
 [![典型建模过程的原理图](images/modeling-process.svg){fig-align="center"}](https://www.tmwr.org/software-modeling#ref-bolstad2004)
+
+## 探索性数据分析
