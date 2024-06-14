@@ -1,0 +1,5 @@
+# 预测模型 {.unnumbered style="color:red"}
+
+-  第一性原理（first principles）推导出机理模型（mechanistic model），如量子力学中，第一性原理计算通常指从薛定谔方程出发，不依赖于经验参数，直接计算原子、分子或固体的电子结构和性质。
+-  经验驱动的模型（Empirically Driven Models），机器学习模型 如K-nearest neighbor (KNN) model
+-  回归模型

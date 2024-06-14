@@ -1,0 +1,9 @@
+# 描述性模型 {.unnumbered}
+
+-   *locally estimated scatterplot smoothing* model （LOESS）[^descriptive_models-1]
+
+-   probe-level models (PLMs)[^descriptive_models-2]，如微阵列，芯片
+
+[^descriptive_models-1]: Cleveland, W. 1979. “Robust Locally Weighted Regression and Smoothing Scatterplots.” *Journal of the American Statistical Association* 74 (368): 829–36.
+
+[^descriptive_models-2]: Bolstad, B. 2004. *Low-Level Analysis of High-Density Oligonucleotide Array Data: Background, Normalization and Summarization*. University of California, Berkeley.

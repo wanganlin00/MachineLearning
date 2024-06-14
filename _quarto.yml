@@ -1,19 +1,83 @@
 project:
   type: website
+  output-dir: docs
 
 website:
   title: "MachineLearning_Version1"
+  search: true
+  back-to-top-navigation: true
+  reader-mode: true
+  
   navbar:
+    background: info
     left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
+      - text: "主页"
+        href: index.qmd
+      - text: "预测模型"
+        href: predictive_models.qmd
+      - text: "描述性模型"
+        href: descriptive_models.qmd
+      - text: "推断模型"
+        href: inferential_models.qmd
+
+
+
+  sidebar:
+    - title: "预测模型"
+      style: "docked"
+      background: "#ffd9e6"
+      foreground: "#1919e6"
+      border: true
+      alignment: left
+      collapse-level: 4
+      contents:
+        - predictive_models.qmd
+        - machine_learning.qmd
+        - section: "有监督模型（Supervised Models）"
+          contents:
+            - regression.qmd
+            - classification.qmd
+        - section: "无监督模型（Unsupervised Models）"
+          contents:
+            - pca.qmd
+            - clustering.qmd
+        
+    - title: "描述性模型"
+      contents: 
+        - descriptive_models.qmd
+
+    - title: "推断模型"
+      contents:
+        - inferential_models.qmd
+
+
+
+
+
+knitr: 
+  opts_chunk: 
+    comment: "#>"
+    collapse: TRUE
+
+execute:
+  cache: true
+  message: false
+  warning: true
+
+toc-depth: 4
+number-sections: true
+number-depth: 4
+code-fold: show
+code-link: true
+code-tools: true
 
 format:
   html:
     theme: cosmo
     css: styles.css
     toc: true
+    fig-format: svg
 
 editor: visual
+
 
