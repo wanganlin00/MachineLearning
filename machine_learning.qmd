@@ -329,10 +329,30 @@ plot_smoother <- function(deg_free) {
 ```{r}
 recipe(Sale_Price ~ Neighborhood + Gr_Liv_Area + Year_Built + Bldg_Type + Latitude,
          data = ames_train) %>%
-  step_log(Gr_Liv_Area, base = 10) %>% 
-  step_other(Neighborhood, threshold = 0.01) %>% 
-  step_dummy(all_nominal_predictors()) %>% 
-  step_interact( ~ Gr_Liv_Area:starts_with("Bldg_Type_") ) %>% 
   step_ns(Latitude, deg_free = 20)
 ```
+
+
+### 特征提取
+
+PCA,
+
+```{r}
+  # Use a regular expression to capture house size predictors: 
+recipe(Sale_Price ~ Neighborhood + Gr_Liv_Area + Year_Built + Bldg_Type + Latitude+Total_Bsmt_SF+First_Flr_SF+Gr_Liv_Area,
+         data = ames_train) %>%
+    step_pca(matches("(SF$)|(Gr_Liv)"))
+```
+
+
+### 行采样
+
+Downsampling，Upsampling，Hybrid
+
+```{r eval=FALSE}
+library(themis)
+step_downsample(outcome_column_name)
+```
+
+
 
