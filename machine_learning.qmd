@@ -14,7 +14,7 @@ ggplot(ames, aes(x = Sale_Price)) +
 
 
 
-ames <- ames %>% mutate(Sale_Price = log10(Sale_Price))
+ames <- ames |>mutate(Sale_Price = log10(Sale_Price))
 
 ggplot(ames, aes(x = Sale_Price)) + 
   geom_histogram(bins = 50, col= "white")+
@@ -25,7 +25,7 @@ ggplot(ames, aes(x = Sale_Price)) +
 
 ### 简单抽样
 
-```{r}
+```{r eval=FALSE}
 set.seed(10)
 ames_split <- initial_split(ames, prop = c(0.8))
 ames_split
@@ -48,7 +48,7 @@ dim(ames_train)
 
 ### 验证集
 
-```{r}
+```{r eval=FALSE}
 set.seed(101)
 
 # To put 60% into training, 20% in validation, and remaining 20% in testing:
@@ -60,3 +60,242 @@ ames_train <- training(ames_split)
 ames_test <- testing(ames_split)
 ames_valid <- validation(ames_split)
 ```
+
+## 模型选择 `parsnip`
+
+```{r eval=FALSE}
+parsnip_addin()
+```
+
+```{r}
+show_engines('linear_reg')
+show_engines("logistic_reg")
+```
+
+```{r}
+lm_model <- linear_reg() |> 
+    set_engine("lm") |> 
+    set_mode(mode = "regression")
+lm_model
+
+logistic_reg() |>
+  set_mode("classification") |>
+  set_engine("glm") 
+
+rand_forest(trees = 1000, min_n = 5) |>
+  set_engine("ranger", verbose = TRUE) |>
+  set_mode("regression") 
+
+decision_tree(min_n = 2) |>
+  set_engine("rpart") |>
+  set_mode("regression")
+```
+
+## 模型工作流 `workflows`
+
+### 线性模型
+
+预处理 `Preprocessor`
+
+```{r}
+
+#  Preprocessor
+# None
+
+lm_wflow <- 
+  workflow() %>% 
+  add_model(lm_model)
+
+lm_wflow
+
+
+# Formula
+lm_wflow <- lm_wflow |> 
+    add_formula(Sale_Price ~ Longitude + Latitude)
+
+lm_wflow
+
+#  拟合
+lm_fit <- fit(lm_wflow, ames_train)
+lm_fit
+
+
+# 更换公式 再拟合
+lm_wflow %>% update_formula(Sale_Price ~ Longitude) |> fit(ames_train)
+
+
+
+# Variables:outcomes ~ predictors
+lm_wflow <- 
+  lm_wflow %>% 
+  remove_formula() %>% 
+  add_variables(outcomes  = Sale_Price, predictors = c(Longitude, Latitude))  # c(ends_with("tude"))
+
+lm_wflow |> fit(ames_train)
+
+
+# recepe
+```
+
+### 预测
+
+```{r}
+
+# 回归 "numeric" , "conf_int","pred_int","raw".
+#  censored regression   "time"，"hazard","survival"
+# 分类  "class", "prob",
+# "quantile"
+
+# When NULL, predict() will choose an appropriate value based on the model's mode.
+predict(lm_fit, ames_test)  # "numeric"
+```
+
+### 混合效应模型 `multilevelmod`
+
+```{r}
+library(multilevelmod)
+multilevel_spec <- linear_reg() %>% set_engine("lmer")
+multilevel_spec
+
+df <-  read_delim("data/lme_anova.txt",) |> pivot_longer(cols = 3:7,names_to = "time",values_to = "BP") |> 
+    mutate_at(1:3,as.factor)
+df
+multilevel_workflow <- 
+  workflow() %>% 
+  add_variables(outcome = BP, predictors = c(induced_method,time,subject)) %>% 
+  add_model(multilevel_spec, 
+            # This formula is given to the model
+            formula = BP ~ induced_method+time + ( 1| subject))
+
+multilevel_workflow
+multilevel_workflow |>  fit(data =df) 
+
+
+
+```
+
+### 生存模型 `censored`
+
+```{r}
+library(censored)
+
+parametric_spec <- survival_reg()
+
+parametric_workflow <- 
+  workflow() %>% 
+  add_variables(outcome = c(fustat, futime), predictors = c(age, rx)) %>% 
+  add_model(parametric_spec, 
+            formula = Surv(futime, fustat) ~ age + strata(rx))
+
+parametric_fit <- fit(parametric_workflow, data = ovarian)
+parametric_fit
+```
+
+### 工作流集 `workflowsets`
+
+```{r}
+location <- list(
+  longitude = Sale_Price ~ Longitude,
+  latitude = Sale_Price ~ Latitude,
+  coords = Sale_Price ~ Longitude + Latitude,
+  neighborhood = Sale_Price ~ Neighborhood
+)
+
+library(workflowsets)
+location_models <- workflow_set(preproc = location, models = list(lm = lm_model))
+location_models
+location_models$info[[1]]
+extract_workflow(location_models, id = "coords_lm")
+
+
+location_models <-
+   location_models %>%
+   mutate(fit = map(info, ~ fit(.x$workflow[[1]], ames_train)))
+location_models
+
+location_models$fit[[1]]
+```
+
+```{r}
+final_lm_res <- last_fit(lm_wflow, ames_split)
+final_lm_res
+extract_workflow(final_lm_res)
+
+collect_metrics(final_lm_res)
+collect_predictions(final_lm_res) %>% slice(1:5)
+```
+
+## 特征工程 `recipes`
+
+### 虚拟变量
+
+```{r}
+simple_ames <- 
+  recipe(Sale_Price ~ Neighborhood + Gr_Liv_Area + Year_Built + Bldg_Type,
+         data = ames_train) %>%
+  step_log(Gr_Liv_Area, base = 10) %>% 
+  step_dummy(all_nominal_predictors())# 因子或字符变量，名义nominal
+# all_numeric_predictors()  all_numeric()  all_predictors()  all_outcomes()
+
+# 跨模型循环使用
+simple_ames
+```
+
+```{r}
+lm_wflow <- 
+  lm_wflow %>% 
+    #一次只能有一种预处理方法，需要在添加配方之前删除现有的预处理器
+  remove_variables() %>% 
+  add_recipe(simple_ames)
+
+lm_wflow
+
+lm_fit <- fit(lm_wflow, ames_train)
+predict(lm_fit, ames_test)
+
+# 提取模型信息
+lm_fit %>% 
+  extract_recipe(estimated = TRUE)
+
+lm_fit %>% 
+  extract_fit_parsnip() %>% 
+  tidy()
+```
+
+```{r}
+
+simple_ames <- 
+  recipe(Sale_Price ~ Neighborhood + Gr_Liv_Area + Year_Built + Bldg_Type,
+         data = ames_train) %>%
+  step_log(Gr_Liv_Area, base = 10) %>% 
+  step_other(Neighborhood, threshold = 0.01) %>% 
+  step_dummy(all_nominal_predictors())
+```
+
+
+```{r}
+ggplot(ames_train, aes(x = Gr_Liv_Area, y = 10^Sale_Price)) + 
+  geom_point(alpha = .2) + 
+  facet_wrap(~ Bldg_Type) + 
+  geom_smooth(method = lm, formula = y ~ x, se = FALSE, color = "blue") + 
+  scale_x_log10() + 
+  scale_y_log10() + 
+  labs(x = "Gross Living Area", y = "Sale Price (USD)")
+```
+### 交互项
+
+`step_interact(~ interaction terms)`  , `+`分隔不同交互效应
+
+```{r}
+simple_ames <- 
+  recipe(Sale_Price ~ Neighborhood + Gr_Liv_Area + Year_Built + Bldg_Type,
+         data = ames_train) %>%
+  step_log(Gr_Liv_Area, base = 10) %>% 
+  step_other(Neighborhood, threshold = 0.01) %>% 
+  step_dummy(all_nominal_predictors()) %>% 
+  # Gr_Liv_Area is on the log scale from a previous step
+  step_interact( ~ Gr_Liv_Area:starts_with("Bldg_Type_") )
+
+simple_ames 
+```
+
