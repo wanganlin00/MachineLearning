@@ -282,7 +282,10 @@ ggplot(ames_train, aes(x = Gr_Liv_Area, y = 10^Sale_Price)) +
   scale_y_log10() + 
   labs(x = "Gross Living Area", y = "Sale Price (USD)")
 ```
+
+
 ### 交互项
+
 
 `step_interact(~ interaction terms)`  , `+`分隔不同交互效应
 
@@ -297,5 +300,39 @@ simple_ames <-
   step_interact( ~ Gr_Liv_Area:starts_with("Bldg_Type_") )
 
 simple_ames 
+```
+
+### 样条函数
+
+添加非线性特征
+
+```{r}
+library(patchwork)
+library(splines)
+plot_smoother <- function(deg_free) {
+  ggplot(ames_train, aes(x = Latitude, y = 10^Sale_Price)) + 
+    geom_point(alpha = .2) + 
+    scale_y_log10() +
+    geom_smooth(
+      method = lm,
+      formula = y ~ ns(x, df = deg_free),# natural splines.
+      color = "lightblue",
+      se = FALSE
+    ) +
+    labs(title = paste(deg_free, "Spline Terms"),
+         y = "Sale Price (USD)")
+}
+
+( plot_smoother(1) + plot_smoother(5) ) / ( plot_smoother(20) + plot_smoother(100) )
+```
+
+```{r}
+recipe(Sale_Price ~ Neighborhood + Gr_Liv_Area + Year_Built + Bldg_Type + Latitude,
+         data = ames_train) %>%
+  step_log(Gr_Liv_Area, base = 10) %>% 
+  step_other(Neighborhood, threshold = 0.01) %>% 
+  step_dummy(all_nominal_predictors()) %>% 
+  step_interact( ~ Gr_Liv_Area:starts_with("Bldg_Type_") ) %>% 
+  step_ns(Latitude, deg_free = 20)
 ```
 
