@@ -272,7 +272,6 @@ simple_ames <-
   step_dummy(all_nominal_predictors())
 ```
 
-
 ```{r}
 ggplot(ames_train, aes(x = Gr_Liv_Area, y = 10^Sale_Price)) + 
   geom_point(alpha = .2) + 
@@ -283,11 +282,9 @@ ggplot(ames_train, aes(x = Gr_Liv_Area, y = 10^Sale_Price)) +
   labs(x = "Gross Living Area", y = "Sale Price (USD)")
 ```
 
-
 ### 交互项
 
-
-`step_interact(~ interaction terms)`  , `+`分隔不同交互效应
+`step_interact(~ interaction terms)` , `+`分隔不同交互效应
 
 ```{r}
 simple_ames <- 
@@ -332,7 +329,6 @@ recipe(Sale_Price ~ Neighborhood + Gr_Liv_Area + Year_Built + Bldg_Type + Latitu
   step_ns(Latitude, deg_free = 20)
 ```
 
-
 ### 特征提取
 
 PCA,
@@ -344,15 +340,66 @@ recipe(Sale_Price ~ Neighborhood + Gr_Liv_Area + Year_Built + Bldg_Type + Latitu
     step_pca(matches("(SF$)|(Gr_Liv)"))
 ```
 
-
 ### 行采样
 
 Downsampling，Upsampling，Hybrid
+
+`step_filter()` `step_sample()` `step_slice()` `step_arrange()` `skip` `TRUE`
 
 ```{r eval=FALSE}
 library(themis)
 step_downsample(outcome_column_name)
 ```
 
+### 一般转换
 
+`step_mutate()` 比，Bedroom_AbvGr / Full_Bath
 
+### 自然语言处理
+
+[textrecipes](https://textrecipes.tidymodels.org/)
+
+### `tidy()`
+
+```{r}
+ames_rec <- 
+  recipe(Sale_Price ~ Neighborhood + Gr_Liv_Area + Year_Built + Bldg_Type + 
+           Latitude + Longitude, data = ames_train) %>%
+  step_log(Gr_Liv_Area, base = 10) %>% 
+  step_other(Neighborhood, threshold = 0.01) %>% 
+  step_dummy(all_nominal_predictors()) %>% 
+  step_interact( ~ Gr_Liv_Area:starts_with("Bldg_Type_") ) %>% 
+  step_ns(Latitude, Longitude, deg_free = 20)
+tidy(ames_rec)
+```
+
+```{r}
+ames_rec <- 
+  recipe(Sale_Price ~ Neighborhood + Gr_Liv_Area + Year_Built + Bldg_Type + 
+           Latitude + Longitude, data = ames_train) %>%
+  step_log(Gr_Liv_Area, base = 10) %>% 
+  step_other(Neighborhood, threshold = 0.01, id = "my_id") %>% 
+  step_dummy(all_nominal_predictors()) %>% 
+  step_interact( ~ Gr_Liv_Area:starts_with("Bldg_Type_") ) %>% 
+  step_ns(Latitude, Longitude, deg_free = 20)
+
+lm_wflow <- 
+  workflow() %>% 
+  add_model(lm_model) %>% 
+  add_recipe(ames_rec)
+
+lm_fit <- fit(lm_wflow, ames_train)
+
+estimated_recipe <- 
+  lm_fit %>% 
+  extract_recipe(estimated = TRUE)
+
+tidy(estimated_recipe, id = "my_id")
+tidy(estimated_recipe, number = 2)
+```
+
+## 列角色
+
+```{r}
+ames_rec %>% update_role(Year_Built, new_role = "Street")
+```
