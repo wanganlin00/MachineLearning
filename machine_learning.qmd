@@ -21,7 +21,7 @@ ggplot(ames, aes(x = Sale_Price)) +
     geom_vline(xintercept =quantile(ames$Sale_Price),lty=5 )
 ```
 
-## 拆分训练集、验证集和测试集
+## 拆分训练集、验证集和测试集 `rsample`
 
 ### 简单抽样
 
@@ -355,10 +355,6 @@ step_downsample(outcome_column_name)
 
 `step_mutate()` 比，Bedroom_AbvGr / Full_Bath
 
-### 自然语言处理
-
-[textrecipes](https://textrecipes.tidymodels.org/)
-
 ### `tidy()`
 
 ```{r}
@@ -398,8 +394,141 @@ tidy(estimated_recipe, id = "my_id")
 tidy(estimated_recipe, number = 2)
 ```
 
-## 列角色
+### 列角色
 
 ```{r}
 ames_rec %>% update_role(Year_Built, new_role = "Street")
 ```
+
+### 自然语言处理
+
+[textrecipes](https://textrecipes.tidymodels.org/)
+
+## 模型评估 `yardstick`
+
+### 回归指标
+
+```{r}
+ames_test_res <- predict(lm_fit, new_data = ames_test %>% select(-Sale_Price))
+ames_test_res
+
+ames_test_res <- bind_cols(ames_test_res, ames_test %>% select(Sale_Price))
+ames_test_res
+```
+
+```{r}
+ggplot(ames_test_res, aes(x = Sale_Price, y = .pred)) + 
+  # Create a diagonal line:
+  geom_abline(lty = 2) + 
+  geom_point(alpha = 0.5) + 
+  labs(y = "Predicted Sale Price (log10)", x = "Sale Price (log10)") +
+  # Scale and size the x- and y-axis uniformly:
+  coord_obs_pred()
+
+```
+
+#### 均方根误差RMSE
+
+```{r}
+rmse(ames_test_res, truth = Sale_Price, estimate = .pred)
+```
+
+#### 决定系数R^2^，平均绝对误差MAE
+
+```{r}
+ames_metrics <- metric_set(rmse, rsq, mae)
+ames_metrics(ames_test_res, truth = Sale_Price, estimate = .pred)
+```
+
+### 二分类指标
+
+```{r}
+data(two_class_example)
+tibble(two_class_example)
+```
+
+```{r}
+# 混淆矩阵
+# A confusion matrix: 
+conf_mat(two_class_example, truth = truth, estimate = predicted)
+```
+
+```{r}
+# Accuracy:
+accuracy(two_class_example, truth, predicted)
+```
+
+```{r}
+# Matthews correlation coefficient:
+mcc(two_class_example, truth, predicted)
+```
+
+```{r}
+# F1 metric:
+f_meas(two_class_example, truth, predicted)
+```
+
+```{r}
+# Combining these three classification metrics together
+classification_metrics <- metric_set(accuracy, mcc, f_meas)
+classification_metrics(two_class_example, truth = truth, estimate = predicted)
+```
+
+#### 感兴趣事件水平
+
+```{r}
+f_meas(two_class_example, truth, predicted, event_level = "second")
+```
+
+#### ROC，AUC
+
+不使用预测类列,对于两类问题，感兴趣事件的概率列将传递到函数中
+
+```{r}
+two_class_curve <- roc_curve(two_class_example, truth, Class1)
+two_class_curve
+roc_auc(two_class_example, truth, Class1)
+```
+```{r}
+autoplot(two_class_curve)+
+    annotate("text",x=0.5,y=0.25,label="AUC=0.939")
+```
+
+### 多分类指标
+
+```{r}
+data(hpc_cv)
+tibble(hpc_cv)
+```
+
+```{r}
+accuracy(hpc_cv, obs, pred)
+mcc(hpc_cv, obs, pred)
+```
+
+二分类可拓展到多分类
+
+```{r}
+sensitivity(hpc_cv, obs, pred, estimator = "macro")
+sensitivity(hpc_cv, obs, pred, estimator = "macro_weighted")
+sensitivity(hpc_cv, obs, pred, estimator = "micro")
+```
+多分类
+
+```{r}
+roc_auc(hpc_cv, obs, VF, F, M, L)
+roc_auc(hpc_cv, obs, VF, F, M, L, estimator = "macro_weighted")
+```
+
+```{r}
+hpc_cv %>% 
+  group_by(Resample) %>% 
+  accuracy(obs, pred)
+
+# Four 1-vs-all ROC curves for each fold
+hpc_cv %>% 
+  group_by(Resample) %>% 
+  roc_curve(obs, VF, F, M, L) %>% 
+  autoplot()
+```
+
