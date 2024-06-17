@@ -1,3 +1,5 @@
 # 推荐阅读 {.unnumbered style="color:red"}
 
 -   [Tidy Modeling with R](https://www.tmwr.org/)
+
+-   [tidymodels](https://www.tidymodels.org/)
