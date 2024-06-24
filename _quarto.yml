@@ -37,12 +37,16 @@ website:
 
         - section: "有监督模型（Supervised Models）"
           contents:
-            - regression.qmd
-            - classification.qmd
+            - Regression.qmd
+            - Classification.qmd
+            
         - section: "无监督模型（Unsupervised Models）"
           contents:
-            - pca.qmd
-            - clustering.qmd
+            - linear_algebra.qmd
+            - PCA.qmd
+            - Clustering.qmd
+            - t-SNE.qmd
+            - UMAP.qmd
         
     - title: "描述性模型"
       contents: 
