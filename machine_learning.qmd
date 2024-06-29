@@ -474,7 +474,7 @@ classification_metrics <- metric_set(accuracy, mcc, f_meas)
 classification_metrics(two_class_example, truth = truth, estimate = predicted)
 ```
 
-#### 感兴趣事件水平
+ 感兴趣 事件水平
 
 ```{r}
 f_meas(two_class_example, truth, predicted, event_level = "second")
