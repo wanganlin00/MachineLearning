@@ -39,6 +39,7 @@ website:
           contents:
             - Regression.qmd
             - Classification.qmd
+            - tree.qmd
             
         - section: "无监督模型（Unsupervised Models）"
           contents:

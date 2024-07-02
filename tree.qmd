@@ -1,0 +1,160 @@
+# 基于树的方法
+
+```{r}
+library(tidymodels)
+library(rpart)
+library(rpart.plot)
+library(vip)
+```
+
+
+```{r}
+df <- read_csv("data/breast-cancer-wisconsin.data",col_names = F,na = c("","NA","?"))
+
+names(df) <- c("id","肿块厚度","细胞大小均匀性","细胞形状均匀性","边际附着力","单个上皮细胞大小",
+               "裸核","bland_chromatin","正常核","有丝分裂","class")
+
+df <- df |>
+    select(-1) |>
+    mutate(class = factor(class, levels = c(2, 4), labels = c("良性", "恶性"))) |>
+    drop_na()
+str(df)
+
+```
+
+
+
+
+```{r}
+# 2=良性 4=恶性
+
+# 拆分训练集和测试集         ####
+table(df$class)
+
+set.seed(100)
+split <- initial_split(df, prop = 0.70, strata = class)
+
+split
+train <- training(split)
+test  <-  testing(split)
+
+table(train$class)
+table(test$class)
+```
+
+
+
+
+##  决策树 （分类） 
+
+```{r}
+class_tree_spec <- decision_tree() %>%
+    set_engine("rpart") %>%
+    set_mode("classification") 
+
+dtree <- class_tree_spec |> fit(class ~ . ,data = train)
+dtree
+```
+
+模型摘要
+
+```{r}
+plotcp(dtree$fit)
+
+dtree %>%
+    extract_fit_engine() %>%
+    rpart.plot(roundint = F)
+```
+
+ 模型性能
+
+```{r}
+augment(dtree, new_data = test) %>%
+    accuracy(truth = class, estimate = .pred_class)
+
+augment(dtree, new_data = test) %>%
+    conf_mat(truth = class, estimate = .pred_class)
+```
+
+
+##  随机森林 （分类）
+
+```{r}
+rand_forest_randomForest_spec <-
+    rand_forest(#mtry = .cols(), 
+        trees = 500 ,min_n = 1) %>%
+    set_engine('randomForest', importance = TRUE) %>%
+    set_mode('classification')
+
+rf_fit <- rand_forest_randomForest_spec |> 
+    fit(class ~ . , data = train)
+rf_fit
+```
+
+ OOB out of bag 袋外预测误差，MeanDecreaseGini 基于Gini不纯度指数，用于衡量特征对数据集的不纯度减少的贡献。
+ 值越大，表示特征对提高模型的纯度贡献越大，因此特征越重要。
+
+```{r}
+rf_fit$fit$importance
+```
+
+
+```{r}
+
+augment(rf_fit, new_data = test) %>%
+    accuracy(truth = class, estimate = .pred_class)
+
+augment(rf_fit, new_data = test) %>%
+    conf_mat(truth = class, estimate = .pred_class)
+```
+
+
+##  基于表达数据的应用
+
+```{r}
+df <- dendextend::khan
+
+df$train.classes
+train <- t(df$train) |> bind_cols(tibble(class=df$train.classes)) |> 
+    relocate(class, .before = 1) |> 
+    mutate(
+        class=factor(class,levels = c("EWS", "BL-NHL", "NB","RMS"))
+    )
+str(train$class)
+table(train$class)
+```
+
+
+```{r}
+df$test.classes
+
+test <- t(df$test) |> bind_cols(tibble(class=df$test.classes)) |> 
+    relocate(class, .before = 1) |> 
+    mutate(
+        class=factor(class,levels = c("EWS", "BL-NHL", "NB","RMS","Normal"))
+    )
+str(test$class)
+table(test$class)
+```
+
+
+```{r}
+#
+dt <- class_tree_spec |> fit(class ~ . ,data = train)
+plotcp(dt$fit)
+
+dt%>%
+    extract_fit_engine() %>%
+    rpart.plot(roundint = F)
+```
+
+
+```{r}
+#
+rf_fit <- rand_forest_randomForest_spec |> 
+    fit(class ~ . , data = train)
+rf_fit
+
+rf_fit$fit$importance
+```
+

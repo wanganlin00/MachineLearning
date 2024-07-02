@@ -694,7 +694,7 @@ Bootstrap resampling
 
 replacement
 
-*out-of-bag* sample
+*out-of-bag* sample
 
 ```{r}
 bootstraps(ames_train, times = 5)
