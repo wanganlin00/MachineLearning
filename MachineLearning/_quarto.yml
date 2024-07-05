@@ -44,8 +44,8 @@ website:
             
         - section: "无监督模型（Unsupervised Models）"
           contents:
-            - PCA.qmd
             - Clustering.qmd
+            - PCA.qmd
             - t-SNE.qmd
             - UMAP.qmd
         

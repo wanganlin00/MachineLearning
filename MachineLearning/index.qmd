@@ -3,3 +3,7 @@
 -   [Tidy Modeling with R](https://www.tmwr.org/)
 
 -   [tidymodels](https://www.tidymodels.org/)
+
+-   [t-Distributed Stochastic Neighbor Embedding (t-SNE)](https://lvdmaaten.github.io/tsne/)
+
+-   [Uniform Manifold Approximation and Projection (UMAP)](https://umap-learn.readthedocs.io/en/latest/){.uri}
