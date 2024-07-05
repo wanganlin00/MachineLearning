@@ -43,7 +43,6 @@ website:
             
         - section: "无监督模型（Unsupervised Models）"
           contents:
-            - linear_algebra.qmd
             - PCA.qmd
             - Clustering.qmd
             - t-SNE.qmd

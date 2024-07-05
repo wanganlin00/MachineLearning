@@ -109,7 +109,7 @@ augment(rf_fit, new_data = test) %>%
 ```
 
 
-##  基于表达数据的应用
+###  基于表达数据的应用
 
 ```{r}
 df <- dendextend::khan
@@ -158,3 +158,11 @@ rf_fit
 rf_fit$fit$importance
 ```
 
+## 装袋法
+
+bagging 或 bootstrap aggregation
+
+## 梯度提升树
+
+
+#  贝叶斯相加回归树
