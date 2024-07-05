@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "MachineLearning_Version1"
+  title: "Machine Learning"
   search: true
   back-to-top-navigation: true
   reader-mode: true
