@@ -1,4 +1,4 @@
-# 机器学习 {.unnumbered style="color:red"}
+# 机器学习 {style="color:red"}
 
 [![典型建模过程的原理图](images/modeling-process.svg){fig-align="center"}](https://www.tmwr.org/software-modeling#ref-bolstad2004)
 
@@ -177,7 +177,6 @@ multilevel_workflow |>  fit(data =df)
 ### 生存模型 `censored`
 
 `type = "time"  type = "survival"   type = "linear_pred"   type = "quantile"   type = "hazard"`
-
 
 ```{r}
 library(censored)
@@ -477,7 +476,7 @@ classification_metrics <- metric_set(accuracy, mcc, f_meas)
 classification_metrics(two_class_example, truth = truth, estimate = predicted)
 ```
 
- 感兴趣 事件水平
+感兴趣 事件水平
 
 ```{r}
 f_meas(two_class_example, truth, predicted, event_level = "second")
@@ -761,7 +760,6 @@ get_model <- function(x) {
 get_model(lm_fit)
 ```
 
-
 ```{r}
 ctrl <- control_resamples(extract = get_model)
 
@@ -780,4 +778,3 @@ all_coef <- map_dfr(lm_res$.extracts, ~ .x[[1]][[1]])
 # Show the replicates for a single predictor:
 filter(all_coef, term == "Year_Built")
 ```
-
