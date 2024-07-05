@@ -176,6 +176,9 @@ multilevel_workflow |>  fit(data =df)
 
 ### 生存模型 `censored`
 
+`type = "time"  type = "survival"   type = "linear_pred"   type = "quantile"   type = "hazard"`
+
+
 ```{r}
 library(censored)
 

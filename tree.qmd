@@ -1,12 +1,11 @@
 # 基于树的方法
 
+<https://bonsai.tidymodels.org/articles/bonsai.html>
+
 ```{r}
 library(tidymodels)
-library(rpart)
-library(rpart.plot)
-library(vip)
+library(bonsai)
 ```
-
 
 ```{r}
 df <- read_csv("data/breast-cancer-wisconsin.data",col_names = F,na = c("","NA","?"))
@@ -21,9 +20,6 @@ df <- df |>
 str(df)
 
 ```
-
-
-
 
 ```{r}
 # 2=良性 4=恶性
@@ -42,10 +38,7 @@ table(train$class)
 table(test$class)
 ```
 
-
-
-
-##  决策树 （分类） 
+## 决策树 （分类）
 
 ```{r}
 class_tree_spec <- decision_tree() %>%
@@ -66,7 +59,7 @@ dtree %>%
     rpart.plot(roundint = F)
 ```
 
- 模型性能
+模型性能
 
 ```{r}
 augment(dtree, new_data = test) %>%
@@ -76,8 +69,7 @@ augment(dtree, new_data = test) %>%
     conf_mat(truth = class, estimate = .pred_class)
 ```
 
-
-##  随机森林 （分类）
+## 随机森林 （分类）
 
 ```{r}
 rand_forest_randomForest_spec <-
@@ -91,13 +83,11 @@ rf_fit <- rand_forest_randomForest_spec |>
 rf_fit
 ```
 
- OOB out of bag 袋外预测误差，MeanDecreaseGini 基于Gini不纯度指数，用于衡量特征对数据集的不纯度减少的贡献。
- 值越大，表示特征对提高模型的纯度贡献越大，因此特征越重要。
+OOB out of bag 袋外预测误差，MeanDecreaseGini 基于Gini不纯度指数，用于衡量特征对数据集的不纯度减少的贡献。 值越大，表示特征对提高模型的纯度贡献越大，因此特征越重要。
 
 ```{r}
 rf_fit$fit$importance
 ```
-
 
 ```{r}
 
@@ -108,8 +98,7 @@ augment(rf_fit, new_data = test) %>%
     conf_mat(truth = class, estimate = .pred_class)
 ```
 
-
-###  基于表达数据的应用
+### 基于表达数据的应用
 
 ```{r}
 df <- dendextend::khan
@@ -124,7 +113,6 @@ str(train$class)
 table(train$class)
 ```
 
-
 ```{r}
 df$test.classes
 
@@ -137,7 +125,6 @@ str(test$class)
 table(test$class)
 ```
 
-
 ```{r}
 #
 dt <- class_tree_spec |> fit(class ~ . ,data = train)
@@ -147,7 +134,6 @@ dt%>%
     extract_fit_engine() %>%
     rpart.plot(roundint = F)
 ```
-
 
 ```{r}
 #
@@ -164,5 +150,4 @@ bagging 或 bootstrap aggregation
 
 ## 梯度提升树
 
-
-#  贝叶斯相加回归树
+# 贝叶斯相加回归树
