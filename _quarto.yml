@@ -15,7 +15,7 @@ website:
         href: index.qmd
       - text: "预测模型"
         href: predictive_models.qmd
-      - text: "描述性模型"
+      - text: "描述模型"
         href: descriptive_models.qmd
       - text: "推断模型"
         href: inferential_models.qmd
