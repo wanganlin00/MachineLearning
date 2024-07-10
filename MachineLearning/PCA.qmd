@@ -192,7 +192,7 @@ library(tidymodels)
 
 ```{r}
 df <- as_tibble(USArrests, rownames = "state")
-head(df)
+df
 
 df |>
   select(-state) |>
@@ -203,23 +203,41 @@ df |>
 df_pca <- df |>
   select(-state) |>
   stats::prcomp(scale = TRUE)
-
-options(digits = 3)
-df_pca
-broom::tidy(df_pca, matrix = "scores")[1:6,] #by default    df_pca$x 长表
 ```
+
+主成分得分，表示主成分与原有观测的相关系数
+
+```{r}
+df_pca$x
+
+# by default    df_pca$x
+broom::tidy(df_pca, matrix = "scores") |> 
+    pivot_wider(id_cols = everything(),
+                names_from = PC,
+                names_prefix = "PC",
+               values_from = value)
+```
+
+
 
 主成分荷载（loading）：表示主成分与原有变量的相关系数
 
 ```{r}
-tidy(df_pca, matrix = "loadings")[1:6,]# df_pca$Rotation 长表
 df_pca$rotation
+
+# df_pca$Rotation
+tidy(df_pca, matrix = "loadings") |> 
+    pivot_wider(
+        names_from = PC,
+        names_prefix = "PC",
+        values_from = value,
+    )
 ```
 
 例如：
 
 $$
-PC_1=-0.531Murrder-0.583Assault-0.278UrbanPop-0.543Rape
+PC_1=-0.536Murrder-0.583Assault-0.278UrbanPop-0.543Rape
 $$
 
 ```{r}
