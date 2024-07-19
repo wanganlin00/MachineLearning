@@ -1,0 +1,190 @@
+# 交叉验证
+
+```{r}
+library(tidymodels)
+data(ames)
+
+ggplot(ames, aes(x = Sale_Price)) + 
+  geom_histogram(bins = 50, col= "white")
+
+
+
+
+ames <- ames |>mutate(Sale_Price = log10(Sale_Price))
+
+ggplot(ames, aes(x = Sale_Price)) + 
+  geom_histogram(bins = 50, col= "white")+
+    geom_vline(xintercept =quantile(ames$Sale_Price),lty=5 )
+```
+
+```{r}
+# 加载必要的库
+library(caret)
+library(pROC)
+library(ggplot2)
+library(rms)
+
+# 假设data是你的数据框，x是特征，y是目标变量
+ data <- ames
+
+ hist(data$Sale_Price)
+ 
+# 创建训练和测试数据
+set.seed(123)
+trainIndex <- createDataPartition(data$Sale_Price, p = .8, 
+                                  list = FALSE, 
+                                  times = 1)
+trainData <- data[ trainIndex,]
+testData  <- data[-trainIndex,]
+
+# 建立全模型
+full_model <- glm(Sale_Price ~ ., data = trainData, family = binomial)
+
+# 预测和评估全模型
+pred_full <- predict(full_model, testData, type = "response")
+roc_full <- roc(testData$y, pred_full)
+
+# 绘制全模型的ROC曲线
+plot(roc_full, col = "blue", main = "ROC Curve - Full Model")
+
+# 计算校准曲线
+cal <- calibration(testData$y ~ pred_full, class = TRUE)
+plot(cal, type = "l", main = "Calibration Curve - Full Model")
+
+# 5折交叉验证
+control_5 <- trainControl(method="cv", number=5, 
+                          summaryFunction=twoClassSummary, 
+                          classProbs=TRUE, 
+                          savePredictions=TRUE)
+model_5 <- train(y ~ ., data=trainData, method="glm", family=binomial, 
+                 trControl=control_5, metric="ROC")
+
+# 预测和评估5折交叉验证模型
+pred_5 <- predict(model_5, testData, type = "prob")[,2]
+roc_5 <- roc(testData$y, pred_5)
+
+# 绘制5折交叉验证模型的ROC曲线
+plot(roc_5, col = "red", main = "ROC Curve - 5-fold Cross-Validation Model")
+
+# 计算校准曲线
+cal_5 <- calibration(testData$y ~ pred_5, class = TRUE)
+plot(cal_5, type = "l", main = "Calibration Curve - 5-fold Cross-Validation Model")
+
+# 10折交叉验证
+control_10 <- trainControl(method="cv", number=10, 
+                           summaryFunction=twoClassSummary, 
+                           classProbs=TRUE, 
+                           savePredictions=TRUE)
+model_10 <- train(y ~ ., data=trainData, method="glm", family=binomial, 
+                  trControl=control_10, metric="ROC")
+
+# 预测和评估10折交叉验证模型
+pred_10 <- predict(model_10, testData, type = "prob")[,2]
+roc_10 <- roc(testData$y, pred_10)
+
+# 绘制10折交叉验证模型的ROC曲线
+plot(roc_10, col = "green", main = "ROC Curve - 10-fold Cross-Validation Model")
+
+# 计算校准曲线
+cal_10 <- calibration(testData$y ~ pred_10, class = TRUE)
+plot(cal_10, type = "l", main = "Calibration Curve - 10-fold Cross-Validation Model")
+
+```
+
+```{r}
+# 假设data是你的数据框，x是特征，y是目标变量
+# data <- your_dataframe
+
+# 设置种子以确保可重复性
+set.seed(123)
+
+# 将数据分为训练集和测试集
+data_split <- initial_split(data, prop = 0.8)
+train_data <- training(data_split)
+test_data <- testing(data_split)
+
+```
+
+```{r}
+# 定义模型
+log_reg <- logistic_reg() %>% 
+  set_engine("glm")
+
+# 建立工作流
+full_workflow <- workflow() %>%
+  add_model(log_reg) %>%
+  add_formula(y ~ .)
+
+# 拟合全模型
+full_fit <- full_workflow %>% 
+  fit(data = train_data)
+
+# 预测并评估全模型
+full_predictions <- full_fit %>% 
+  predict(test_data, type = "prob") %>%
+  bind_cols(test_data %>% select(y))
+
+# 绘制全模型的ROC曲线
+full_roc <- roc_curve(full_predictions, truth = y, .pred_1) %>% 
+  autoplot()
+
+print(full_roc + ggtitle("ROC Curve - Full Model"))
+
+# 计算校准曲线
+full_cal <- calibration_curve(full_predictions, truth = y, .pred_1) %>%
+  autoplot()
+
+print(full_cal + ggtitle("Calibration Curve - Full Model"))
+
+```
+
+```{r}
+# 定义交叉验证
+cv_5 <- vfold_cv(train_data, v = 5)
+cv_10 <- vfold_cv(train_data, v = 10)
+
+# 5折交叉验证
+cv_5_results <- fit_resamples(
+  full_workflow,
+  resamples = cv_5,
+  metrics = metric_set(roc_auc)
+)
+
+# 10折交叉验证
+cv_10_results <- fit_resamples(
+  full_workflow,
+  resamples = cv_10,
+  metrics = metric_set(roc_auc)
+)
+
+# 预测和评估5折交叉验证模型
+cv_5_predictions <- collect_predictions(cv_5_results)
+
+# 绘制5折交叉验证模型的ROC曲线
+cv_5_roc <- roc_curve(cv_5_predictions, truth = y, .pred_1) %>% 
+  autoplot()
+
+print(cv_5_roc + ggtitle("ROC Curve - 5-fold Cross-Validation Model"))
+
+# 计算5折交叉验证的校准曲线
+cv_5_cal <- calibration_curve(cv_5_predictions, truth = y, .pred_1) %>%
+  autoplot()
+
+print(cv_5_cal + ggtitle("Calibration Curve - 5-fold Cross-Validation Model"))
+
+# 预测和评估10折交叉验证模型
+cv_10_predictions <- collect_predictions(cv_10_results)
+
+# 绘制10折交叉验证模型的ROC曲线
+cv_10_roc <- roc_curve(cv_10_predictions, truth = y, .pred_1) %>% 
+  autoplot()
+
+print(cv_10_roc + ggtitle("ROC Curve - 10-fold Cross-Validation Model"))
+
+# 计算10折交叉验证的校准曲线
+cv_10_cal <- calibration_curve(cv_10_predictions, truth = y, .pred_1) %>%
+  autoplot()
+
+print(cv_10_cal + ggtitle("Calibration Curve - 10-fold Cross-Validation Model"))
+
+```
