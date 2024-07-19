@@ -33,7 +33,7 @@ website:
       contents:
         - predictive_models.qmd
         - machine_learning.qmd
-        
+        - cross_validation.qmd
 
         - section: "有监督模型（Supervised Models）"
           contents:
