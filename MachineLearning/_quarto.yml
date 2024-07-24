@@ -35,14 +35,14 @@ website:
         - machine_learning.qmd
         - cross_validation.qmd
 
-        - section: "有监督模型（Supervised Models）"
+        - section: "Supervised Models"
           contents:
             - Regression.qmd
             - Classification.qmd
             - tree.qmd
-            - survival_models.qmd
+            - survival.qmd
             
-        - section: "无监督模型（Unsupervised Models）"
+        - section: "Unsupervised Models"
           contents:
             - Clustering.qmd
             - PCA.qmd
