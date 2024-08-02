@@ -142,5 +142,89 @@
       "Unsupervised Models",
       "主成分分析"
     ]
+  },
+  {
+    "objectID": "tree-based_models.html",
+    "href": "tree-based_models.html",
+    "title": "",
+    "section": "",
+    "text": "Supervised Models基于树的方法 CodeShow All CodeHide All CodeView Source",
+    "crumbs": [
+      "预测性模型",
+      "Supervised Models",
+      "基于树的方法"
+    ]
+  },
+  {
+    "objectID": "tree-based_models.html#决策树-分类",
+    "href": "tree-based_models.html#决策树-分类",
+    "title": "",
+    "section": "\n1.1 决策树 （分类）",
+    "text": "1.1 决策树 （分类）\n\nCodedf &lt;- read_csv(\"data/breast-cancer-wisconsin.data\",col_names = F,na = c(\"\",\"NA\",\"?\"))\n#&gt; Rows: 699 Columns: 11\n#&gt; ── Column specification ────────────────────────────────────────────────────────\n#&gt; Delimiter: \",\"\n#&gt; dbl (11): X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11\n#&gt; \n#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.\n#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\ncolnames(df) &lt;- c(\"id\",\"肿块厚度\",\"细胞大小均匀性\",\"细胞形状均匀性\",\"边际附着力\",\"单个上皮细胞大小\",\n               \"裸核\",\"bland_chromatin\",\"正常核\",\"有丝分裂\",\"class\")\n\ndf &lt;- df |&gt;\n    select(-1) |&gt;\n    mutate(class = factor(class, levels = c(2, 4), labels = c(\"良性\", \"恶性\"))) |&gt;\n    drop_na()\nglimpse(df)\n#&gt; Rows: 683\n#&gt; Columns: 10\n#&gt; $ 肿块厚度         &lt;dbl&gt; 5, 5, 3, 6, 4, 8, 1, 2, 2, 4, 1, 2, 5, 1, 8, 7, 4, 4,…\n#&gt; $ 细胞大小均匀性   &lt;dbl&gt; 1, 4, 1, 8, 1, 10, 1, 1, 1, 2, 1, 1, 3, 1, 7, 4, 1, 1…\n#&gt; $ 细胞形状均匀性   &lt;dbl&gt; 1, 4, 1, 8, 1, 10, 1, 2, 1, 1, 1, 1, 3, 1, 5, 6, 1, 1…\n#&gt; $ 边际附着力       &lt;dbl&gt; 1, 5, 1, 1, 3, 8, 1, 1, 1, 1, 1, 1, 3, 1, 10, 4, 1, 1…\n#&gt; $ 单个上皮细胞大小 &lt;dbl&gt; 2, 7, 2, 3, 2, 7, 2, 2, 2, 2, 1, 2, 2, 2, 7, 6, 2, 2,…\n#&gt; $ 裸核             &lt;dbl&gt; 1, 10, 2, 4, 1, 10, 10, 1, 1, 1, 1, 1, 3, 3, 9, 1, 1,…\n#&gt; $ bland_chromatin  &lt;dbl&gt; 3, 3, 3, 3, 3, 9, 3, 3, 1, 2, 3, 2, 4, 3, 5, 4, 2, 3,…\n#&gt; $ 正常核           &lt;dbl&gt; 1, 2, 1, 7, 1, 7, 1, 1, 1, 1, 1, 1, 4, 1, 5, 3, 1, 1,…\n#&gt; $ 有丝分裂         &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 5, 1, 1, 1, 1, 1, 4, 1, 1, 1,…\n#&gt; $ class            &lt;fct&gt; 良性, 良性, 良性, 良性, 良性, 恶性, 良性, 良性, 良性,…\n\n\n\nCode# 2=良性 4=恶性\ntable(df$class)\n#&gt; \n#&gt; 良性 恶性 \n#&gt;  444  239\n# 拆分训练集和测试集         ####\nset.seed(100)\nsplit &lt;- initial_split(df, prop = 0.70, strata = class)\n\nsplit\n#&gt; &lt;Training/Testing/Total&gt;\n#&gt; &lt;477/206/683&gt;\ntrain &lt;- training(split)\ntest  &lt;-  testing(split)\n\ntable(train$class)\n#&gt; \n#&gt; 良性 恶性 \n#&gt;  310  167\ntable(test$class)\n#&gt; \n#&gt; 良性 恶性 \n#&gt;  134   72\n\n\n\nCodeclass_tree_spec &lt;- decision_tree() %&gt;%\n    set_engine(\"rpart\") %&gt;%\n    set_mode(\"classification\") \n\ncdtree &lt;- class_tree_spec |&gt; fit(class ~ . ,data = train)\ncdtree\n#&gt; parsnip model object\n#&gt; \n#&gt; n= 477 \n#&gt; \n#&gt; node), split, n, loss, yval, (yprob)\n#&gt;       * denotes terminal node\n#&gt; \n#&gt;  1) root 477 167 良性 (0.64989518 0.35010482)  \n#&gt;    2) 细胞大小均匀性&lt; 2.5 293  11 良性 (0.96245734 0.03754266)  \n#&gt;      4) 裸核&lt; 5.5 285   4 良性 (0.98596491 0.01403509) *\n#&gt;      5) 裸核&gt;=5.5 8   1 恶性 (0.12500000 0.87500000) *\n#&gt;    3) 细胞大小均匀性&gt;=2.5 184  28 恶性 (0.15217391 0.84782609)  \n#&gt;      6) 细胞形状均匀性&lt; 2.5 16   3 良性 (0.81250000 0.18750000) *\n#&gt;      7) 细胞形状均匀性&gt;=2.5 168  15 恶性 (0.08928571 0.91071429)  \n#&gt;       14) 细胞大小均匀性&lt; 4.5 46  12 恶性 (0.26086957 0.73913043)  \n#&gt;         28) 裸核&lt; 2.5 10   3 良性 (0.70000000 0.30000000) *\n#&gt;         29) 裸核&gt;=2.5 36   5 恶性 (0.13888889 0.86111111) *\n#&gt;       15) 细胞大小均匀性&gt;=4.5 122   3 恶性 (0.02459016 0.97540984) *\n\n\n\n1.1.1 模型可视化\n\nCoderpart::plotcp(cdtree$fit)\n\n\n\n\n\n\nCodecdtree %&gt;%\n    extract_fit_engine() %&gt;%\n    rpart.plot::rpart.plot(roundint = F)\n\n\n\n\n\n\n\n\n1.1.2 模型性能评估\n\nCodeaugment(cdtree, new_data = test) %&gt;%\n    accuracy(truth = class, estimate = .pred_class)\n#&gt; # A tibble: 1 × 3\n#&gt;   .metric  .estimator .estimate\n#&gt;   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;\n#&gt; 1 accuracy binary         0.971\n\naugment(cdtree, new_data = test) %&gt;%\n    conf_mat(truth = class, estimate = .pred_class)\n#&gt;           Truth\n#&gt; Prediction 良性 恶性\n#&gt;       良性  132    4\n#&gt;       恶性    2   68",
+    "crumbs": [
+      "预测性模型",
+      "Supervised Models",
+      "基于树的方法"
+    ]
+  },
+  {
+    "objectID": "tree-based_models.html#随机森林-分类",
+    "href": "tree-based_models.html#随机森林-分类",
+    "title": "",
+    "section": "\n1.2 随机森林 （分类）",
+    "text": "1.2 随机森林 （分类）\n随机森林是装袋法的一种扩展，它不仅对数据进行随机抽样，还对特征进行随机抽样，以此增加模型的多样性和泛化能力。随机森林由大量决策树组成，每棵树都是在一个随机抽取的样本和特征子集上训练的。\n\nCodecf_spec_class &lt;-\n    rand_forest(#mtry = .cols(), \n        trees = 500 ,min_n = 1) %&gt;%\n    set_engine('randomForest', importance = TRUE) %&gt;%\n    set_mode('classification')\n\nclass_rf_fit &lt;- cf_spec_class |&gt; \n    fit(class ~ . , data = train)\nclass_rf_fit\n#&gt; parsnip model object\n#&gt; \n#&gt; \n#&gt; Call:\n#&gt;  randomForest(x = maybe_data_frame(x), y = y, ntree = ~500, nodesize = min_rows(~1,      x), importance = ~TRUE) \n#&gt;                Type of random forest: classification\n#&gt;                      Number of trees: 500\n#&gt; No. of variables tried at each split: 3\n#&gt; \n#&gt;         OOB estimate of  error rate: 3.77%\n#&gt; Confusion matrix:\n#&gt;      良性 恶性 class.error\n#&gt; 良性  300   10  0.03225806\n#&gt; 恶性    8  159  0.04790419\n\n\n\n1.2.1 特征重要性：基于Gini系数的减少\nOOB ，out of bag 袋外预测误差\n这种方法主要用于分类任务。\nMean Decrease in Gini (MDG) 这种方法通过衡量某个特征对分类纯度的贡献来计算其重要性。具体步骤如下：\n\n训练模型：使用所有特征训练随机森林模型。\n计算Gini系数：在决策树中，每次节点分裂都会计算Gini系数减少量。Gini系数用于衡量数据集的纯度，越低表示越纯。\n累加Gini减少量：在每棵树中，计算每个特征在分裂过程中带来的Gini减少量，并将这些减少量累加起来。\n计算平均值：对所有树的累加值取平均值，作为该特征的重要性得分。\n\n\nCodeclass_rf_fit %&gt;% vip::vi()\n#&gt; # A tibble: 9 × 2\n#&gt;   Variable         Importance\n#&gt;   &lt;chr&gt;                 &lt;dbl&gt;\n#&gt; 1 裸核                  25.6 \n#&gt; 2 肿块厚度              21.0 \n#&gt; 3 bland_chromatin       19.2 \n#&gt; 4 细胞大小均匀性        18.4 \n#&gt; 5 细胞形状均匀性        17.9 \n#&gt; 6 边际附着力            14.0 \n#&gt; 7 正常核                13.9 \n#&gt; 8 单个上皮细胞大小      10.6 \n#&gt; 9 有丝分裂               5.88\nclass_rf_fit %&gt;% vip::vip()\n\n\n\n\n\n\n\n\nCodeclass_rf_fit$fit$importance\n#&gt;                         良性        恶性 MeanDecreaseAccuracy MeanDecreaseGini\n#&gt; 肿块厚度         0.045985557 0.041538273          0.044359259        12.465397\n#&gt; 细胞大小均匀性   0.049172066 0.076704399          0.058509661        47.927558\n#&gt; 细胞形状均匀性   0.009876762 0.096802558          0.040209397        41.331213\n#&gt; 边际附着力       0.016551632 0.035342949          0.023040888         6.945234\n#&gt; 单个上皮细胞大小 0.012280597 0.010654858          0.011723405        16.171318\n#&gt; 裸核             0.061713383 0.066225145          0.063075655        40.588065\n#&gt; bland_chromatin  0.017570370 0.058096398          0.031839179        31.183405\n#&gt; 正常核           0.027576658 0.021034748          0.025191390        17.830550\n#&gt; 有丝分裂         0.003095108 0.001130822          0.002400936         1.946241\n\n\n\nCode\naugment(class_rf_fit, new_data = test) %&gt;%\n    accuracy(truth = class, estimate = .pred_class)\n#&gt; # A tibble: 1 × 3\n#&gt;   .metric  .estimator .estimate\n#&gt;   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;\n#&gt; 1 accuracy binary         0.990\n\naugment(class_rf_fit, new_data = test) %&gt;%\n    conf_mat(truth = class, estimate = .pred_class)\n#&gt;           Truth\n#&gt; Prediction 良性 恶性\n#&gt;       良性  132    0\n#&gt;       恶性    2   72\n\n\n\n1.2.2 基于表达数据的应用\n\nCodedf &lt;- dendextend::khan\n\ndf$train.classes\n#&gt;  [1] EWS    EWS    EWS    EWS    EWS    EWS    EWS    EWS    EWS    EWS   \n#&gt; [11] EWS    EWS    EWS    EWS    EWS    EWS    EWS    EWS    EWS    EWS   \n#&gt; [21] EWS    EWS    EWS    BL-NHL BL-NHL BL-NHL BL-NHL BL-NHL BL-NHL BL-NHL\n#&gt; [31] BL-NHL NB     NB     NB     NB     NB     NB     NB     NB     NB    \n#&gt; [41] NB     NB     NB     RMS    RMS    RMS    RMS    RMS    RMS    RMS   \n#&gt; [51] RMS    RMS    RMS    RMS    RMS    RMS    RMS    RMS    RMS    RMS   \n#&gt; [61] RMS    RMS    RMS    RMS   \n#&gt; Levels: EWS BL-NHL NB RMS\ntrain &lt;- t(df$train) |&gt; bind_cols(tibble(class=df$train.classes)) |&gt; \n    relocate(class, .before = 1) |&gt; \n    mutate(\n        class=factor(class,levels = c(\"EWS\", \"BL-NHL\", \"NB\",\"RMS\"))\n    )\nstr(train$class)\n#&gt;  Factor w/ 4 levels \"EWS\",\"BL-NHL\",..: 1 1 1 1 1 1 1 1 1 1 ...\ntable(train$class)\n#&gt; \n#&gt;    EWS BL-NHL     NB    RMS \n#&gt;     23      8     12     21\n\n\n\nCodedf$test.classes\n#&gt;  [1] Normal Normal Normal NB     RMS    Normal Normal NB     EWS    RMS   \n#&gt; [11] BL-NHL EWS    RMS    EWS    EWS    EWS    RMS    BL-NHL RMS    NB    \n#&gt; [21] NB     NB     NB     BL-NHL EWS   \n#&gt; Levels: EWS BL-NHL NB RMS Normal\n\ntest &lt;- t(df$test) |&gt; bind_cols(tibble(class=df$test.classes)) |&gt; \n    relocate(class, .before = 1) |&gt; \n    mutate(\n        class=factor(class,levels = c(\"EWS\", \"BL-NHL\", \"NB\",\"RMS\",\"Normal\"))\n    )\nstr(test$class)\n#&gt;  Factor w/ 5 levels \"EWS\",\"BL-NHL\",..: 5 5 5 3 4 5 5 3 1 4 ...\ntable(test$class)\n#&gt; \n#&gt;    EWS BL-NHL     NB    RMS Normal \n#&gt;      6      3      6      5      5\n\n\n\nCode#\ndt &lt;- class_tree_spec |&gt; fit(class ~ . ,data = train)\nrpart::plotcp(dt$fit)\n\n\n\n\n\n\nCode\ndt%&gt;%\n    extract_fit_engine() %&gt;%\n    rpart.plot::rpart.plot(roundint = F)\n\n\n\n\n\n\n\n\nCode#\nrf_fit_eg &lt;- cf_spec_class |&gt; \n    fit(class ~ . , data = train)\nrf_fit_eg\n#&gt; parsnip model object\n#&gt; \n#&gt; \n#&gt; Call:\n#&gt;  randomForest(x = maybe_data_frame(x), y = y, ntree = ~500, nodesize = min_rows(~1,      x), importance = ~TRUE) \n#&gt;                Type of random forest: classification\n#&gt;                      Number of trees: 500\n#&gt; No. of variables tried at each split: 17\n#&gt; \n#&gt;         OOB estimate of  error rate: 0%\n#&gt; Confusion matrix:\n#&gt;        EWS BL-NHL NB RMS class.error\n#&gt; EWS     23      0  0   0           0\n#&gt; BL-NHL   0      8  0   0           0\n#&gt; NB       0      0 12   0           0\n#&gt; RMS      0      0  0  21           0",
+    "crumbs": [
+      "预测性模型",
+      "Supervised Models",
+      "基于树的方法"
+    ]
+  },
+  {
+    "objectID": "tree-based_models.html#随机森林-回归",
+    "href": "tree-based_models.html#随机森林-回归",
+    "title": "",
+    "section": "\n1.3 随机森林 （回归）",
+    "text": "1.3 随机森林 （回归）\n\nCodelibrary(ggplot2)\nlibrary(dplyr)\nlibrary(tidymodels)\ndata &lt;- haven::read_sav(\"data/抑郁随机森林模型变量重要性.sav\") \n\n\n# glimpse(data)\n# \n# attributes(data$Gender)\n# attributes(data$ZD)\ndata &lt;- data %&gt;% \n    mutate(\n        Gender = factor(Gender),\n        XK = factor(XK),\n        DQ = factor(DQ),\n        SYDLX = factor(SYDLX),\n        \n    )\n\nset.seed(123)\nsplit &lt;- initial_split(data, prop = 0.7)\ntrain_data &lt;- training(split)\ntest_data &lt;- testing(split)\n\n\n\nCode# 构建随机森林模型\nrf_sepc_reg &lt;- rand_forest(mtry = 5, trees = 500) %&gt;%\n    set_engine(\"randomForest\" , importance = TRUE\n               ) %&gt;%\n    set_mode(\"regression\")\n\n# 创建配方\nrf_recipe &lt;- recipe(ZD ~ ., data = train_data) \n\n# 工作流程\nrf_workflow &lt;- workflow() %&gt;%\n    add_recipe(rf_recipe) %&gt;%\n    add_model(rf_sepc_reg)\n\n# 训练模型\nreg_rf_fit &lt;- rf_workflow %&gt;%\n    fit(data = train_data)\nreg_rf_fit %&gt;% extract_fit_parsnip()\n#&gt; parsnip model object\n#&gt; \n#&gt; \n#&gt; Call:\n#&gt;  randomForest(x = maybe_data_frame(x), y = y, ntree = ~500, mtry = min_cols(~5,      x), importance = ~TRUE) \n#&gt;                Type of random forest: regression\n#&gt;                      Number of trees: 500\n#&gt; No. of variables tried at each split: 5\n#&gt; \n#&gt;           Mean of squared residuals: 48.45618\n#&gt;                     % Var explained: 87.48\n\n\n\n1.3.1 特征重要性：基于均方误差（MSE）的减少\n这种方法主要用于回归任务。\nMean Decrease in Accuracy (MDA) 这种方法通过衡量某个特征对整体模型预测准确性的贡献来计算其重要性。具体步骤如下：\n\n训练模型：使用所有特征训练随机森林模型。\n计算基线误差：使用训练好的模型在验证集上计算基线误差（例如，均方误差）。\n扰动特征值：对于每个特征，随机打乱验证集中该特征的值，从而破坏其与目标变量的关系。 重新计算误差：使用扰动后的数据再次计算模型误差。\n计算重要性：特征重要性得分等于扰动后的误差与基线误差之差。误差增加越多，说明该特征对模型预测的贡献越大。\n\n\nCode# 查看特征重要性\nimportance &lt;- reg_rf_fit %&gt;%\n    extract_fit_parsnip() %&gt;%\n    vip::vi()\nvip::vi(reg_rf_fit$fit$fit) \n#&gt; # A tibble: 26 × 2\n#&gt;    Variable Importance\n#&gt;    &lt;chr&gt;         &lt;dbl&gt;\n#&gt;  1 HL             34.9\n#&gt;  2 NE_A           29.4\n#&gt;  3 Sport          21.9\n#&gt;  4 SA             14.6\n#&gt;  5 I              14.1\n#&gt;  6 SMML           13.6\n#&gt;  7 FC             13.5\n#&gt;  8 BECKNC         13.2\n#&gt;  9 YS             12.8\n#&gt; 10 MVS            12.6\n#&gt; # ℹ 16 more rows\n\n\n# 可视化特征重要性\nggplot(importance, aes(x = reorder(Variable, Importance), y = Importance)) + \n    geom_col(fill = \"skyblue\") +\n    coord_flip() +\n    labs(title = \"特征重要性\", x = \"特征\", y = \"重要性得分\")",
+    "crumbs": [
+      "预测性模型",
+      "Supervised Models",
+      "基于树的方法"
+    ]
+  },
+  {
+    "objectID": "tree-based_models.html#装袋法",
+    "href": "tree-based_models.html#装袋法",
+    "title": "",
+    "section": "\n1.4 装袋法",
+    "text": "1.4 装袋法\n装袋法（Bagging）或称自助聚合（Bootstrap Aggregation）是基于树的模型的一种集成学习技术。\n装袋法是一种集成学习技术，它通过构建多个模型（通常是决策树）并将其预测结果进行平均（对于回归任务）或投票（对于分类任务）来提高模型的准确性和稳健性。其主要步骤如下：\n\n数据抽样：从原始训练数据集中通过自助法（Bootstrap）随机有放回地抽取多个子集。每个子集的大小与原始数据集相同，但由于是有放回地抽样，因此每个子集中可能包含重复的样本。\n模型训练：对每个子集训练一个模型（通常是决策树模型）。由于每个子集的样本可能不同，训练得到的每个模型也可能不同。\n模型集成：在进行预测时，将所有模型的预测结果进行整合。对于分类任务，采用多数投票法，即选择出现次数最多的类别作为最终预测结果；对于回归任务，则采用平均法，即取各模型预测值的平均值作为最终预测结果。",
+    "crumbs": [
+      "预测性模型",
+      "Supervised Models",
+      "基于树的方法"
+    ]
+  },
+  {
+    "objectID": "tree-based_models.html#梯度提升树",
+    "href": "tree-based_models.html#梯度提升树",
+    "title": "",
+    "section": "\n1.5 梯度提升树",
+    "text": "1.5 梯度提升树\n梯度提升树（Gradient Boosting Trees, GBT）是一种强大的集成学习方法，它通过逐步构建多个决策树，并将它们的预测结果进行加权组合来提高模型的预测性能。与装袋法（Bagging）不同，梯度提升树是一个迭代的过程，在每一步中都试图纠正前一步模型的错误。\n梯度提升树的基本思想是通过逐步构建一系列的弱学习器（通常是决策树）来逼近目标函数。每一个新的树都在先前树的基础上进行改进，使整体模型的预测误差逐步减小。其主要步骤如下：\n\n初始化模型：首先用一个简单的模型（如常数值模型）初始化预测值。\n计算残差：计算初始模型的预测值与实际值之间的差值（残差），这些残差代表了当前模型的误差。\n训练新树：基于残差训练一个新的决策树，目的是学习如何纠正当前模型的误差。\n更新模型：将新树的预测结果加权加入到当前模型中，从而更新整体模型。更新公式通常为：\n\n\\[\nF_m(x)=F_{m-1}(x)+ηh_m(x)F_{m}(x)\n\\] 其中，\\(F_{m}(x)\\) 是第 m 次迭代的模型，\\(\\eta\\) 是学习率（通常在0和1之间），\\(h_m(x)\\) 是第 m 棵树的预测值。\n\n\n重复迭代：重复步骤2-4，直到达到预定的树的数量或误差收敛。",
+    "crumbs": [
+      "预测性模型",
+      "Supervised Models",
+      "基于树的方法"
+    ]
+  },
+  {
+    "objectID": "tree-based_models.html#贝叶斯相加回归树",
+    "href": "tree-based_models.html#贝叶斯相加回归树",
+    "title": "",
+    "section": "\n1.6 贝叶斯相加回归树",
+    "text": "1.6 贝叶斯相加回归树",
+    "crumbs": [
+      "预测性模型",
+      "Supervised Models",
+      "基于树的方法"
+    ]
   }
 ]

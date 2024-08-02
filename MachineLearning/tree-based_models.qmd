@@ -4,11 +4,10 @@
 
 ```{r}
 library(tidymodels)
-library(bonsai)
-library(rpart)
-library(rpart.plot)
 library(vip)
 ```
+
+## 决策树 （分类）
 
 ```{r}
 df <- read_csv("data/breast-cancer-wisconsin.data",col_names = F,na = c("","NA","?"))
@@ -26,10 +25,8 @@ glimpse(df)
 
 ```{r}
 # 2=良性 4=恶性
-
-# 拆分训练集和测试集         ####
 table(df$class)
-
+# 拆分训练集和测试集         ####
 set.seed(100)
 split <- initial_split(df, prop = 0.70, strata = class)
 
@@ -41,49 +38,48 @@ table(train$class)
 table(test$class)
 ```
 
-## 决策树 （分类）
-
 ```{r}
 class_tree_spec <- decision_tree() %>%
     set_engine("rpart") %>%
     set_mode("classification") 
 
-dtree <- class_tree_spec |> fit(class ~ . ,data = train)
-dtree
+cdtree <- class_tree_spec |> fit(class ~ . ,data = train)
+cdtree
 ```
 
 ### 模型可视化
 
 ```{r}
-plotcp(dtree$fit)
-
-dtree %>%
+rpart::plotcp(cdtree$fit)
+cdtree %>%
     extract_fit_engine() %>%
-    rpart.plot(roundint = F)
+    rpart.plot::rpart.plot(roundint = F)
 ```
 
 ### 模型性能评估
 
 ```{r}
-augment(dtree, new_data = test) %>%
+augment(cdtree, new_data = test) %>%
     accuracy(truth = class, estimate = .pred_class)
 
-augment(dtree, new_data = test) %>%
+augment(cdtree, new_data = test) %>%
     conf_mat(truth = class, estimate = .pred_class)
 ```
 
 ## 随机森林 （分类）
 
+随机森林是装袋法的一种扩展，它不仅对数据进行随机抽样，还对特征进行随机抽样，以此增加模型的多样性和泛化能力。随机森林由大量决策树组成，每棵树都是在一个随机抽取的样本和特征子集上训练的。
+
 ```{r}
-rf_spec <-
+cf_spec_class <-
     rand_forest(#mtry = .cols(), 
         trees = 500 ,min_n = 1) %>%
     set_engine('randomForest', importance = TRUE) %>%
     set_mode('classification')
 
-rf_fit <- rf_spec |> 
+class_rf_fit <- cf_spec_class |> 
     fit(class ~ . , data = train)
-rf_fit
+class_rf_fit
 ```
 
 ### 特征重要性：基于Gini系数的减少
@@ -96,27 +92,27 @@ Mean Decrease in Gini (MDG) 这种方法通过衡量某个特征对分类纯度�
 
 1.  训练模型：使用所有特征训练随机森林模型。
 
-2.   计算Gini系数：在决策树中，每次节点分裂都会计算Gini系数减少量。Gini系数用于衡量数据集的纯度，越低表示越纯。
+2.  计算Gini系数：在决策树中，每次节点分裂都会计算Gini系数减少量。Gini系数用于衡量数据集的纯度，越低表示越纯。
 
 3.  累加Gini减少量：在每棵树中，计算每个特征在分裂过程中带来的Gini减少量，并将这些减少量累加起来。
 
 4.  计算平均值：对所有树的累加值取平均值，作为该特征的重要性得分。
 
 ```{r}
-rf_fit %>% vip::vi()
-rf_fit %>% vip::vip()
+class_rf_fit %>% vip::vi()
+class_rf_fit %>% vip::vip()
 ```
 
 ```{r}
-rf_fit$fit$importance
+class_rf_fit$fit$importance
 ```
 
 ```{r}
 
-augment(rf_fit, new_data = test) %>%
+augment(class_rf_fit, new_data = test) %>%
     accuracy(truth = class, estimate = .pred_class)
 
-augment(rf_fit, new_data = test) %>%
+augment(class_rf_fit, new_data = test) %>%
     conf_mat(truth = class, estimate = .pred_class)
 ```
 
@@ -150,20 +146,19 @@ table(test$class)
 ```{r}
 #
 dt <- class_tree_spec |> fit(class ~ . ,data = train)
-plotcp(dt$fit)
+rpart::plotcp(dt$fit)
 
 dt%>%
     extract_fit_engine() %>%
-    rpart.plot(roundint = F)
+    rpart.plot::rpart.plot(roundint = F)
 ```
 
 ```{r}
 #
-rf_fit <- rand_forest_randomForest_spec |> 
+rf_fit_eg <- cf_spec_class |> 
     fit(class ~ . , data = train)
-rf_fit
+rf_fit_eg
 
-rf_fit$fit$importance
 ```
 
 ## 随机森林 （回归）
@@ -175,11 +170,10 @@ library(tidymodels)
 data <- haven::read_sav("data/抑郁随机森林模型变量重要性.sav") 
 
 
-glimpse(data)
-
-attributes(data$Gender)
-attributes(data$ZD)
-
+# glimpse(data)
+# 
+# attributes(data$Gender)
+# attributes(data$ZD)
 data <- data %>% 
     mutate(
         Gender = factor(Gender),
@@ -188,16 +182,16 @@ data <- data %>%
         SYDLX = factor(SYDLX),
         
     )
-```
 
-```{r}
 set.seed(123)
 split <- initial_split(data, prop = 0.7)
 train_data <- training(split)
 test_data <- testing(split)
+```
 
+```{r}
 # 构建随机森林模型
-rf_sepc <- rand_forest(mtry = 5, trees = 500) %>%
+rf_sepc_reg <- rand_forest(mtry = 5, trees = 500) %>%
     set_engine("randomForest" , importance = TRUE
                ) %>%
     set_mode("regression")
@@ -208,12 +202,12 @@ rf_recipe <- recipe(ZD ~ ., data = train_data)
 # 工作流程
 rf_workflow <- workflow() %>%
     add_recipe(rf_recipe) %>%
-    add_model(rf_sepc)
+    add_model(rf_sepc_reg)
 
 # 训练模型
-rf_fit <- rf_workflow %>%
+reg_rf_fit <- rf_workflow %>%
     fit(data = train_data)
-rf_fit
+reg_rf_fit %>% extract_fit_parsnip()
 ```
 
 ### 特征重要性：基于均方误差（MSE）的减少
@@ -232,10 +226,10 @@ Mean Decrease in Accuracy (MDA) 这种方法通过衡量某个特征对整体模
 
 ```{r}
 # 查看特征重要性
-importance <- rf_fit %>%
+importance <- reg_rf_fit %>%
     extract_fit_parsnip() %>%
     vip::vi()
-vip::vi(rf_fit$fit$fit) 
+vip::vi(reg_rf_fit$fit$fit) 
 
 
 # 可视化特征重要性
@@ -247,8 +241,34 @@ ggplot(importance, aes(x = reorder(Variable, Importance), y = Importance)) +
 
 ## 装袋法
 
-bagging 或 bootstrap aggregation
+装袋法（Bagging）或称自助聚合（Bootstrap Aggregation）是基于树的模型的一种集成学习技术。
+
+装袋法是一种集成学习技术，它通过构建多个模型（通常是决策树）并将其预测结果进行平均（对于回归任务）或投票（对于分类任务）来提高模型的准确性和稳健性。其主要步骤如下：
+
+1.  **数据抽样**：从原始训练数据集中通过自助法（Bootstrap）随机有放回地抽取多个子集。每个子集的大小与原始数据集相同，但由于是有放回地抽样，因此每个子集中可能包含重复的样本。
+
+2.  **模型训练**：对每个子集训练一个模型（通常是决策树模型）。由于每个子集的样本可能不同，训练得到的每个模型也可能不同。
+
+3.  **模型集成**：在进行预测时，将所有模型的预测结果进行整合。对于分类任务，采用多数投票法，即选择出现次数最多的类别作为最终预测结果；对于回归任务，则采用平均法，即取各模型预测值的平均值作为最终预测结果。
 
 ## 梯度提升树
+
+梯度提升树（Gradient Boosting Trees, GBT）是一种强大的集成学习方法，它通过逐步构建多个决策树，并将它们的预测结果进行加权组合来提高模型的预测性能。与装袋法（Bagging）不同，梯度提升树是一个迭代的过程，在每一步中都试图纠正前一步模型的错误。
+
+梯度提升树的基本思想是通过逐步构建一系列的弱学习器（通常是决策树）来逼近目标函数。每一个新的树都在先前树的基础上进行改进，使整体模型的预测误差逐步减小。其主要步骤如下：
+
+1.  **初始化模型**：首先用一个简单的模型（如常数值模型）初始化预测值。
+
+2.  **计算残差**：计算初始模型的预测值与实际值之间的差值（残差），这些残差代表了当前模型的误差。
+
+3.  **训练新树**：基于残差训练一个新的决策树，目的是学习如何纠正当前模型的误差。
+
+4.  **更新模型**：将新树的预测结果加权加入到当前模型中，从而更新整体模型。更新公式通常为：
+
+$$
+F_m(x)=F_{m-1}(x)+ηh_m(x)F_{m}(x)
+$$ 其中，$F_{m}(x)$ 是第 m 次迭代的模型，$\eta$ 是学习率（通常在0和1之间），$h_m(x)$ 是第 m 棵树的预测值。
+
+5.  **重复迭代**：重复步骤2-4，直到达到预定的树的数量或误差收敛。
 
 ## 贝叶斯相加回归树

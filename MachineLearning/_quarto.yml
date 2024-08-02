@@ -13,17 +13,17 @@ website:
     left:
       - text: "主页"
         href: index.qmd
-      - text: "预测模型"
+      - text: "预测性模型"
         href: predictive_models.qmd
-      - text: "描述模型"
+      - text: "描述性模型"
         href: descriptive_models.qmd
-      - text: "推断模型"
+      - text: "推断性模型"
         href: inferential_models.qmd
 
 
 
   sidebar:
-    - title: "预测模型"
+    - title: "预测性模型"
       style: "docked"
       background: "#ffd9e6"
       foreground: "#1919e6"
@@ -39,7 +39,7 @@ website:
           contents:
             - Regression.qmd
             - Classification.qmd
-            - tree.qmd
+            - tree-based_models.qmd
             - survival.qmd
             
         - section: "Unsupervised Models"
