@@ -13,14 +13,14 @@ library(vip)
 ```{r}
 df <- read_csv("data/breast-cancer-wisconsin.data",col_names = F,na = c("","NA","?"))
 
-names(df) <- c("id","肿块厚度","细胞大小均匀性","细胞形状均匀性","边际附着力","单个上皮细胞大小",
+colnames(df) <- c("id","肿块厚度","细胞大小均匀性","细胞形状均匀性","边际附着力","单个上皮细胞大小",
                "裸核","bland_chromatin","正常核","有丝分裂","class")
 
 df <- df |>
     select(-1) |>
     mutate(class = factor(class, levels = c(2, 4), labels = c("良性", "恶性"))) |>
     drop_na()
-str(df)
+glimpse(df)
 
 ```
 
@@ -52,7 +52,7 @@ dtree <- class_tree_spec |> fit(class ~ . ,data = train)
 dtree
 ```
 
-模型摘要
+### 模型可视化
 
 ```{r}
 plotcp(dtree$fit)
@@ -62,7 +62,7 @@ dtree %>%
     rpart.plot(roundint = F)
 ```
 
-模型性能
+### 模型性能评估
 
 ```{r}
 augment(dtree, new_data = test) %>%
@@ -75,20 +75,20 @@ augment(dtree, new_data = test) %>%
 ## 随机森林 （分类）
 
 ```{r}
-rand_forest_randomForest_spec <-
+rf_spec <-
     rand_forest(#mtry = .cols(), 
         trees = 500 ,min_n = 1) %>%
     set_engine('randomForest', importance = TRUE) %>%
     set_mode('classification')
 
-rf_fit <- rand_forest_randomForest_spec |> 
+rf_fit <- rf_spec |> 
     fit(class ~ . , data = train)
 rf_fit
 ```
 
 ### 特征重要性：基于Gini系数的减少
 
-OOB out of bag 袋外预测误差，Mean Decrease Gini 基于Gini不纯度指数，用于衡量特征对数据集的不纯度减少的贡献。 值越大，表示特征对提高模型的纯度贡献越大，因此特征越重要。
+OOB ，out of bag 袋外预测误差
 
 这种方法主要用于分类任务。
 
@@ -101,6 +101,11 @@ Mean Decrease in Gini (MDG) 这种方法通过衡量某个特征对分类纯度�
 3.  累加Gini减少量：在每棵树中，计算每个特征在分裂过程中带来的Gini减少量，并将这些减少量累加起来。
 
 4.  计算平均值：对所有树的累加值取平均值，作为该特征的重要性得分。
+
+```{r}
+rf_fit %>%
+    vip::vi()
+```
 
 ```{r}
 rf_fit$fit$importance
@@ -198,7 +203,7 @@ rf_sepc <- rand_forest(mtry = 5, trees = 500) %>%
     set_mode("regression")
 
 # 创建配方
-rf_recipe <- recipe(ZD ~ ., data = train_data)
+rf_recipe <- recipe(ZD ~ ., data = train_data) 
 
 # 工作流程
 rf_workflow <- workflow() %>%
@@ -208,20 +213,7 @@ rf_workflow <- workflow() %>%
 # 训练模型
 rf_fit <- rf_workflow %>%
     fit(data = train_data)
-
-# 查看特征重要性
-importance <- rf_fit %>%
-    extract_fit_parsnip() %>%
-    vip::vi()
-
-vip::vi(rf_fit$fit$fit)
-
-# 可视化特征重要性
-ggplot(importance, aes(x = reorder(Variable, Importance), y = Importance)) + 
-    geom_bar(stat = "identity", fill = "skyblue") +
-    coord_flip() +
-    labs(title = "特征重要性", x = "特征", y = "重要性得分")
-
+rf_fit
 ```
 
 ### 特征重要性：基于均方误差（MSE）的减少
@@ -237,6 +229,21 @@ Mean Decrease in Accuracy (MDA) 这种方法通过衡量某个特征对整体模
 3.  扰动特征值：对于每个特征，随机打乱验证集中该特征的值，从而破坏其与目标变量的关系。 重新计算误差：使用扰动后的数据再次计算模型误差。
 
 4.  计算重要性：特征重要性得分等于扰动后的误差与基线误差之差。误差增加越多，说明该特征对模型预测的贡献越大。
+
+```{r}
+# 查看特征重要性
+importance <- rf_fit %>%
+    extract_fit_parsnip() %>%
+    vip::vi()
+vip::vi(rf_fit$fit$fit) 
+
+
+# 可视化特征重要性
+ggplot(importance, aes(x = reorder(Variable, Importance), y = Importance)) + 
+    geom_col(fill = "skyblue") +
+    coord_flip() +
+    labs(title = "特征重要性", x = "特征", y = "重要性得分")
+```
 
 ## 装袋法
 
