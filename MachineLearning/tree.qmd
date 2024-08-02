@@ -86,7 +86,21 @@ rf_fit <- rand_forest_randomForest_spec |>
 rf_fit
 ```
 
-OOB out of bag 袋外预测误差，MeanDecreaseGini 基于Gini不纯度指数，用于衡量特征对数据集的不纯度减少的贡献。 值越大，表示特征对提高模型的纯度贡献越大，因此特征越重要。
+### 特征重要性：基于Gini系数的减少
+
+OOB out of bag 袋外预测误差，Mean Decrease Gini 基于Gini不纯度指数，用于衡量特征对数据集的不纯度减少的贡献。 值越大，表示特征对提高模型的纯度贡献越大，因此特征越重要。
+
+这种方法主要用于分类任务。
+
+Mean Decrease in Gini (MDG) 这种方法通过衡量某个特征对分类纯度的贡献来计算其重要性。具体步骤如下：
+
+1.  训练模型：使用所有特征训练随机森林模型。
+
+2.   计算Gini系数：在决策树中，每次节点分裂都会计算Gini系数减少量。Gini系数用于衡量数据集的纯度，越低表示越纯。
+
+3.  累加Gini减少量：在每棵树中，计算每个特征在分裂过程中带来的Gini减少量，并将这些减少量累加起来。
+
+4.  计算平均值：对所有树的累加值取平均值，作为该特征的重要性得分。
 
 ```{r}
 rf_fit$fit$importance
@@ -147,10 +161,87 @@ rf_fit
 rf_fit$fit$importance
 ```
 
+## 随机森林 （回归）
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(tidymodels)
+data <- haven::read_sav("data/抑郁随机森林模型变量重要性.sav") 
+
+
+glimpse(data)
+
+attributes(data$Gender)
+attributes(data$ZD)
+
+data <- data %>% 
+    mutate(
+        Gender = factor(Gender),
+        XK = factor(XK),
+        DQ = factor(DQ),
+        SYDLX = factor(SYDLX),
+        
+    )
+```
+
+```{r}
+set.seed(123)
+split <- initial_split(data, prop = 0.7)
+train_data <- training(split)
+test_data <- testing(split)
+
+# 构建随机森林模型
+rf_sepc <- rand_forest(mtry = 5, trees = 500) %>%
+    set_engine("randomForest" , importance = TRUE
+               ) %>%
+    set_mode("regression")
+
+# 创建配方
+rf_recipe <- recipe(ZD ~ ., data = train_data)
+
+# 工作流程
+rf_workflow <- workflow() %>%
+    add_recipe(rf_recipe) %>%
+    add_model(rf_sepc)
+
+# 训练模型
+rf_fit <- rf_workflow %>%
+    fit(data = train_data)
+
+# 查看特征重要性
+importance <- rf_fit %>%
+    extract_fit_parsnip() %>%
+    vip::vi()
+
+vip::vi(rf_fit$fit$fit)
+
+# 可视化特征重要性
+ggplot(importance, aes(x = reorder(Variable, Importance), y = Importance)) + 
+    geom_bar(stat = "identity", fill = "skyblue") +
+    coord_flip() +
+    labs(title = "特征重要性", x = "特征", y = "重要性得分")
+
+```
+
+### 特征重要性：基于均方误差（MSE）的减少
+
+这种方法主要用于回归任务。
+
+Mean Decrease in Accuracy (MDA) 这种方法通过衡量某个特征对整体模型预测准确性的贡献来计算其重要性。具体步骤如下：
+
+1.  训练模型：使用所有特征训练随机森林模型。
+
+2.  计算基线误差：使用训练好的模型在验证集上计算基线误差（例如，均方误差）。
+
+3.  扰动特征值：对于每个特征，随机打乱验证集中该特征的值，从而破坏其与目标变量的关系。 重新计算误差：使用扰动后的数据再次计算模型误差。
+
+4.  计算重要性：特征重要性得分等于扰动后的误差与基线误差之差。误差增加越多，说明该特征对模型预测的贡献越大。
+
 ## 装袋法
 
 bagging 或 bootstrap aggregation
 
 ## 梯度提升树
 
-# 贝叶斯相加回归树
+## 贝叶斯相加回归树
