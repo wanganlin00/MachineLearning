@@ -36,3 +36,30 @@ iris_umap <- umap(iris[1:4]) |> as_tibble()
 ggplot(iris_umap,aes(V1,V2))+
     geom_text(aes(label=iris$Species),color=colors[iris$Species])
 ```
+
+
+
+
+```{r}
+library(uwot)
+
+set.seed(42) # 为了结果可重复
+uwot_result <- umap(iris[1:4])
+
+# 将结果转换为数据框
+uwot_df <- as.data.frame(uwot_result)
+colnames(uwot_df) <- c("UMAP1", "UMAP2")
+uwot_df$Species <- iris$Species
+
+# 可视化
+ggplot(uwot_df, aes(x = UMAP1, y = UMAP2, color = Species)) +
+  geom_point(size = 2) +
+  labs(title = "UMAP of Iris Dataset (uwot)",
+       x = "UMAP Dimension 1",
+       y = "UMAP Dimension 2") +
+  theme_minimal()
+```
+
+
+
+

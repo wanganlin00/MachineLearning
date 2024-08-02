@@ -166,7 +166,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Clustering.html">无监督模型（Unsupervised Models）</a></li><li class="breadcrumb-item"><a href="./PCA.html">主成分分析</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Clustering.html">Unsupervised Models</a></li><li class="breadcrumb-item"><a href="./PCA.html">主成分分析</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -186,10 +186,16 @@ window.Quarto = {
  <span class="menu-text">机器学习</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cross_validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">交叉验证</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">有监督模型（Supervised Models）</span></a>
+ <span class="menu-text">Supervised Models</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -215,7 +221,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./survival_models.html" class="sidebar-item-text sidebar-link">
+  <a href="./survival.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">生存模型</span></a>
   </div>
 </li>
@@ -224,7 +230,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">无监督模型（Unsupervised Models）</span></a>
+ <span class="menu-text">Unsupervised Models</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -268,26 +274,44 @@ window.Quarto = {
 <a href="#%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90" id="toc-主成分分析" class="nav-link active" data-scroll-target="#%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90"><span class="header-section-number">1</span> 主成分分析</a>
   <ul>
 <li>
-<a href="#pca%E8%87%AA%E5%AE%9A%E4%B9%89%E6%AD%A5%E9%AA%A4" id="toc-pca自定义步骤" class="nav-link" data-scroll-target="#pca%E8%87%AA%E5%AE%9A%E4%B9%89%E6%AD%A5%E9%AA%A4"><span class="header-section-number">1.1</span> PCA自定义步骤</a>
+<a href="#%E8%87%AA%E5%AE%9A%E4%B9%89-pca-%E6%AD%A5%E9%AA%A4" id="toc-自定义-pca-步骤" class="nav-link" data-scroll-target="#%E8%87%AA%E5%AE%9A%E4%B9%89-pca-%E6%AD%A5%E9%AA%A4"><span class="header-section-number">1.1</span> 自定义 PCA 步骤</a>
   <ul class="collapse">
 <li><a href="#%E6%95%B0%E6%8D%AE%E6%A0%87%E5%87%86%E5%8C%96" id="toc-数据标准化" class="nav-link" data-scroll-target="#%E6%95%B0%E6%8D%AE%E6%A0%87%E5%87%86%E5%8C%96"><span class="header-section-number">1.1.1</span> 数据标准化</a></li>
   <li><a href="#%E8%AE%A1%E7%AE%97%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5" id="toc-计算协方差矩阵" class="nav-link" data-scroll-target="#%E8%AE%A1%E7%AE%97%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5"><span class="header-section-number">1.1.2</span> 计算协方差矩阵</a></li>
   <li><a href="#%E8%AE%A1%E7%AE%97%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0%E7%9F%A9%E9%98%B5" id="toc-计算相关系数矩阵" class="nav-link" data-scroll-target="#%E8%AE%A1%E7%AE%97%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0%E7%9F%A9%E9%98%B5"><span class="header-section-number">1.1.3</span> 计算相关系数矩阵</a></li>
-  <li><a href="#%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3" id="toc-奇异值分解" class="nav-link" data-scroll-target="#%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3"><span class="header-section-number">1.1.4</span> 奇异值分解</a></li>
-  </ul>
-</li>
+  <li><a href="#%E6%80%BB%E6%96%B9%E5%B7%AE" id="toc-总方差" class="nav-link" data-scroll-target="#%E6%80%BB%E6%96%B9%E5%B7%AE"><span class="header-section-number">1.1.4</span> 总方差</a></li>
+  <li><a href="#%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E4%B8%8E%E4%B8%BB%E6%88%90%E5%88%86%E6%8E%A8%E5%AF%BC" id="toc-奇异值分解与主成分推导" class="nav-link" data-scroll-target="#%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E4%B8%8E%E4%B8%BB%E6%88%90%E5%88%86%E6%8E%A8%E5%AF%BC"><span class="header-section-number">1.1.5</span> 奇异值分解与主成分推导</a></li>
   <li>
-<a href="#%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90-1" id="toc-主成分分析-1" class="nav-link" data-scroll-target="#%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90-1"><span class="header-section-number">1.2</span> 主成分分析</a>
+<a href="#%E7%BB%93%E6%9E%9C%E8%A7%A3%E9%87%8A" id="toc-结果解释" class="nav-link" data-scroll-target="#%E7%BB%93%E6%9E%9C%E8%A7%A3%E9%87%8A"><span class="header-section-number">1.1.6</span> 结果解释</a>
   <ul class="collapse">
-<li><a href="#%E5%88%A4%E6%96%AD%E4%B8%BB%E6%88%90%E5%88%86%E7%9A%84%E4%B8%AA%E6%95%B0psychfa.parallelmat" id="toc-判断主成分的个数psychfa.parallelmat" class="nav-link" data-scroll-target="#%E5%88%A4%E6%96%AD%E4%B8%BB%E6%88%90%E5%88%86%E7%9A%84%E4%B8%AA%E6%95%B0psychfa.parallelmat"><span class="header-section-number">1.2.1</span> 判断主成分的个数<code>psych::fa.parallel(mat)</code></a></li>
+<li><a href="#%E4%B8%BB%E6%88%90%E5%88%86%E8%8D%B7%E8%BD%BD%E7%B3%BB%E6%95%B0" id="toc-主成分荷载系数" class="nav-link" data-scroll-target="#%E4%B8%BB%E6%88%90%E5%88%86%E8%8D%B7%E8%BD%BD%E7%B3%BB%E6%95%B0"><span class="header-section-number">1.1.6.1</span> 主成分荷载系数</a></li>
+  <li><a href="#%E4%B8%BB%E6%88%90%E5%88%86%E5%BE%97%E5%88%86" id="toc-主成分得分" class="nav-link" data-scroll-target="#%E4%B8%BB%E6%88%90%E5%88%86%E5%BE%97%E5%88%86"><span class="header-section-number">1.1.6.2</span> 主成分得分</a></li>
+  <li><a href="#%E4%B8%BB%E6%88%90%E5%88%86%E6%A0%87%E5%87%86%E5%B7%AE" id="toc-主成分标准差" class="nav-link" data-scroll-target="#%E4%B8%BB%E6%88%90%E5%88%86%E6%A0%87%E5%87%86%E5%B7%AE"><span class="header-section-number">1.1.6.3</span> 主成分标准差</a></li>
+  <li><a href="#%E6%96%B9%E5%B7%AE%E8%B4%A1%E7%8C%AE%E7%99%BE%E5%88%86%E6%AF%94" id="toc-方差贡献百分比" class="nav-link" data-scroll-target="#%E6%96%B9%E5%B7%AE%E8%B4%A1%E7%8C%AE%E7%99%BE%E5%88%86%E6%AF%94"><span class="header-section-number">1.1.6.4</span> 方差贡献百分比</a></li>
   </ul>
 </li>
+  </ul>
+</li>
+  <li><a href="#%E5%86%85%E7%BD%AEpca" id="toc-内置pca" class="nav-link" data-scroll-target="#%E5%86%85%E7%BD%AEpca"><span class="header-section-number">1.2</span> 内置PCA</a></li>
+  <li>
+<a href="#%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90" id="toc-可视化分析" class="nav-link" data-scroll-target="#%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90"><span class="header-section-number">1.3</span> 可视化分析</a>
+  <ul class="collapse">
+<li><a href="#%E5%88%A4%E6%96%AD%E4%B8%BB%E6%88%90%E5%88%86%E7%9A%84%E4%B8%AA%E6%95%B0" id="toc-判断主成分的个数" class="nav-link" data-scroll-target="#%E5%88%A4%E6%96%AD%E4%B8%BB%E6%88%90%E5%88%86%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="header-section-number">1.3.1</span> 判断主成分的个数</a></li>
+  <li>
+<a href="#%E7%A2%8E%E7%9F%B3%E5%9B%BE" id="toc-碎石图" class="nav-link" data-scroll-target="#%E7%A2%8E%E7%9F%B3%E5%9B%BE"><span class="header-section-number">1.3.2</span> 碎石图</a>
+  <ul class="collapse">
+<li><a href="#%E5%B9%B3%E8%A1%8C%E5%88%86%E6%9E%90" id="toc-平行分析" class="nav-link" data-scroll-target="#%E5%B9%B3%E8%A1%8C%E5%88%86%E6%9E%90"><span class="header-section-number">1.3.2.1</span> 平行分析</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  <li><a href="#tidy-%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90" id="toc-tidy-主成分分析" class="nav-link" data-scroll-target="#tidy-%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90"><span class="header-section-number">1.4</span> tidy 主成分分析</a></li>
   </ul>
 </li>
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><div class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Clustering.html">无监督模型（Unsupervised Models）</a></li><li class="breadcrumb-item"><a href="./PCA.html">主成分分析</a></li></ol></nav><div class="quarto-title-tools-only"><h1></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div><section id="主成分分析" class="level1" data-number="1"><h1 data-number="1">
+<main class="content" id="quarto-document-content"><div class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Clustering.html">Unsupervised Models</a></li><li class="breadcrumb-item"><a href="./PCA.html">主成分分析</a></li></ol></nav><div class="quarto-title-tools-only"><h1></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div><section id="主成分分析" class="level1" data-number="1"><h1 data-number="1">
 <span class="header-section-number">1</span> 主成分分析</h1>
 <p>主成分分析(Principal component analysis，PCA) 是一种线性降维方法。</p>
 <p><a href="https://bryanhanson.github.io/LearnPCA/articles//Vig_04_Scores_Loadings.html" class="uri">https://bryanhanson.github.io/LearnPCA/articles//Vig_04_Scores_Loadings.html</a></p>
@@ -299,11 +323,11 @@ Cov(y_i,y_j)=
 &amp; 0,\ i\ne j
 \end{cases}
 \]</span></p>
-<section id="pca自定义步骤" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="pca自定义步骤">
-<span class="header-section-number">1.1</span> PCA自定义步骤</h2>
+<section id="自定义-pca-步骤" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="自定义-pca-步骤">
+<span class="header-section-number">1.1</span> 自定义 PCA 步骤</h2>
 <section id="数据标准化" class="level3" data-number="1.1.1"><h3 data-number="1.1.1" class="anchored" data-anchor-id="数据标准化">
 <span class="header-section-number">1.1.1</span> 数据标准化</h3>
-<p>R中数据框 n个观测，p个变量， A<sub>n×p</sub></p>
+<p>R中数据框 n个观测，p个变量</p>
 <p><span class="math display">\[
 X=
 \begin{bmatrix}
@@ -315,6 +339,8 @@ x_{21} &amp; x_{22} &amp; ... &amp; x_{2p}\\
 =(X_1,X_2,...X_p)
 \]</span></p>
 <p>对原始数据矩阵标准化，消除量纲和数量级的影响。</p>
+<p>数据标准化确保变量在相同的尺度上，这对于PCA非常重要。</p>
+<p>使用R语言内置的 <code>USArrests</code> 数据集：</p>
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">as_tibble</span><span class="op">(</span><span class="va">USArrests</span>, rownames <span class="op">=</span> <span class="st">"state"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">column_to_rownames</span><span class="op">(</span><span class="st">"state"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
@@ -337,16 +363,17 @@ S=\frac{AA^T}{n-1}
 \]</span></p>
 <ul>
 <li>
-<span class="math inline">\(A_{ p×n}\)</span> 显示来自每个变量值与变量平均值的距离<span class="math inline">\(X_i-\bar X\)</span>；</li>
-<li>$(AA^T)_{ii} $ 显示距离平方的总和(样本方差 <span class="math inline">\(s_i^2\)</span>);</li>
+<span class="math inline">\(A_{ p×n}\)</span> 显示来自每个变量值与其均值的偏差 <span class="math inline">\(X_i-\bar X\)</span>；</li>
+<li>
+<span class="math inline">\((AA^T)_{ii}\)</span> 显示偏差平方和 （样本方差 <span class="math inline">\(s_i^2\)</span> ）；</li>
 <li>
 <span class="math inline">\((AA^T)_{ij}，i\ne j\)</span> 显示样本协方差 <span class="math inline">\(s_{ij} = (A 的行 i) · (A 的行 j)\)</span>。</li>
 </ul>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 协方差矩阵公式</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 手动计算协方差矩阵</span></span>
 <span><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="op">(</span><span class="va">df_center</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">AA_T</span> <span class="op">&lt;-</span><span class="va">A</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span><span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span></span>
-<span><span class="va">S</span> <span class="op">&lt;-</span> <span class="va">AA_T</span><span class="op">/</span><span class="op">(</span><span class="fl">50</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">AA_T</span> <span class="op">&lt;-</span> <span class="va">A</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span></span>
+<span><span class="va">S</span> <span class="op">&lt;-</span> <span class="va">AA_T</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">df_center</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">S</span></span>
 <span><span class="co">#&gt;              Murder   Assault   UrbanPop      Rape</span></span>
 <span><span class="co">#&gt; Murder   1.00000000 0.8018733 0.06957262 0.5635788</span></span>
@@ -364,12 +391,12 @@ S=\frac{AA^T}{n-1}
 </div>
 </section><section id="计算相关系数矩阵" class="level3" data-number="1.1.3"><h3 data-number="1.1.3" class="anchored" data-anchor-id="计算相关系数矩阵">
 <span class="header-section-number">1.1.3</span> 计算相关系数矩阵</h3>
-<p>R=（r<sub>ij</sub>）</p>
+<p>相关系数矩阵 <span class="math inline">\(R=(r_{ij})\)</span> 的公式为：</p>
 <p><span class="math display">\[
 r_{ij}=\frac {S_{ij}}{\sqrt{S_{ii}×S_{jj}}}
 \]</span></p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 定义自定义函数计算相关系数矩阵</span></span>
 <span><span class="va">r</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">{</span></span>
 <span>    <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span>    <span class="va">n</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
@@ -390,6 +417,8 @@ r_{ij}=\frac {S_{ij}}{\sqrt{S_{ii}×S_{jj}}}
 <span><span class="co">#&gt; Assault  0.80187331 1.0000000 0.25887170 0.6652412</span></span>
 <span><span class="co">#&gt; UrbanPop 0.06957262 0.2588717 1.00000000 0.4113412</span></span>
 <span><span class="co">#&gt; Rape     0.56357883 0.6652412 0.41134124 1.0000000</span></span>
+<span></span>
+<span><span class="co"># 使用内置的相关系数矩阵函数</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">df_center</span><span class="op">)</span></span>
 <span><span class="co">#&gt;              Murder   Assault   UrbanPop      Rape</span></span>
 <span><span class="co">#&gt; Murder   1.00000000 0.8018733 0.06957262 0.5635788</span></span>
@@ -398,7 +427,9 @@ r_{ij}=\frac {S_{ij}}{\sqrt{S_{ii}×S_{jj}}}
 <span><span class="co">#&gt; Rape     0.56357883 0.6652412 0.41134124 1.0000000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>总方差T=所有特征值的总和=样本方差的总和=迹(对角线的总和)</p>
+</section><section id="总方差" class="level3" data-number="1.1.4"><h3 data-number="1.1.4" class="anchored" data-anchor-id="总方差">
+<span class="header-section-number">1.1.4</span> 总方差</h3>
+<p>总方差T=所有特征值的总和=样本方差的总和=协方差矩阵的迹(对角线的总和)</p>
 <p><code>sum(eigen(AA_T)$values)</code>=<code>sum(diag(AA_T))</code>= <code>sum(svd$d^2)</code></p>
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># AA^T的特征值</span></span>
@@ -421,16 +452,25 @@ r_{ij}=\frac {S_{ij}}{\sqrt{S_{ii}×S_{jj}}}
 <span><span class="co">#&gt; [1] 196</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section><section id="奇异值分解" class="level3" data-number="1.1.4"><h3 data-number="1.1.4" class="anchored" data-anchor-id="奇异值分解">
-<span class="header-section-number">1.1.4</span> 奇异值分解</h3>
+</section><section id="奇异值分解与主成分推导" class="level3" data-number="1.1.5"><h3 data-number="1.1.5" class="anchored" data-anchor-id="奇异值分解与主成分推导">
+<span class="header-section-number">1.1.5</span> 奇异值分解与主成分推导</h3>
 <p>SVD公式：</p>
 <p><span class="math display">\[
 A_{p×n}=U\Sigma V^T
 \]</span></p>
+<p>A 是中心化后的数据矩阵， U 是左奇异矩阵， <span class="math inline">\(\Sigma\)</span> 是奇异值对角矩阵， V 是右奇异矩阵（（也是主成分方向））</p>
 <p>主成分推导：</p>
-<p><span class="math display">\[ PC=VX=U \Sigma  \]</span></p>
+<p><span class="math display">\[ PC=A\cdot V=U \Sigma  \]</span></p>
+<p>在这个公式中：</p>
+<ul>
+<li><p><span class="math inline">\(U\)</span> 是包含左奇异向量的矩阵，表示样本在新坐标系中的坐标。</p></li>
+<li><p><span class="math inline">\(\Sigma\)</span> 是包含奇异值的对角矩阵，这些奇异值与特征值相关，表示每个主成分的方差大小。</p></li>
+</ul>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">svd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/svd.html">svd</a></span><span class="op">(</span><span class="va">df_center</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="co"># 进行奇异值分解</span></span>
+<span></span>
+<span><span class="va">svd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/svd.html">svd</a></span><span class="op">(</span><span class="va">df_center</span><span class="op">)</span></span>
 <span><span class="va">svd</span><span class="op">$</span><span class="va">d</span></span>
 <span><span class="co">#&gt; [1] 11.024148  6.964086  4.179904  2.915146</span></span>
 <span><span class="va">svd</span><span class="op">$</span><span class="va">u</span></span>
@@ -495,23 +535,7 @@ A_{p×n}=U\Sigma V^T
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">svd</span><span class="op">$</span><span class="va">d</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 196</span></span>
 <span></span>
-<span><span class="co"># 主成分荷载</span></span>
-<span><span class="va">svd</span><span class="op">$</span><span class="va">v</span></span>
-<span><span class="co">#&gt;            [,1]       [,2]       [,3]        [,4]</span></span>
-<span><span class="co">#&gt; [1,] -0.5358995 -0.4181809  0.3412327  0.64922780</span></span>
-<span><span class="co">#&gt; [2,] -0.5831836 -0.1879856  0.2681484 -0.74340748</span></span>
-<span><span class="co">#&gt; [3,] -0.2781909  0.8728062  0.3780158  0.13387773</span></span>
-<span><span class="co">#&gt; [4,] -0.5434321  0.1673186 -0.8177779  0.08902432</span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="co"># 方差贡献百分比</span></span>
-<span><span class="va">pct</span> <span class="op">&lt;-</span> <span class="va">svd</span><span class="op">$</span><span class="va">d</span><span class="op">^</span><span class="fl">2</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">svd</span><span class="op">$</span><span class="va">d</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
-<span><span class="va">pct</span></span>
-<span><span class="co">#&gt; [1] 0.62006039 0.24744129 0.08914080 0.04335752</span></span>
-<span></span>
-<span></span>
-<span></span>
+<span><span class="co"># 奇异值的对角矩阵</span></span>
 <span><span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="va">svd</span><span class="op">$</span><span class="va">d</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#  df_center  X = U D V'</span></span>
@@ -523,10 +547,39 @@ A_{p×n}=U\Sigma V^T
 <span><span class="co">#&gt; [1,]  1.102415e+01 1.110223e-15  8.881784e-16  3.219647e-15</span></span>
 <span><span class="co">#&gt; [2,]  2.220446e-16 6.964086e+00  6.661338e-16  1.318390e-15</span></span>
 <span><span class="co">#&gt; [3,] -2.220446e-16 4.440892e-16  4.179904e+00 -8.881784e-16</span></span>
-<span><span class="co">#&gt; [4,] -4.440892e-16 1.436351e-15 -9.436896e-16  2.915146e+00</span></span>
-<span></span>
-<span></span>
-<span><span class="co"># 得分</span></span>
+<span><span class="co">#&gt; [4,] -4.440892e-16 1.436351e-15 -9.436896e-16  2.915146e+00</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section><section id="结果解释" class="level3" data-number="1.1.6"><h3 data-number="1.1.6" class="anchored" data-anchor-id="结果解释">
+<span class="header-section-number">1.1.6</span> 结果解释</h3>
+<section id="主成分荷载系数" class="level4" data-number="1.1.6.1"><h4 data-number="1.1.6.1" class="anchored" data-anchor-id="主成分荷载系数">
+<span class="header-section-number">1.1.6.1</span> 主成分荷载系数</h4>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 主成分荷载系数</span></span>
+<span><span class="va">svd</span><span class="op">$</span><span class="va">v</span></span>
+<span><span class="co">#&gt;            [,1]       [,2]       [,3]        [,4]</span></span>
+<span><span class="co">#&gt; [1,] -0.5358995 -0.4181809  0.3412327  0.64922780</span></span>
+<span><span class="co">#&gt; [2,] -0.5831836 -0.1879856  0.2681484 -0.74340748</span></span>
+<span><span class="co">#&gt; [3,] -0.2781909  0.8728062  0.3780158  0.13387773</span></span>
+<span><span class="co">#&gt; [4,] -0.5434321  0.1673186 -0.8177779  0.08902432</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>在PCA中，右奇异向量矩阵𝑉 的列向量代表数据在新的正交基上的方向，这些基是按数据中方差最大化的方向排列的。每个向量就是一个主成分方向。具体来说，矩阵 <code>svd$v</code> 中的每一列都是一个<strong>主成分</strong>， 且这些列向量可以看作是原始变量在新主成分空间中的线性组合系数。</p>
+<p>因此，<code>svd$v</code> 中的元素表示的是每个原始变量在对应主成分上的贡献，即主成分荷载系数（loadings）。</p>
+<p>例如，如果 <code>V</code> 的第j 个列向量为 <span class="math inline">\([v_{1j},v_{2j},...,v_{pj}]\)</span> ，这意味着第j 个主成分可以表示为原始变量的线性组合：</p>
+<p><span class="math display">\[
+PC_j=v_{1j}\cdot x_1+v_{2j}\cdot x_2+...+v_{pj}\cdot x_p
+\]</span></p>
+<p>其中， <span class="math inline">\(x_1,x_2,...,x_p\)</span> 是原始变量， <span class="math inline">\(v_{1j},v_{2j},...,v_{pj}\)</span> 是它们在第j 个主成分上的荷载系数。</p>
+</section><section id="主成分得分" class="level4" data-number="1.1.6.2"><h4 data-number="1.1.6.2" class="anchored" data-anchor-id="主成分得分">
+<span class="header-section-number">1.1.6.2</span> 主成分得分</h4>
+<p>主成分得分 (principal component scores) 代表了原始数据在新主成分轴上的坐标。</p>
+<p>具体来说，主成分得分可以表示为：</p>
+<p><span class="math display">\[
+Scores = U\Sigma
+\]</span></p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 得分</span></span>
 <span><span class="va">svd</span><span class="op">$</span><span class="va">u</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="va">D</span></span>
 <span><span class="co">#&gt;              [,1]        [,2]        [,3]         [,4]</span></span>
 <span><span class="co">#&gt;  [1,] -0.97566045 -1.12200121  0.43980366  0.154696581</span></span>
@@ -581,9 +634,42 @@ A_{p×n}=U\Sigma V^T
 <span><span class="co">#&gt; [50,]  0.62310061 -0.31778662  0.23824049 -0.164976866</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>内置PCA</p>
+</section><section id="主成分标准差" class="level4" data-number="1.1.6.3"><h4 data-number="1.1.6.3" class="anchored" data-anchor-id="主成分标准差">
+<span class="header-section-number">1.1.6.3</span> 主成分标准差</h4>
+<p><img src="images/clipboard-305502058.png" class="img-fluid"></p>
+<p><span class="math display">\[
+Standard \ Deviation \ of \ PC_i =\frac{\sigma_i}{\sqrt{n-1}}
+\]</span></p>
+<p>其中，n 是样本量，σ 是奇异值。</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pca</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/prcomp.html">prcomp</a></span><span class="op">(</span><span class="va">df_center</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">svd</span><span class="op">$</span><span class="va">d</span> <span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">df_center</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1.5748783 0.9948694 0.5971291 0.4164494</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section><section id="方差贡献百分比" class="level4" data-number="1.1.6.4"><h4 data-number="1.1.6.4" class="anchored" data-anchor-id="方差贡献百分比">
+<span class="header-section-number">1.1.6.4</span> 方差贡献百分比</h4>
+<p>在主成分分析 (PCA) 中，方差贡献百分比（variance explained ratio）是用来衡量每个主成分解释了数据总方差的比例。这个比例可以通过奇异值分解 (SVD) 的奇异值来计算。</p>
+<p>具体来说，方差贡献百分比的计算过程如下：</p>
+<ol type="1">
+<li><p>计算每个主成分的方差。奇异值的平方 <span class="math inline">\(\sigma_i^2\)</span> 表示主成分 <span class="math inline">\(𝑖\)</span>的方差。</p></li>
+<li><p>计算总方差，即所有奇异值的平方和。</p></li>
+<li><p>每个主成分的方差贡献百分比可以通过将每个奇异值的平方除以总方差来计算。</p></li>
+</ol>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 方差贡献百分比</span></span>
+<span><span class="va">pct</span> <span class="op">&lt;-</span> <span class="va">svd</span><span class="op">$</span><span class="va">d</span><span class="op">^</span><span class="fl">2</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">svd</span><span class="op">$</span><span class="va">d</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">pct</span></span>
+<span><span class="co">#&gt; [1] 0.62006039 0.24744129 0.08914080 0.04335752</span></span>
+<span></span>
+<span><span class="co"># 累计方差贡献百分比</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">pct</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.6200604 0.8675017 0.9566425 1.0000000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section></section></section><section id="内置pca" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="内置pca">
+<span class="header-section-number">1.2</span> 内置PCA</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pca</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/prcomp.html">prcomp</a></span><span class="op">(</span><span class="va">df_center</span><span class="op">)</span></span>
 <span><span class="va">pca</span></span>
 <span><span class="co">#&gt; Standard deviations (1, .., p=4):</span></span>
 <span><span class="co">#&gt; [1] 1.5748783 0.9948694 0.5971291 0.4164494</span></span>
@@ -594,105 +680,127 @@ A_{p×n}=U\Sigma V^T
 <span><span class="co">#&gt; Assault  -0.5831836 -0.1879856  0.2681484 -0.74340748</span></span>
 <span><span class="co">#&gt; UrbanPop -0.2781909  0.8728062  0.3780158  0.13387773</span></span>
 <span><span class="co">#&gt; Rape     -0.5434321  0.1673186 -0.8177779  0.08902432</span></span>
-<span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pca</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Importance of components:</span></span>
 <span><span class="co">#&gt;                           PC1    PC2     PC3     PC4</span></span>
 <span><span class="co">#&gt; Standard deviation     1.5749 0.9949 0.59713 0.41645</span></span>
 <span><span class="co">#&gt; Proportion of Variance 0.6201 0.2474 0.08914 0.04336</span></span>
-<span><span class="co">#&gt; Cumulative Proportion  0.6201 0.8675 0.95664 1.00000</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sinhrks/ggfortify">ggfortify</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/prcomp.html">prcomp</a></span><span class="op">(</span><span class="va">df_center</span><span class="op">)</span>,</span>
-<span>         data<span class="op">=</span><span class="va">df_center</span>,</span>
-<span>         <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="PCA_files/figure-html/unnamed-chunk-6-1.svg" class="img-fluid figure-img"></p>
-</figure>
+<span><span class="co">#&gt; Cumulative Proportion  0.6201 0.8675 0.95664 1.00000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-</div>
-</div>
-<p>碎石图</p>
+</section><section id="可视化分析" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="可视化分析">
+<span class="header-section-number">1.3</span> 可视化分析</h2>
+<section id="判断主成分的个数" class="level3" data-number="1.3.1"><h3 data-number="1.3.1" class="anchored" data-anchor-id="判断主成分的个数">
+<span class="header-section-number">1.3.1</span> 判断主成分的个数</h3>
+<ol type="1">
+<li>Cattell碎石图 图形变化最大处，即拐角处</li>
+<li>Kaiser-Harris准则 特征值大于1，直线y=1以上</li>
+<li>平行分析 基于真实数据的特征值大于一组随机数据矩阵相应的特征值（虚线）</li>
+</ol></section><section id="碎石图" class="level3" data-number="1.3.2"><h3 data-number="1.3.2" class="anchored" data-anchor-id="碎石图">
+<span class="header-section-number">1.3.2</span> 碎石图</h3>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">svd</span><span class="op">$</span><span class="va">d</span>,type<span class="op">=</span><span class="st">"b"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create Scree Plot</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/screeplot.html">screeplot</a></span><span class="op">(</span><span class="va">pca</span>, type <span class="op">=</span> <span class="st">"lines"</span>, main <span class="op">=</span> <span class="st">"Scree Plot"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="PCA_files/figure-html/unnamed-chunk-7-1.svg" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="PCA_files/figure-html/unnamed-chunk-11-1.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">svd</span><span class="op">$</span><span class="va">d</span><span class="op">^</span><span class="fl">2</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">svd</span><span class="op">$</span><span class="va">d</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>,type<span class="op">=</span><span class="st">"b"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="va">explained_variance</span> <span class="op">&lt;-</span> <span class="va">pca</span><span class="op">$</span><span class="va">sdev</span><span class="op">^</span><span class="fl">2</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">pca</span><span class="op">$</span><span class="va">sdev</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">explained_variance_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  Principal_Component <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"PC"</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">explained_variance</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  Explained_Variance <span class="op">=</span> <span class="va">explained_variance</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">explained_variance_df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Principal_Component</span>, y <span class="op">=</span> <span class="va">Explained_Variance</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"identity"</span>, fill <span class="op">=</span> <span class="st">"skyblue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Scree Plot"</span>, x <span class="op">=</span> <span class="st">"Principal Component"</span>, y <span class="op">=</span> <span class="st">"Explained Variance"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="PCA_files/figure-html/unnamed-chunk-7-2.svg" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="PCA_files/figure-html/unnamed-chunk-11-2.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
+</div>
+<section id="平行分析" class="level4" data-number="1.3.2.1"><h4 data-number="1.3.2.1" class="anchored" data-anchor-id="平行分析">
+<span class="header-section-number">1.3.2.1</span> 平行分析</h4>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fa_parallel</span> <span class="op">&lt;-</span> <span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/fa.parallel.html">fa.parallel</a></span><span class="op">(</span><span class="va">df_center</span>, fa <span class="op">=</span> <span class="st">"pc"</span>, n.iter <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="PCA_files/figure-html/unnamed-chunk-12-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<pre><code>#&gt; Parallel analysis suggests that the number of factors =  NA  and the number of components =  1</code></pre>
 </div>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
-<span><span class="va">svd</span><span class="op">$</span><span class="va">v</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">svd</span><span class="op">$</span><span class="va">v</span></span>
 <span><span class="co">#&gt;            [,1]       [,2]       [,3]        [,4]</span></span>
 <span><span class="co">#&gt; [1,] -0.5358995 -0.4181809  0.3412327  0.64922780</span></span>
 <span><span class="co">#&gt; [2,] -0.5831836 -0.1879856  0.2681484 -0.74340748</span></span>
 <span><span class="co">#&gt; [3,] -0.2781909  0.8728062  0.3780158  0.13387773</span></span>
 <span><span class="co">#&gt; [4,] -0.5434321  0.1673186 -0.8177779  0.08902432</span></span>
+<span><span class="fu">tibble</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, pc1 <span class="op">=</span> <span class="va">svd</span><span class="op">$</span><span class="va">v</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">pc1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>panel.border <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span></span>
+<span>        color <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>        fill <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>    <span class="op">)</span>, <span class="co"># 添加四周框线</span></span>
+<span>    <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="PCA_files/figure-html/unnamed-chunk-13-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">svd</span><span class="op">$</span><span class="va">v</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>,ylab <span class="op">=</span> <span class="st">"1st PC"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="PCA_files/figure-html/unnamed-chunk-8-1.svg" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="PCA_files/figure-html/unnamed-chunk-13-2.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">svd</span><span class="op">$</span><span class="va">v</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>,ylab<span class="op">=</span><span class="st">"2nd PC"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">svd</span><span class="op">$</span><span class="va">v</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>,<span class="va">svd</span><span class="op">$</span><span class="va">v</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>,xlab<span class="op">=</span><span class="st">"lst PC"</span>,ylab<span class="op">=</span><span class="st">"2nd PC"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="PCA_files/figure-html/unnamed-chunk-8-2.svg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">svd</span><span class="op">$</span><span class="va">v</span><span class="op">[</span>,<span class="fl">3</span><span class="op">]</span>,ylab<span class="op">=</span><span class="st">"3rd PC"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="PCA_files/figure-html/unnamed-chunk-8-3.svg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">svd</span><span class="op">$</span><span class="va">v</span><span class="op">[</span>,<span class="fl">4</span><span class="op">]</span>,ylab<span class="op">=</span><span class="st">"4th PC"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="PCA_files/figure-html/unnamed-chunk-8-4.svg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">svd</span><span class="op">$</span><span class="va">v</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>,<span class="va">svd</span><span class="op">$</span><span class="va">v</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>,xlab<span class="op">=</span><span class="st">"lst PC"</span>,ylab<span class="op">=</span><span class="st">"2nd PC"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="PCA_files/figure-html/unnamed-chunk-8-5.svg" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="PCA_files/figure-html/unnamed-chunk-13-3.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-</section></section><section id="主成分分析-1" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="主成分分析-1">
-<span class="header-section-number">1.2</span> 主成分分析</h2>
+</section></section></section><section id="tidy-主成分分析" class="level2" data-number="1.4"><h2 data-number="1.4" class="anchored" data-anchor-id="tidy-主成分分析">
+<span class="header-section-number">1.4</span> tidy 主成分分析</h2>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">as_tibble</span><span class="op">(</span><span class="va">USArrests</span>, rownames <span class="op">=</span> <span class="st">"state"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
-<span><span class="co">#&gt;   state      Murder Assault UrbanPop  Rape</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;   &lt;int&gt;    &lt;int&gt; &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 Alabama      13.2     236       58  21.2</span></span>
-<span><span class="co">#&gt; 2 Alaska       10       263       48  44.5</span></span>
-<span><span class="co">#&gt; 3 Arizona       8.1     294       80  31  </span></span>
-<span><span class="co">#&gt; 4 Arkansas      8.8     190       50  19.5</span></span>
-<span><span class="co">#&gt; 5 California    9       276       91  40.6</span></span>
-<span><span class="co">#&gt; 6 Colorado      7.9     204       78  38.7</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">as_tibble</span><span class="op">(</span><span class="va">USArrests</span>, rownames <span class="op">=</span> <span class="st">"state"</span><span class="op">)</span></span>
+<span><span class="va">df</span></span>
+<span><span class="co">#&gt; # A tibble: 50 × 5</span></span>
+<span><span class="co">#&gt;    state       Murder Assault UrbanPop  Rape</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;        &lt;dbl&gt;   &lt;int&gt;    &lt;int&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 Alabama       13.2     236       58  21.2</span></span>
+<span><span class="co">#&gt;  2 Alaska        10       263       48  44.5</span></span>
+<span><span class="co">#&gt;  3 Arizona        8.1     294       80  31  </span></span>
+<span><span class="co">#&gt;  4 Arkansas       8.8     190       50  19.5</span></span>
+<span><span class="co">#&gt;  5 California     9       276       91  40.6</span></span>
+<span><span class="co">#&gt;  6 Colorado       7.9     204       78  38.7</span></span>
+<span><span class="co">#&gt;  7 Connecticut    3.3     110       77  11.1</span></span>
+<span><span class="co">#&gt;  8 Delaware       5.9     238       72  15.8</span></span>
+<span><span class="co">#&gt;  9 Florida       15.4     335       80  31.9</span></span>
+<span><span class="co">#&gt; 10 Georgia       17.4     211       60  25.8</span></span>
+<span><span class="co">#&gt; # ℹ 40 more rows</span></span>
 <span></span>
 <span><span class="va">df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">state</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -704,59 +812,119 @@ A_{p×n}=U\Sigma V^T
 </details>
 </div>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df_pca</span> <span class="op">&lt;-</span> <span class="va">df</span> <span class="op">|&gt;</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df_pca</span> <span class="op">&lt;-</span> <span class="va">df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">state</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/prcomp.html">prcomp</a></span><span class="op">(</span>scale <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/prcomp.html">prcomp</a></span><span class="op">(</span>scale <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>主成分得分，表示主成分与原有观测的相关系数</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df_pca</span><span class="op">$</span><span class="va">x</span></span>
+<span><span class="co">#&gt;               PC1         PC2         PC3          PC4</span></span>
+<span><span class="co">#&gt;  [1,] -0.97566045 -1.12200121  0.43980366  0.154696581</span></span>
+<span><span class="co">#&gt;  [2,] -1.93053788 -1.06242692 -2.01950027 -0.434175454</span></span>
+<span><span class="co">#&gt;  [3,] -1.74544285  0.73845954 -0.05423025 -0.826264240</span></span>
+<span><span class="co">#&gt;  [4,]  0.13999894 -1.10854226 -0.11342217 -0.180973554</span></span>
+<span><span class="co">#&gt;  [5,] -2.49861285  1.52742672 -0.59254100 -0.338559240</span></span>
+<span><span class="co">#&gt;  [6,] -1.49934074  0.97762966 -1.08400162  0.001450164</span></span>
+<span><span class="co">#&gt;  [7,]  1.34499236  1.07798362  0.63679250 -0.117278736</span></span>
+<span><span class="co">#&gt;  [8,] -0.04722981  0.32208890  0.71141032 -0.873113315</span></span>
+<span><span class="co">#&gt;  [9,] -2.98275967 -0.03883425  0.57103206 -0.095317042</span></span>
+<span><span class="co">#&gt; [10,] -1.62280742 -1.26608838  0.33901818  1.065974459</span></span>
+<span><span class="co">#&gt; [11,]  0.90348448  1.55467609 -0.05027151  0.893733198</span></span>
+<span><span class="co">#&gt; [12,]  1.62331903 -0.20885253 -0.25719021 -0.494087852</span></span>
+<span><span class="co">#&gt; [13,] -1.36505197  0.67498834  0.67068647 -0.120794916</span></span>
+<span><span class="co">#&gt; [14,]  0.50038122  0.15003926 -0.22576277  0.420397595</span></span>
+<span><span class="co">#&gt; [15,]  2.23099579  0.10300828 -0.16291036  0.017379470</span></span>
+<span><span class="co">#&gt; [16,]  0.78887206  0.26744941 -0.02529648  0.204421034</span></span>
+<span><span class="co">#&gt; [17,]  0.74331256 -0.94880748  0.02808429  0.663817237</span></span>
+<span><span class="co">#&gt; [18,] -1.54909076 -0.86230011  0.77560598  0.450157791</span></span>
+<span><span class="co">#&gt; [19,]  2.37274014 -0.37260865  0.06502225 -0.327138529</span></span>
+<span><span class="co">#&gt; [20,] -1.74564663 -0.42335704  0.15566968 -0.553450589</span></span>
+<span><span class="co">#&gt; [21,]  0.48128007  1.45967706  0.60337172 -0.177793902</span></span>
+<span><span class="co">#&gt; [22,] -2.08725025  0.15383500 -0.38100046  0.101343128</span></span>
+<span><span class="co">#&gt; [23,]  1.67566951  0.62590670 -0.15153200  0.066640316</span></span>
+<span><span class="co">#&gt; [24,] -0.98647919 -2.36973712  0.73336290  0.213342049</span></span>
+<span><span class="co">#&gt; [25,] -0.68978426  0.26070794 -0.37365033  0.223554811</span></span>
+<span><span class="co">#&gt; [26,]  1.17353751 -0.53147851 -0.24440796  0.122498555</span></span>
+<span><span class="co">#&gt; [27,]  1.25291625  0.19200440 -0.17380930  0.015733156</span></span>
+<span><span class="co">#&gt; [28,] -2.84550542  0.76780502 -1.15168793  0.311354436</span></span>
+<span><span class="co">#&gt; [29,]  2.35995585  0.01790055 -0.03648498 -0.032804291</span></span>
+<span><span class="co">#&gt; [30,] -0.17974128  1.43493745  0.75677041  0.240936580</span></span>
+<span><span class="co">#&gt; [31,] -1.96012351 -0.14141308 -0.18184598 -0.336121113</span></span>
+<span><span class="co">#&gt; [32,] -1.66566662  0.81491072  0.63661186 -0.013348844</span></span>
+<span><span class="co">#&gt; [33,] -1.11208808 -2.20561081  0.85489245 -0.944789648</span></span>
+<span><span class="co">#&gt; [34,]  2.96215223 -0.59309738 -0.29824930 -0.251434626</span></span>
+<span><span class="co">#&gt; [35,]  0.22369436  0.73477837  0.03082616  0.469152817</span></span>
+<span><span class="co">#&gt; [36,]  0.30864928  0.28496113  0.01515592  0.010228476</span></span>
+<span><span class="co">#&gt; [37,] -0.05852787  0.53596999 -0.93038718 -0.235390872</span></span>
+<span><span class="co">#&gt; [38,]  0.87948680  0.56536050  0.39660218  0.355452378</span></span>
+<span><span class="co">#&gt; [39,]  0.85509072  1.47698328  1.35617705 -0.607402746</span></span>
+<span><span class="co">#&gt; [40,] -1.30744986 -1.91397297  0.29751723 -0.130145378</span></span>
+<span><span class="co">#&gt; [41,]  1.96779669 -0.81506822 -0.38538073 -0.108470512</span></span>
+<span><span class="co">#&gt; [42,] -0.98969377 -0.85160534 -0.18619262  0.646302674</span></span>
+<span><span class="co">#&gt; [43,] -1.34151838  0.40833518  0.48712332  0.636731051</span></span>
+<span><span class="co">#&gt; [44,]  0.54503180  1.45671524 -0.29077592 -0.081486749</span></span>
+<span><span class="co">#&gt; [45,]  2.77325613 -1.38819435 -0.83280797 -0.143433697</span></span>
+<span><span class="co">#&gt; [46,]  0.09536670 -0.19772785 -0.01159482  0.209246429</span></span>
+<span><span class="co">#&gt; [47,]  0.21472339  0.96037394 -0.61859067 -0.218628161</span></span>
+<span><span class="co">#&gt; [48,]  2.08739306 -1.41052627 -0.10372163  0.130583080</span></span>
+<span><span class="co">#&gt; [49,]  2.05881199  0.60512507  0.13746933  0.182253407</span></span>
+<span><span class="co">#&gt; [50,]  0.62310061 -0.31778662  0.23824049 -0.164976866</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span><span class="va">df_pca</span></span>
-<span><span class="co">#&gt; Standard deviations (1, .., p=4):</span></span>
-<span><span class="co">#&gt; [1] 1.575 0.995 0.597 0.416</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Rotation (n x k) = (4 x 4):</span></span>
-<span><span class="co">#&gt;             PC1    PC2    PC3    PC4</span></span>
-<span><span class="co">#&gt; Murder   -0.536 -0.418  0.341  0.649</span></span>
-<span><span class="co">#&gt; Assault  -0.583 -0.188  0.268 -0.743</span></span>
-<span><span class="co">#&gt; UrbanPop -0.278  0.873  0.378  0.134</span></span>
-<span><span class="co">#&gt; Rape     -0.543  0.167 -0.818  0.089</span></span>
-<span><span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">df_pca</span>, matrix <span class="op">=</span> <span class="st">"scores"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>,<span class="op">]</span> <span class="co">#by default    df_pca$x 长表</span></span>
-<span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
-<span><span class="co">#&gt;     row    PC  value</span></span>
-<span><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1     1     1 -0.976</span></span>
-<span><span class="co">#&gt; 2     1     2 -1.12 </span></span>
-<span><span class="co">#&gt; 3     1     3  0.440</span></span>
-<span><span class="co">#&gt; 4     1     4  0.155</span></span>
-<span><span class="co">#&gt; 5     2     1 -1.93 </span></span>
-<span><span class="co">#&gt; 6     2     2 -1.06</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co"># by default    df_pca$x</span></span>
+<span><span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">df_pca</span>, matrix <span class="op">=</span> <span class="st">"scores"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu">pivot_wider</span><span class="op">(</span>id_cols <span class="op">=</span> <span class="fu">everything</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>                names_from <span class="op">=</span> <span class="va">PC</span>,</span>
+<span>                names_prefix <span class="op">=</span> <span class="st">"PC"</span>,</span>
+<span>               values_from <span class="op">=</span> <span class="va">value</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 50 × 5</span></span>
+<span><span class="co">#&gt;      row     PC1     PC2     PC3      PC4</span></span>
+<span><span class="co">#&gt;    &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1     1 -0.976  -1.12    0.440   0.155  </span></span>
+<span><span class="co">#&gt;  2     2 -1.93   -1.06   -2.02   -0.434  </span></span>
+<span><span class="co">#&gt;  3     3 -1.75    0.738  -0.0542 -0.826  </span></span>
+<span><span class="co">#&gt;  4     4  0.140  -1.11   -0.113  -0.181  </span></span>
+<span><span class="co">#&gt;  5     5 -2.50    1.53   -0.593  -0.339  </span></span>
+<span><span class="co">#&gt;  6     6 -1.50    0.978  -1.08    0.00145</span></span>
+<span><span class="co">#&gt;  7     7  1.34    1.08    0.637  -0.117  </span></span>
+<span><span class="co">#&gt;  8     8 -0.0472  0.322   0.711  -0.873  </span></span>
+<span><span class="co">#&gt;  9     9 -2.98   -0.0388  0.571  -0.0953 </span></span>
+<span><span class="co">#&gt; 10    10 -1.62   -1.27    0.339   1.07   </span></span>
+<span><span class="co">#&gt; # ℹ 40 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>主成分荷载（loading）：表示主成分与原有变量的相关系数</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tidy</span><span class="op">(</span><span class="va">df_pca</span>, matrix <span class="op">=</span> <span class="st">"loadings"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>,<span class="op">]</span><span class="co"># df_pca$Rotation 长表</span></span>
-<span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
-<span><span class="co">#&gt;   column     PC  value</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 Murder      1 -0.536</span></span>
-<span><span class="co">#&gt; 2 Murder      2 -0.418</span></span>
-<span><span class="co">#&gt; 3 Murder      3  0.341</span></span>
-<span><span class="co">#&gt; 4 Murder      4  0.649</span></span>
-<span><span class="co">#&gt; 5 Assault     1 -0.583</span></span>
-<span><span class="co">#&gt; 6 Assault     2 -0.188</span></span>
-<span><span class="va">df_pca</span><span class="op">$</span><span class="va">rotation</span></span>
-<span><span class="co">#&gt;             PC1    PC2    PC3    PC4</span></span>
-<span><span class="co">#&gt; Murder   -0.536 -0.418  0.341  0.649</span></span>
-<span><span class="co">#&gt; Assault  -0.583 -0.188  0.268 -0.743</span></span>
-<span><span class="co">#&gt; UrbanPop -0.278  0.873  0.378  0.134</span></span>
-<span><span class="co">#&gt; Rape     -0.543  0.167 -0.818  0.089</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df_pca</span><span class="op">$</span><span class="va">rotation</span></span>
+<span><span class="co">#&gt;                 PC1        PC2        PC3         PC4</span></span>
+<span><span class="co">#&gt; Murder   -0.5358995 -0.4181809  0.3412327  0.64922780</span></span>
+<span><span class="co">#&gt; Assault  -0.5831836 -0.1879856  0.2681484 -0.74340748</span></span>
+<span><span class="co">#&gt; UrbanPop -0.2781909  0.8728062  0.3780158  0.13387773</span></span>
+<span><span class="co">#&gt; Rape     -0.5434321  0.1673186 -0.8177779  0.08902432</span></span>
+<span></span>
+<span><span class="co"># df_pca$Rotation</span></span>
+<span><span class="fu">tidy</span><span class="op">(</span><span class="va">df_pca</span>, matrix <span class="op">=</span> <span class="st">"loadings"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu">pivot_wider</span><span class="op">(</span></span>
+<span>        names_from <span class="op">=</span> <span class="va">PC</span>,</span>
+<span>        names_prefix <span class="op">=</span> <span class="st">"PC"</span>,</span>
+<span>        values_from <span class="op">=</span> <span class="va">value</span>,</span>
+<span>    <span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 4 × 5</span></span>
+<span><span class="co">#&gt;   column      PC1    PC2    PC3     PC4</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 Murder   -0.536 -0.418  0.341  0.649 </span></span>
+<span><span class="co">#&gt; 2 Assault  -0.583 -0.188  0.268 -0.743 </span></span>
+<span><span class="co">#&gt; 3 UrbanPop -0.278  0.873  0.378  0.134 </span></span>
+<span><span class="co">#&gt; 4 Rape     -0.543  0.167 -0.818  0.0890</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>例如：</p>
 <p><span class="math display">\[
-PC_1=-0.531Murrder-0.583Assault-0.278UrbanPop-0.543Rape
+PC_1=-0.536Murrder-0.583Assault-0.278UrbanPop-0.543Rape
 \]</span></p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
 <span><span class="fu">tidy</span><span class="op">(</span><span class="va">df_pca</span>, matrix <span class="op">=</span> <span class="st">"loadings"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">value</span>, <span class="va">column</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">PC</span><span class="op">)</span> <span class="op">+</span></span>
@@ -764,7 +932,7 @@ PC_1=-0.531Murrder-0.583Assault-0.278UrbanPop-0.543Rape
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="PCA_files/figure-html/unnamed-chunk-13-1.svg" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="PCA_files/figure-html/unnamed-chunk-19-1.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -772,7 +940,7 @@ PC_1=-0.531Murrder-0.583Assault-0.278UrbanPop-0.543Rape
 <p>特征值 eigenvalues，高维椭球的主轴长度，相关矩阵的特征值。</p>
 <p>方差百分比贡献。</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># screen plot</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># screen plot</span></span>
 <span><span class="fu">tidy</span><span class="op">(</span><span class="va">df_pca</span>, matrix <span class="op">=</span> <span class="st">"eigenvalues"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">PC</span>, <span class="va">percent</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -780,24 +948,16 @@ PC_1=-0.531Murrder-0.583Assault-0.278UrbanPop-0.543Rape
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="PCA_files/figure-html/unnamed-chunk-14-1.svg" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="PCA_files/figure-html/unnamed-chunk-20-1.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<section id="判断主成分的个数psychfa.parallelmat" class="level3" data-number="1.2.1"><h3 data-number="1.2.1" class="anchored" data-anchor-id="判断主成分的个数psychfa.parallelmat">
-<span class="header-section-number">1.2.1</span> 判断主成分的个数<code>psych::fa.parallel(mat)</code>
-</h3>
-<ol type="1">
-<li>Cattell碎石图 图形变化最大处，即拐角处</li>
-<li>Kaiser-Harris准则 特征值大于1，直线y=1以上</li>
-<li>平行分析 基于真实数据的特征值大于一组随机数据矩阵相应的特征值（虚线）</li>
-</ol>
 
 
 <!-- -->
 
-</section></section></section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1257,254 +1417,368 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb20" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 主成分分析</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>主成分分析(Principal component analysis，PCA) 是一种线性降维方法。</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://bryanhanson.github.io/LearnPCA/articles//Vig_04_Scores_Loadings.html&gt;</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>对于一组变量$X_1,X_2,...,X_p$,存在它们的线性组合 **Y**，令$Var(y_1)$最大，得到$y_1$，再找$y_2$，$y_2$与$y_1$正交，以此类推，找到一组无关主成分 **Y**。</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>y_i=a_{i1}x_1+a_{i2}x_2+...+a_{ip}x_p<span class="sc">\\</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>Cov(y_i,y_j)=</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>\begin{cases}  &amp;\lambda_i,\ i=j <span class="sc">\\</span>  </span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>&amp; 0,\ i\ne j</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>\end{cases}</span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## PCA自定义步骤</span></span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="fu">### 数据标准化</span></span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>R中数据框 n个观测，p个变量， A~n×p~</span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>X=</span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>  x_{11}&amp; x_{12} &amp; ... &amp; x_{1p}<span class="sc">\\</span></span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a> x_{21} &amp; x_{22} &amp; ... &amp; x_{2p}<span class="sc">\\</span></span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a> \vdots  &amp;  \vdots &amp;   &amp; \vdots <span class="sc">\\</span></span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>  x_{n1}&amp; x_{n2} &amp; ... &amp; x_{np}</span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>=(X_1,X_2,...X_p)</span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>对原始数据矩阵标准化，消除量纲和数量级的影响。</span>
-<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(USArrests, <span class="at">rownames =</span> <span class="st">"state"</span>) <span class="sc">|&gt;</span> <span class="fu">column_to_rownames</span>(<span class="st">"state"</span>)</span>
-<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span>
-<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a>df_center <span class="ot">&lt;-</span> <span class="fu">scale</span>(df,<span class="at">center =</span> T,<span class="at">scale =</span> T)</span>
-<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a><span class="fu">### 计算协方差矩阵</span></span>
-<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a>当$\Sigma$ 未知时，其用其估计值样本协方差矩阵S~p×p~ 代替</span>
-<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a>S=\frac{AA^T}{n-1}</span>
-<span id="cb20-51"><a href="#cb20-51" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb20-52"><a href="#cb20-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-53"><a href="#cb20-53" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>$A_{ p×n}$ 显示来自每个变量值与变量平均值的距离$X_i-\bar X$；</span>
-<span id="cb20-54"><a href="#cb20-54" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>\$(AA\^T)<span class="sc">\_</span>{ii} \$ 显示距离平方的总和(样本方差 $s_i^2$);</span>
-<span id="cb20-55"><a href="#cb20-55" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>$(AA^T)_{ij}，i\ne j$ 显示样本协方差 $s_{ij} = (A 的行 i) · (A 的行 j)$。</span>
-<span id="cb20-56"><a href="#cb20-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-59"><a href="#cb20-59" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-60"><a href="#cb20-60" aria-hidden="true" tabindex="-1"></a><span class="co"># 协方差矩阵公式</span></span>
-<span id="cb20-61"><a href="#cb20-61" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">t</span>((df_center)))</span>
-<span id="cb20-62"><a href="#cb20-62" aria-hidden="true" tabindex="-1"></a>AA_T <span class="ot">&lt;-</span>A<span class="sc">%*%</span><span class="fu">t</span>(A)</span>
-<span id="cb20-63"><a href="#cb20-63" aria-hidden="true" tabindex="-1"></a>S <span class="ot">&lt;-</span> AA_T<span class="sc">/</span>(<span class="dv">50-1</span>)</span>
-<span id="cb20-64"><a href="#cb20-64" aria-hidden="true" tabindex="-1"></a>S</span>
-<span id="cb20-65"><a href="#cb20-65" aria-hidden="true" tabindex="-1"></a><span class="co"># 内置协方差矩阵函数</span></span>
-<span id="cb20-66"><a href="#cb20-66" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(df_center)</span>
-<span id="cb20-67"><a href="#cb20-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-68"><a href="#cb20-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-69"><a href="#cb20-69" aria-hidden="true" tabindex="-1"></a><span class="fu">### 计算相关系数矩阵</span></span>
-<span id="cb20-70"><a href="#cb20-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-71"><a href="#cb20-71" aria-hidden="true" tabindex="-1"></a>R=（r~ij~）</span>
-<span id="cb20-72"><a href="#cb20-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-73"><a href="#cb20-73" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb20-74"><a href="#cb20-74" aria-hidden="true" tabindex="-1"></a>r_{ij}=\frac {S_{ij}}{\sqrt{S_{ii}×S_{jj}}}</span>
-<span id="cb20-75"><a href="#cb20-75" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb20-76"><a href="#cb20-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-79"><a href="#cb20-79" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-80"><a href="#cb20-80" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="cf">function</span>(df){</span>
-<span id="cb20-81"><a href="#cb20-81" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(df)</span>
-<span id="cb20-82"><a href="#cb20-82" aria-hidden="true" tabindex="-1"></a>    n<span class="ot">=</span><span class="fu">length</span>(df)</span>
-<span id="cb20-83"><a href="#cb20-83" aria-hidden="true" tabindex="-1"></a>    names <span class="ot">&lt;-</span> <span class="fu">colnames</span>(df)</span>
-<span id="cb20-84"><a href="#cb20-84" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">scale</span>(df)</span>
-<span id="cb20-85"><a href="#cb20-85" aria-hidden="true" tabindex="-1"></a>    S <span class="ot">&lt;-</span> <span class="fu">cov</span>(df)</span>
-<span id="cb20-86"><a href="#cb20-86" aria-hidden="true" tabindex="-1"></a>    r <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="cn">NA</span>,n,n,<span class="at">dimnames =</span> <span class="fu">list</span>(names,names))</span>
-<span id="cb20-87"><a href="#cb20-87" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
-<span id="cb20-88"><a href="#cb20-88" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
-<span id="cb20-89"><a href="#cb20-89" aria-hidden="true" tabindex="-1"></a>            r[i,j]<span class="ot">=</span>S[i,j]<span class="sc">/</span><span class="fu">sqrt</span>(S[i,i]<span class="sc">*</span>S[j,j])</span>
-<span id="cb20-90"><a href="#cb20-90" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb20-91"><a href="#cb20-91" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb20-92"><a href="#cb20-92" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(r)</span>
-<span id="cb20-93"><a href="#cb20-93" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb20-94"><a href="#cb20-94" aria-hidden="true" tabindex="-1"></a><span class="fu">r</span>(df)</span>
-<span id="cb20-95"><a href="#cb20-95" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(df_center)</span>
-<span id="cb20-96"><a href="#cb20-96" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-97"><a href="#cb20-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-98"><a href="#cb20-98" aria-hidden="true" tabindex="-1"></a>总方差T=所有特征值的总和=样本方差的总和=迹(对角线的总和)</span>
-<span id="cb20-99"><a href="#cb20-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-100"><a href="#cb20-100" aria-hidden="true" tabindex="-1"></a><span class="in">`sum(eigen(AA_T)$values)`</span>=<span class="in">`sum(diag(AA_T))`</span>= <span class="in">`sum(svd$d^2)`</span></span>
-<span id="cb20-101"><a href="#cb20-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-104"><a href="#cb20-104" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-105"><a href="#cb20-105" aria-hidden="true" tabindex="-1"></a><span class="co"># AA^T的特征值</span></span>
-<span id="cb20-106"><a href="#cb20-106" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">eigen</span>(AA_T)</span>
-<span id="cb20-107"><a href="#cb20-107" aria-hidden="true" tabindex="-1"></a>y<span class="sc">$</span>values</span>
-<span id="cb20-108"><a href="#cb20-108" aria-hidden="true" tabindex="-1"></a>y<span class="sc">$</span>vectors</span>
-<span id="cb20-109"><a href="#cb20-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-110"><a href="#cb20-110" aria-hidden="true" tabindex="-1"></a><span class="co"># 特征值的和</span></span>
-<span id="cb20-111"><a href="#cb20-111" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(y<span class="sc">$</span>values)</span>
-<span id="cb20-112"><a href="#cb20-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-113"><a href="#cb20-113" aria-hidden="true" tabindex="-1"></a><span class="co"># 迹</span></span>
-<span id="cb20-114"><a href="#cb20-114" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(AA_T))</span>
-<span id="cb20-115"><a href="#cb20-115" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-116"><a href="#cb20-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-117"><a href="#cb20-117" aria-hidden="true" tabindex="-1"></a><span class="fu">### 奇异值分解</span></span>
-<span id="cb20-118"><a href="#cb20-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-119"><a href="#cb20-119" aria-hidden="true" tabindex="-1"></a>SVD公式：</span>
-<span id="cb20-120"><a href="#cb20-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-121"><a href="#cb20-121" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb20-122"><a href="#cb20-122" aria-hidden="true" tabindex="-1"></a>A_{p×n}=U\Sigma V^T </span>
-<span id="cb20-123"><a href="#cb20-123" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb20-124"><a href="#cb20-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-125"><a href="#cb20-125" aria-hidden="true" tabindex="-1"></a>主成分推导：</span>
-<span id="cb20-126"><a href="#cb20-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-127"><a href="#cb20-127" aria-hidden="true" tabindex="-1"></a>$$ PC=VX=U \Sigma  $$</span>
-<span id="cb20-128"><a href="#cb20-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-131"><a href="#cb20-131" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-132"><a href="#cb20-132" aria-hidden="true" tabindex="-1"></a>svd <span class="ot">&lt;-</span> <span class="fu">svd</span>(df_center)</span>
-<span id="cb20-133"><a href="#cb20-133" aria-hidden="true" tabindex="-1"></a>svd<span class="sc">$</span>d</span>
-<span id="cb20-134"><a href="#cb20-134" aria-hidden="true" tabindex="-1"></a>svd<span class="sc">$</span>u</span>
-<span id="cb20-135"><a href="#cb20-135" aria-hidden="true" tabindex="-1"></a>svd<span class="sc">$</span>v</span>
-<span id="cb20-136"><a href="#cb20-136" aria-hidden="true" tabindex="-1"></a><span class="co"># 奇异值的平方和</span></span>
-<span id="cb20-137"><a href="#cb20-137" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(svd<span class="sc">$</span>d<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb20-138"><a href="#cb20-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-139"><a href="#cb20-139" aria-hidden="true" tabindex="-1"></a><span class="co"># 主成分荷载</span></span>
-<span id="cb20-140"><a href="#cb20-140" aria-hidden="true" tabindex="-1"></a>svd<span class="sc">$</span>v</span>
-<span id="cb20-141"><a href="#cb20-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-142"><a href="#cb20-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-143"><a href="#cb20-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-144"><a href="#cb20-144" aria-hidden="true" tabindex="-1"></a><span class="co"># 方差贡献百分比</span></span>
-<span id="cb20-145"><a href="#cb20-145" aria-hidden="true" tabindex="-1"></a>pct <span class="ot">&lt;-</span> svd<span class="sc">$</span>d<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="fu">sum</span>(svd<span class="sc">$</span>d<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb20-146"><a href="#cb20-146" aria-hidden="true" tabindex="-1"></a>pct</span>
-<span id="cb20-147"><a href="#cb20-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-148"><a href="#cb20-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-149"><a href="#cb20-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-150"><a href="#cb20-150" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">diag</span>(svd<span class="sc">$</span>d)</span>
-<span id="cb20-151"><a href="#cb20-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-152"><a href="#cb20-152" aria-hidden="true" tabindex="-1"></a><span class="co">#  df_center  X = U D V'</span></span>
-<span id="cb20-153"><a href="#cb20-153" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> svd<span class="sc">$</span>u <span class="sc">%*%</span> D <span class="sc">%*%</span> <span class="fu">t</span>(svd<span class="sc">$</span>v) </span>
-<span id="cb20-154"><a href="#cb20-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-155"><a href="#cb20-155" aria-hidden="true" tabindex="-1"></a><span class="co">#  D = U' X V</span></span>
-<span id="cb20-156"><a href="#cb20-156" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(svd<span class="sc">$</span>u) <span class="sc">%*%</span> X <span class="sc">%*%</span> svd<span class="sc">$</span>v</span>
-<span id="cb20-157"><a href="#cb20-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-158"><a href="#cb20-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-159"><a href="#cb20-159" aria-hidden="true" tabindex="-1"></a><span class="co"># 得分</span></span>
-<span id="cb20-160"><a href="#cb20-160" aria-hidden="true" tabindex="-1"></a>svd<span class="sc">$</span>u <span class="sc">%*%</span> D</span>
-<span id="cb20-161"><a href="#cb20-161" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-162"><a href="#cb20-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-163"><a href="#cb20-163" aria-hidden="true" tabindex="-1"></a>内置PCA</span>
-<span id="cb20-164"><a href="#cb20-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-167"><a href="#cb20-167" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-168"><a href="#cb20-168" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(df_center)</span>
-<span id="cb20-169"><a href="#cb20-169" aria-hidden="true" tabindex="-1"></a>pca</span>
-<span id="cb20-170"><a href="#cb20-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-171"><a href="#cb20-171" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca)</span>
-<span id="cb20-172"><a href="#cb20-172" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
-<span id="cb20-173"><a href="#cb20-173" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">prcomp</span>(df_center),</span>
-<span id="cb20-174"><a href="#cb20-174" aria-hidden="true" tabindex="-1"></a>         <span class="at">data=</span>df_center,</span>
-<span id="cb20-175"><a href="#cb20-175" aria-hidden="true" tabindex="-1"></a>         )</span>
-<span id="cb20-176"><a href="#cb20-176" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-177"><a href="#cb20-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-178"><a href="#cb20-178" aria-hidden="true" tabindex="-1"></a>碎石图</span>
-<span id="cb20-179"><a href="#cb20-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-182"><a href="#cb20-182" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-183"><a href="#cb20-183" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(svd<span class="sc">$</span>d,<span class="at">type=</span><span class="st">"b"</span>)</span>
-<span id="cb20-184"><a href="#cb20-184" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(svd<span class="sc">$</span>d<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="fu">sum</span>(svd<span class="sc">$</span>d<span class="sc">^</span><span class="dv">2</span>),<span class="at">type=</span><span class="st">"b"</span>)</span>
-<span id="cb20-185"><a href="#cb20-185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-186"><a href="#cb20-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-189"><a href="#cb20-189" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-190"><a href="#cb20-190" aria-hidden="true" tabindex="-1"></a>svd<span class="sc">$</span>v</span>
-<span id="cb20-191"><a href="#cb20-191" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(svd<span class="sc">$</span>v[,<span class="dv">1</span>],<span class="at">ylab =</span> <span class="st">"1st PC"</span>)</span>
-<span id="cb20-192"><a href="#cb20-192" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(svd<span class="sc">$</span>v[,<span class="dv">2</span>],<span class="at">ylab=</span><span class="st">"2nd PC"</span>)</span>
-<span id="cb20-193"><a href="#cb20-193" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(svd<span class="sc">$</span>v[,<span class="dv">3</span>],<span class="at">ylab=</span><span class="st">"3rd PC"</span>)</span>
-<span id="cb20-194"><a href="#cb20-194" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(svd<span class="sc">$</span>v[,<span class="dv">4</span>],<span class="at">ylab=</span><span class="st">"4th PC"</span>)</span>
-<span id="cb20-195"><a href="#cb20-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-196"><a href="#cb20-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-197"><a href="#cb20-197" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(svd<span class="sc">$</span>v[,<span class="dv">1</span>],svd<span class="sc">$</span>v[,<span class="dv">2</span>],<span class="at">xlab=</span><span class="st">"lst PC"</span>,<span class="at">ylab=</span><span class="st">"2nd PC"</span>)</span>
-<span id="cb20-198"><a href="#cb20-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-199"><a href="#cb20-199" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-200"><a href="#cb20-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-201"><a href="#cb20-201" aria-hidden="true" tabindex="-1"></a><span class="fu">## 主成分分析</span></span>
-<span id="cb20-202"><a href="#cb20-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-205"><a href="#cb20-205" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-206"><a href="#cb20-206" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
-<span id="cb20-207"><a href="#cb20-207" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-208"><a href="#cb20-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-211"><a href="#cb20-211" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-212"><a href="#cb20-212" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(USArrests, <span class="at">rownames =</span> <span class="st">"state"</span>)</span>
-<span id="cb20-213"><a href="#cb20-213" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span>
-<span id="cb20-214"><a href="#cb20-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-215"><a href="#cb20-215" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb20-216"><a href="#cb20-216" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>state) <span class="sc">|&gt;</span></span>
-<span id="cb20-217"><a href="#cb20-217" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(mean)  <span class="co">#apply(.,2,mean)</span></span>
-<span id="cb20-218"><a href="#cb20-218" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-219"><a href="#cb20-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-222"><a href="#cb20-222" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-223"><a href="#cb20-223" aria-hidden="true" tabindex="-1"></a>df_pca <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
-<span id="cb20-224"><a href="#cb20-224" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>state) <span class="sc">|&gt;</span></span>
-<span id="cb20-225"><a href="#cb20-225" aria-hidden="true" tabindex="-1"></a>  stats<span class="sc">::</span><span class="fu">prcomp</span>(<span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb20-226"><a href="#cb20-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-227"><a href="#cb20-227" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span>
-<span id="cb20-228"><a href="#cb20-228" aria-hidden="true" tabindex="-1"></a>df_pca</span>
-<span id="cb20-229"><a href="#cb20-229" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(df_pca, <span class="at">matrix =</span> <span class="st">"scores"</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,] <span class="co">#by default    df_pca$x 长表</span></span>
-<span id="cb20-230"><a href="#cb20-230" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-231"><a href="#cb20-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-232"><a href="#cb20-232" aria-hidden="true" tabindex="-1"></a>主成分荷载（loading）：表示主成分与原有变量的相关系数</span>
-<span id="cb20-233"><a href="#cb20-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-236"><a href="#cb20-236" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-237"><a href="#cb20-237" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(df_pca, <span class="at">matrix =</span> <span class="st">"loadings"</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,]<span class="co"># df_pca$Rotation 长表</span></span>
-<span id="cb20-238"><a href="#cb20-238" aria-hidden="true" tabindex="-1"></a>df_pca<span class="sc">$</span>rotation</span>
-<span id="cb20-239"><a href="#cb20-239" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-240"><a href="#cb20-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-241"><a href="#cb20-241" aria-hidden="true" tabindex="-1"></a>例如：</span>
-<span id="cb20-242"><a href="#cb20-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-243"><a href="#cb20-243" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb20-244"><a href="#cb20-244" aria-hidden="true" tabindex="-1"></a>PC_1=-0.531Murrder-0.583Assault-0.278UrbanPop-0.543Rape</span>
-<span id="cb20-245"><a href="#cb20-245" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb20-246"><a href="#cb20-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-249"><a href="#cb20-249" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-250"><a href="#cb20-250" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(df_pca, <span class="at">matrix =</span> <span class="st">"loadings"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb20-251"><a href="#cb20-251" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(value, column)) <span class="sc">+</span></span>
-<span id="cb20-252"><a href="#cb20-252" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> PC) <span class="sc">+</span></span>
-<span id="cb20-253"><a href="#cb20-253" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb20-254"><a href="#cb20-254" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent)</span>
-<span id="cb20-255"><a href="#cb20-255" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-256"><a href="#cb20-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-257"><a href="#cb20-257" aria-hidden="true" tabindex="-1"></a>特征值 eigenvalues，高维椭球的主轴长度，相关矩阵的特征值。</span>
-<span id="cb20-258"><a href="#cb20-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-259"><a href="#cb20-259" aria-hidden="true" tabindex="-1"></a>方差百分比贡献。</span>
-<span id="cb20-260"><a href="#cb20-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-263"><a href="#cb20-263" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-264"><a href="#cb20-264" aria-hidden="true" tabindex="-1"></a><span class="co"># screen plot</span></span>
-<span id="cb20-265"><a href="#cb20-265" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(df_pca, <span class="at">matrix =</span> <span class="st">"eigenvalues"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb20-266"><a href="#cb20-266" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(PC, percent)) <span class="sc">+</span></span>
-<span id="cb20-267"><a href="#cb20-267" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb20-268"><a href="#cb20-268" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()<span class="sc">+</span></span>
-<span id="cb20-269"><a href="#cb20-269" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent)</span>
-<span id="cb20-270"><a href="#cb20-270" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-271"><a href="#cb20-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-272"><a href="#cb20-272" aria-hidden="true" tabindex="-1"></a><span class="fu">### 判断主成分的个数`psych::fa.parallel(mat)`</span></span>
-<span id="cb20-273"><a href="#cb20-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-274"><a href="#cb20-274" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Cattell碎石图 图形变化最大处，即拐角处</span>
-<span id="cb20-275"><a href="#cb20-275" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Kaiser-Harris准则 特征值大于1，直线y=1以上</span>
-<span id="cb20-276"><a href="#cb20-276" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>平行分析 基于真实数据的特征值大于一组随机数据矩阵相应的特征值（虚线）</span>
+<div class="sourceCode" id="cb25" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 主成分分析</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>主成分分析(Principal component analysis，PCA) 是一种线性降维方法。</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://bryanhanson.github.io/LearnPCA/articles//Vig_04_Scores_Loadings.html&gt;</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>对于一组变量$X_1,X_2,...,X_p$,存在它们的线性组合 **Y**，令$Var(y_1)$最大，得到$y_1$，再找$y_2$，$y_2$与$y_1$正交，以此类推，找到一组无关主成分 **Y**。</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>y_i=a_{i1}x_1+a_{i2}x_2+...+a_{ip}x_p<span class="sc">\\</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>Cov(y_i,y_j)=</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>\begin{cases}  &amp;\lambda_i,\ i=j <span class="sc">\\</span>  </span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>&amp; 0,\ i\ne j</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>\end{cases}</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## 自定义 PCA 步骤</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="fu">### 数据标准化</span></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>R中数据框 n个观测，p个变量</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>X=</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>  x_{11}&amp; x_{12} &amp; ... &amp; x_{1p}<span class="sc">\\</span></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a> x_{21} &amp; x_{22} &amp; ... &amp; x_{2p}<span class="sc">\\</span></span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a> \vdots  &amp;  \vdots &amp;   &amp; \vdots <span class="sc">\\</span></span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>  x_{n1}&amp; x_{n2} &amp; ... &amp; x_{np}</span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>=(X_1,X_2,...X_p)</span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a>对原始数据矩阵标准化，消除量纲和数量级的影响。</span>
+<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a>数据标准化确保变量在相同的尺度上，这对于PCA非常重要。</span>
+<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a>使用R语言内置的 <span class="in">`USArrests`</span> 数据集：</span>
+<span id="cb25-39"><a href="#cb25-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-42"><a href="#cb25-42" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-43"><a href="#cb25-43" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(USArrests, <span class="at">rownames =</span> <span class="st">"state"</span>) <span class="sc">|&gt;</span> <span class="fu">column_to_rownames</span>(<span class="st">"state"</span>)</span>
+<span id="cb25-44"><a href="#cb25-44" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span>
+<span id="cb25-45"><a href="#cb25-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-46"><a href="#cb25-46" aria-hidden="true" tabindex="-1"></a>df_center <span class="ot">&lt;-</span> <span class="fu">scale</span>(df,<span class="at">center =</span> T,<span class="at">scale =</span> T)</span>
+<span id="cb25-47"><a href="#cb25-47" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-48"><a href="#cb25-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-49"><a href="#cb25-49" aria-hidden="true" tabindex="-1"></a><span class="fu">### 计算协方差矩阵</span></span>
+<span id="cb25-50"><a href="#cb25-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-51"><a href="#cb25-51" aria-hidden="true" tabindex="-1"></a>当$\Sigma$ 未知时，其用其估计值样本协方差矩阵S~p×p~ 代替</span>
+<span id="cb25-52"><a href="#cb25-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-53"><a href="#cb25-53" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-54"><a href="#cb25-54" aria-hidden="true" tabindex="-1"></a>S=\frac{AA^T}{n-1}</span>
+<span id="cb25-55"><a href="#cb25-55" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-56"><a href="#cb25-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-57"><a href="#cb25-57" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>$A_{ p×n}$ 显示来自每个变量值与其均值的偏差 $X_i-\bar X$；</span>
+<span id="cb25-58"><a href="#cb25-58" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>$(AA^T)_{ii}$ 显示偏差平方和 （样本方差 $s_i^2$ ）；</span>
+<span id="cb25-59"><a href="#cb25-59" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>$(AA^T)_{ij}，i\ne j$ 显示样本协方差 $s_{ij} = (A 的行 i) · (A 的行 j)$。</span>
+<span id="cb25-60"><a href="#cb25-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-63"><a href="#cb25-63" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-64"><a href="#cb25-64" aria-hidden="true" tabindex="-1"></a><span class="co"># 手动计算协方差矩阵</span></span>
+<span id="cb25-65"><a href="#cb25-65" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">t</span>((df_center)))</span>
+<span id="cb25-66"><a href="#cb25-66" aria-hidden="true" tabindex="-1"></a>AA_T <span class="ot">&lt;-</span> A <span class="sc">%*%</span> <span class="fu">t</span>(A)</span>
+<span id="cb25-67"><a href="#cb25-67" aria-hidden="true" tabindex="-1"></a>S <span class="ot">&lt;-</span> AA_T <span class="sc">/</span> (<span class="fu">nrow</span>(df_center) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb25-68"><a href="#cb25-68" aria-hidden="true" tabindex="-1"></a>S</span>
+<span id="cb25-69"><a href="#cb25-69" aria-hidden="true" tabindex="-1"></a><span class="co"># 内置协方差矩阵函数</span></span>
+<span id="cb25-70"><a href="#cb25-70" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(df_center)</span>
+<span id="cb25-71"><a href="#cb25-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-72"><a href="#cb25-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-73"><a href="#cb25-73" aria-hidden="true" tabindex="-1"></a><span class="fu">### 计算相关系数矩阵</span></span>
+<span id="cb25-74"><a href="#cb25-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-75"><a href="#cb25-75" aria-hidden="true" tabindex="-1"></a>相关系数矩阵 $R=(r_{ij})$ 的公式为：</span>
+<span id="cb25-76"><a href="#cb25-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-77"><a href="#cb25-77" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-78"><a href="#cb25-78" aria-hidden="true" tabindex="-1"></a>r_{ij}=\frac {S_{ij}}{\sqrt{S_{ii}×S_{jj}}}</span>
+<span id="cb25-79"><a href="#cb25-79" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-80"><a href="#cb25-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-83"><a href="#cb25-83" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-84"><a href="#cb25-84" aria-hidden="true" tabindex="-1"></a><span class="co"># 定义自定义函数计算相关系数矩阵</span></span>
+<span id="cb25-85"><a href="#cb25-85" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="cf">function</span>(df){</span>
+<span id="cb25-86"><a href="#cb25-86" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(df)</span>
+<span id="cb25-87"><a href="#cb25-87" aria-hidden="true" tabindex="-1"></a>    n<span class="ot">=</span><span class="fu">length</span>(df)</span>
+<span id="cb25-88"><a href="#cb25-88" aria-hidden="true" tabindex="-1"></a>    names <span class="ot">&lt;-</span> <span class="fu">colnames</span>(df)</span>
+<span id="cb25-89"><a href="#cb25-89" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">scale</span>(df)</span>
+<span id="cb25-90"><a href="#cb25-90" aria-hidden="true" tabindex="-1"></a>    S <span class="ot">&lt;-</span> <span class="fu">cov</span>(df)</span>
+<span id="cb25-91"><a href="#cb25-91" aria-hidden="true" tabindex="-1"></a>    r <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="cn">NA</span>,n,n,<span class="at">dimnames =</span> <span class="fu">list</span>(names,names))</span>
+<span id="cb25-92"><a href="#cb25-92" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb25-93"><a href="#cb25-93" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb25-94"><a href="#cb25-94" aria-hidden="true" tabindex="-1"></a>            r[i,j]<span class="ot">=</span>S[i,j]<span class="sc">/</span><span class="fu">sqrt</span>(S[i,i]<span class="sc">*</span>S[j,j])</span>
+<span id="cb25-95"><a href="#cb25-95" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb25-96"><a href="#cb25-96" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb25-97"><a href="#cb25-97" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(r)</span>
+<span id="cb25-98"><a href="#cb25-98" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb25-99"><a href="#cb25-99" aria-hidden="true" tabindex="-1"></a><span class="fu">r</span>(df)</span>
+<span id="cb25-100"><a href="#cb25-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-101"><a href="#cb25-101" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用内置的相关系数矩阵函数</span></span>
+<span id="cb25-102"><a href="#cb25-102" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(df_center)</span>
+<span id="cb25-103"><a href="#cb25-103" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-104"><a href="#cb25-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-105"><a href="#cb25-105" aria-hidden="true" tabindex="-1"></a><span class="fu">### 总方差</span></span>
+<span id="cb25-106"><a href="#cb25-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-107"><a href="#cb25-107" aria-hidden="true" tabindex="-1"></a>总方差T=所有特征值的总和=样本方差的总和=协方差矩阵的迹(对角线的总和)</span>
+<span id="cb25-108"><a href="#cb25-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-109"><a href="#cb25-109" aria-hidden="true" tabindex="-1"></a><span class="in">`sum(eigen(AA_T)$values)`</span>=<span class="in">`sum(diag(AA_T))`</span>= <span class="in">`sum(svd$d^2)`</span></span>
+<span id="cb25-110"><a href="#cb25-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-113"><a href="#cb25-113" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-114"><a href="#cb25-114" aria-hidden="true" tabindex="-1"></a><span class="co"># AA^T的特征值</span></span>
+<span id="cb25-115"><a href="#cb25-115" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">eigen</span>(AA_T)</span>
+<span id="cb25-116"><a href="#cb25-116" aria-hidden="true" tabindex="-1"></a>y<span class="sc">$</span>values</span>
+<span id="cb25-117"><a href="#cb25-117" aria-hidden="true" tabindex="-1"></a>y<span class="sc">$</span>vectors</span>
+<span id="cb25-118"><a href="#cb25-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-119"><a href="#cb25-119" aria-hidden="true" tabindex="-1"></a><span class="co"># 特征值的和</span></span>
+<span id="cb25-120"><a href="#cb25-120" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(y<span class="sc">$</span>values)</span>
+<span id="cb25-121"><a href="#cb25-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-122"><a href="#cb25-122" aria-hidden="true" tabindex="-1"></a><span class="co"># 迹</span></span>
+<span id="cb25-123"><a href="#cb25-123" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(AA_T))</span>
+<span id="cb25-124"><a href="#cb25-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-125"><a href="#cb25-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-126"><a href="#cb25-126" aria-hidden="true" tabindex="-1"></a><span class="fu">### 奇异值分解与主成分推导</span></span>
+<span id="cb25-127"><a href="#cb25-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-128"><a href="#cb25-128" aria-hidden="true" tabindex="-1"></a>SVD公式：</span>
+<span id="cb25-129"><a href="#cb25-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-130"><a href="#cb25-130" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-131"><a href="#cb25-131" aria-hidden="true" tabindex="-1"></a>A_{p×n}=U\Sigma V^T </span>
+<span id="cb25-132"><a href="#cb25-132" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-133"><a href="#cb25-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-134"><a href="#cb25-134" aria-hidden="true" tabindex="-1"></a>A 是中心化后的数据矩阵， U 是左奇异矩阵， $\Sigma$ 是奇异值对角矩阵， V 是右奇异矩阵（（也是主成分方向））</span>
+<span id="cb25-135"><a href="#cb25-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-136"><a href="#cb25-136" aria-hidden="true" tabindex="-1"></a>主成分推导：</span>
+<span id="cb25-137"><a href="#cb25-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-138"><a href="#cb25-138" aria-hidden="true" tabindex="-1"></a>$$ PC=A\cdot V=U \Sigma  $$</span>
+<span id="cb25-139"><a href="#cb25-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-140"><a href="#cb25-140" aria-hidden="true" tabindex="-1"></a>在这个公式中：</span>
+<span id="cb25-141"><a href="#cb25-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-142"><a href="#cb25-142" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>$U$ 是包含左奇异向量的矩阵，表示样本在新坐标系中的坐标。</span>
+<span id="cb25-143"><a href="#cb25-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-144"><a href="#cb25-144" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>$\Sigma$ 是包含奇异值的对角矩阵，这些奇异值与特征值相关，表示每个主成分的方差大小。</span>
+<span id="cb25-145"><a href="#cb25-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-148"><a href="#cb25-148" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-149"><a href="#cb25-149" aria-hidden="true" tabindex="-1"></a><span class="co"># 进行奇异值分解</span></span>
+<span id="cb25-150"><a href="#cb25-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-151"><a href="#cb25-151" aria-hidden="true" tabindex="-1"></a>svd <span class="ot">&lt;-</span> <span class="fu">svd</span>(df_center)</span>
+<span id="cb25-152"><a href="#cb25-152" aria-hidden="true" tabindex="-1"></a>svd<span class="sc">$</span>d</span>
+<span id="cb25-153"><a href="#cb25-153" aria-hidden="true" tabindex="-1"></a>svd<span class="sc">$</span>u</span>
+<span id="cb25-154"><a href="#cb25-154" aria-hidden="true" tabindex="-1"></a>svd<span class="sc">$</span>v</span>
+<span id="cb25-155"><a href="#cb25-155" aria-hidden="true" tabindex="-1"></a><span class="co"># 奇异值的平方和</span></span>
+<span id="cb25-156"><a href="#cb25-156" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(svd<span class="sc">$</span>d<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb25-157"><a href="#cb25-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-158"><a href="#cb25-158" aria-hidden="true" tabindex="-1"></a><span class="co"># 奇异值的对角矩阵</span></span>
+<span id="cb25-159"><a href="#cb25-159" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">diag</span>(svd<span class="sc">$</span>d)</span>
+<span id="cb25-160"><a href="#cb25-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-161"><a href="#cb25-161" aria-hidden="true" tabindex="-1"></a><span class="co">#  df_center  X = U D V'</span></span>
+<span id="cb25-162"><a href="#cb25-162" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> svd<span class="sc">$</span>u <span class="sc">%*%</span> D <span class="sc">%*%</span> <span class="fu">t</span>(svd<span class="sc">$</span>v) </span>
+<span id="cb25-163"><a href="#cb25-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-164"><a href="#cb25-164" aria-hidden="true" tabindex="-1"></a><span class="co">#  D = U' X V</span></span>
+<span id="cb25-165"><a href="#cb25-165" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(svd<span class="sc">$</span>u) <span class="sc">%*%</span> X <span class="sc">%*%</span> svd<span class="sc">$</span>v</span>
+<span id="cb25-166"><a href="#cb25-166" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-167"><a href="#cb25-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-168"><a href="#cb25-168" aria-hidden="true" tabindex="-1"></a><span class="fu">### 结果解释</span></span>
+<span id="cb25-169"><a href="#cb25-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-170"><a href="#cb25-170" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 主成分荷载系数</span></span>
+<span id="cb25-171"><a href="#cb25-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-174"><a href="#cb25-174" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-175"><a href="#cb25-175" aria-hidden="true" tabindex="-1"></a><span class="co"># 主成分荷载系数</span></span>
+<span id="cb25-176"><a href="#cb25-176" aria-hidden="true" tabindex="-1"></a>svd<span class="sc">$</span>v</span>
+<span id="cb25-177"><a href="#cb25-177" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-178"><a href="#cb25-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-179"><a href="#cb25-179" aria-hidden="true" tabindex="-1"></a>在PCA中，右奇异向量矩阵𝑉 的列向量代表数据在新的正交基上的方向，这些基是按数据中方差最大化的方向排列的。每个向量就是一个主成分方向。具体来说，矩阵 <span class="in">`svd$v`</span> 中的每一列都是一个**主成分**， 且这些列向量可以看作是原始变量在新主成分空间中的线性组合系数。</span>
+<span id="cb25-180"><a href="#cb25-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-181"><a href="#cb25-181" aria-hidden="true" tabindex="-1"></a>因此，<span class="in">`svd$v`</span> 中的元素表示的是每个原始变量在对应主成分上的贡献，即主成分荷载系数（loadings）。</span>
+<span id="cb25-182"><a href="#cb25-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-183"><a href="#cb25-183" aria-hidden="true" tabindex="-1"></a>例如，如果 <span class="in">`V`</span> 的第j 个列向量为 $<span class="co">[</span><span class="ot">v_{1j},v_{2j},...,v_{pj}</span><span class="co">]</span>$ ，这意味着第j 个主成分可以表示为原始变量的线性组合：</span>
+<span id="cb25-184"><a href="#cb25-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-185"><a href="#cb25-185" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-186"><a href="#cb25-186" aria-hidden="true" tabindex="-1"></a>PC_j=v_{1j}\cdot x_1+v_{2j}\cdot x_2+...+v_{pj}\cdot x_p</span>
+<span id="cb25-187"><a href="#cb25-187" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-188"><a href="#cb25-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-189"><a href="#cb25-189" aria-hidden="true" tabindex="-1"></a>其中， $x_1,x_2,...,x_p$ 是原始变量， $v_{1j},v_{2j},...,v_{pj}$ 是它们在第j 个主成分上的荷载系数。</span>
+<span id="cb25-190"><a href="#cb25-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-191"><a href="#cb25-191" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 主成分得分</span></span>
+<span id="cb25-192"><a href="#cb25-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-193"><a href="#cb25-193" aria-hidden="true" tabindex="-1"></a>主成分得分 (principal component scores) 代表了原始数据在新主成分轴上的坐标。</span>
+<span id="cb25-194"><a href="#cb25-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-195"><a href="#cb25-195" aria-hidden="true" tabindex="-1"></a>具体来说，主成分得分可以表示为：</span>
+<span id="cb25-196"><a href="#cb25-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-197"><a href="#cb25-197" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-198"><a href="#cb25-198" aria-hidden="true" tabindex="-1"></a>Scores = U\Sigma</span>
+<span id="cb25-199"><a href="#cb25-199" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-200"><a href="#cb25-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-203"><a href="#cb25-203" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-204"><a href="#cb25-204" aria-hidden="true" tabindex="-1"></a><span class="co"># 得分</span></span>
+<span id="cb25-205"><a href="#cb25-205" aria-hidden="true" tabindex="-1"></a>svd<span class="sc">$</span>u <span class="sc">%*%</span> D</span>
+<span id="cb25-206"><a href="#cb25-206" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-207"><a href="#cb25-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-208"><a href="#cb25-208" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 主成分标准差</span></span>
+<span id="cb25-209"><a href="#cb25-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-210"><a href="#cb25-210" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/clipboard-305502058.png)</span></span>
+<span id="cb25-211"><a href="#cb25-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-212"><a href="#cb25-212" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-213"><a href="#cb25-213" aria-hidden="true" tabindex="-1"></a>Standard \ Deviation \ of \ PC_i =\frac{\sigma_i}{\sqrt{n-1}}</span>
+<span id="cb25-214"><a href="#cb25-214" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-215"><a href="#cb25-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-216"><a href="#cb25-216" aria-hidden="true" tabindex="-1"></a>其中，n 是样本量，σ 是奇异值。</span>
+<span id="cb25-217"><a href="#cb25-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-220"><a href="#cb25-220" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-221"><a href="#cb25-221" aria-hidden="true" tabindex="-1"></a>svd<span class="sc">$</span>d <span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">nrow</span>(df_center)<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb25-222"><a href="#cb25-222" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-223"><a href="#cb25-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-224"><a href="#cb25-224" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 方差贡献百分比</span></span>
+<span id="cb25-225"><a href="#cb25-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-226"><a href="#cb25-226" aria-hidden="true" tabindex="-1"></a>在主成分分析 (PCA) 中，方差贡献百分比（variance explained ratio）是用来衡量每个主成分解释了数据总方差的比例。这个比例可以通过奇异值分解 (SVD) 的奇异值来计算。</span>
+<span id="cb25-227"><a href="#cb25-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-228"><a href="#cb25-228" aria-hidden="true" tabindex="-1"></a>具体来说，方差贡献百分比的计算过程如下：</span>
+<span id="cb25-229"><a href="#cb25-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-230"><a href="#cb25-230" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>计算每个主成分的方差。奇异值的平方 $\sigma_i^2$ 表示主成分 $𝑖$的方差。</span>
+<span id="cb25-231"><a href="#cb25-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-232"><a href="#cb25-232" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>计算总方差，即所有奇异值的平方和。</span>
+<span id="cb25-233"><a href="#cb25-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-234"><a href="#cb25-234" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>每个主成分的方差贡献百分比可以通过将每个奇异值的平方除以总方差来计算。</span>
+<span id="cb25-235"><a href="#cb25-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-238"><a href="#cb25-238" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-239"><a href="#cb25-239" aria-hidden="true" tabindex="-1"></a><span class="co"># 方差贡献百分比</span></span>
+<span id="cb25-240"><a href="#cb25-240" aria-hidden="true" tabindex="-1"></a>pct <span class="ot">&lt;-</span> svd<span class="sc">$</span>d<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="fu">sum</span>(svd<span class="sc">$</span>d<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb25-241"><a href="#cb25-241" aria-hidden="true" tabindex="-1"></a>pct</span>
+<span id="cb25-242"><a href="#cb25-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-243"><a href="#cb25-243" aria-hidden="true" tabindex="-1"></a><span class="co"># 累计方差贡献百分比</span></span>
+<span id="cb25-244"><a href="#cb25-244" aria-hidden="true" tabindex="-1"></a><span class="fu">cumsum</span>(pct)</span>
+<span id="cb25-245"><a href="#cb25-245" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-246"><a href="#cb25-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-247"><a href="#cb25-247" aria-hidden="true" tabindex="-1"></a><span class="fu">## 内置PCA</span></span>
+<span id="cb25-248"><a href="#cb25-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-251"><a href="#cb25-251" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-252"><a href="#cb25-252" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(df_center)</span>
+<span id="cb25-253"><a href="#cb25-253" aria-hidden="true" tabindex="-1"></a>pca</span>
+<span id="cb25-254"><a href="#cb25-254" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca)</span>
+<span id="cb25-255"><a href="#cb25-255" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-256"><a href="#cb25-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-257"><a href="#cb25-257" aria-hidden="true" tabindex="-1"></a><span class="fu">## 可视化分析</span></span>
+<span id="cb25-258"><a href="#cb25-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-259"><a href="#cb25-259" aria-hidden="true" tabindex="-1"></a><span class="fu">### 判断主成分的个数</span></span>
+<span id="cb25-260"><a href="#cb25-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-261"><a href="#cb25-261" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Cattell碎石图 图形变化最大处，即拐角处</span>
+<span id="cb25-262"><a href="#cb25-262" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Kaiser-Harris准则 特征值大于1，直线y=1以上</span>
+<span id="cb25-263"><a href="#cb25-263" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>平行分析 基于真实数据的特征值大于一组随机数据矩阵相应的特征值（虚线）</span>
+<span id="cb25-264"><a href="#cb25-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-265"><a href="#cb25-265" aria-hidden="true" tabindex="-1"></a><span class="fu">### 碎石图</span></span>
+<span id="cb25-266"><a href="#cb25-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-269"><a href="#cb25-269" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-270"><a href="#cb25-270" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Scree Plot</span></span>
+<span id="cb25-271"><a href="#cb25-271" aria-hidden="true" tabindex="-1"></a><span class="fu">screeplot</span>(pca, <span class="at">type =</span> <span class="st">"lines"</span>, <span class="at">main =</span> <span class="st">"Scree Plot"</span>)</span>
+<span id="cb25-272"><a href="#cb25-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-273"><a href="#cb25-273" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb25-274"><a href="#cb25-274" aria-hidden="true" tabindex="-1"></a>explained_variance <span class="ot">&lt;-</span> pca<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">sum</span>(pca<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb25-275"><a href="#cb25-275" aria-hidden="true" tabindex="-1"></a>explained_variance_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb25-276"><a href="#cb25-276" aria-hidden="true" tabindex="-1"></a>  <span class="at">Principal_Component =</span> <span class="fu">paste0</span>(<span class="st">"PC"</span>, <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(explained_variance)),</span>
+<span id="cb25-277"><a href="#cb25-277" aria-hidden="true" tabindex="-1"></a>  <span class="at">Explained_Variance =</span> explained_variance</span>
+<span id="cb25-278"><a href="#cb25-278" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-279"><a href="#cb25-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-280"><a href="#cb25-280" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(explained_variance_df, <span class="fu">aes</span>(<span class="at">x =</span> Principal_Component, <span class="at">y =</span> Explained_Variance)) <span class="sc">+</span></span>
+<span id="cb25-281"><a href="#cb25-281" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>) <span class="sc">+</span></span>
+<span id="cb25-282"><a href="#cb25-282" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>), <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb25-283"><a href="#cb25-283" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb25-284"><a href="#cb25-284" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scree Plot"</span>, <span class="at">x =</span> <span class="st">"Principal Component"</span>, <span class="at">y =</span> <span class="st">"Explained Variance"</span>) <span class="sc">+</span></span>
+<span id="cb25-285"><a href="#cb25-285" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb25-286"><a href="#cb25-286" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-287"><a href="#cb25-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-288"><a href="#cb25-288" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 平行分析</span></span>
+<span id="cb25-289"><a href="#cb25-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-292"><a href="#cb25-292" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-293"><a href="#cb25-293" aria-hidden="true" tabindex="-1"></a>fa_parallel <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">fa.parallel</span>(df_center, <span class="at">fa =</span> <span class="st">"pc"</span>, <span class="at">n.iter =</span> <span class="dv">100</span>)</span>
+<span id="cb25-294"><a href="#cb25-294" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-295"><a href="#cb25-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-298"><a href="#cb25-298" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-299"><a href="#cb25-299" aria-hidden="true" tabindex="-1"></a>svd<span class="sc">$</span>v</span>
+<span id="cb25-300"><a href="#cb25-300" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">pc1 =</span> svd<span class="sc">$</span>v[, <span class="dv">1</span>]) <span class="sc">%&gt;%</span></span>
+<span id="cb25-301"><a href="#cb25-301" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, pc1)) <span class="sc">+</span></span>
+<span id="cb25-302"><a href="#cb25-302" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb25-303"><a href="#cb25-303" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb25-304"><a href="#cb25-304" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">panel.border =</span> <span class="fu">element_rect</span>(</span>
+<span id="cb25-305"><a href="#cb25-305" aria-hidden="true" tabindex="-1"></a>        <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb25-306"><a href="#cb25-306" aria-hidden="true" tabindex="-1"></a>        <span class="at">fill =</span> <span class="cn">NA</span>,</span>
+<span id="cb25-307"><a href="#cb25-307" aria-hidden="true" tabindex="-1"></a>    ), <span class="co"># 添加四周框线</span></span>
+<span id="cb25-308"><a href="#cb25-308" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb25-309"><a href="#cb25-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-310"><a href="#cb25-310" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(svd<span class="sc">$</span>v[,<span class="dv">1</span>],<span class="at">ylab =</span> <span class="st">"1st PC"</span>)</span>
+<span id="cb25-311"><a href="#cb25-311" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(svd<span class="sc">$</span>v[,<span class="dv">1</span>],svd<span class="sc">$</span>v[,<span class="dv">2</span>],<span class="at">xlab=</span><span class="st">"lst PC"</span>,<span class="at">ylab=</span><span class="st">"2nd PC"</span>)</span>
+<span id="cb25-312"><a href="#cb25-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-313"><a href="#cb25-313" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-314"><a href="#cb25-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-315"><a href="#cb25-315" aria-hidden="true" tabindex="-1"></a><span class="fu">## tidy 主成分分析</span></span>
+<span id="cb25-316"><a href="#cb25-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-319"><a href="#cb25-319" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-320"><a href="#cb25-320" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb25-321"><a href="#cb25-321" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-322"><a href="#cb25-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-325"><a href="#cb25-325" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-326"><a href="#cb25-326" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(USArrests, <span class="at">rownames =</span> <span class="st">"state"</span>)</span>
+<span id="cb25-327"><a href="#cb25-327" aria-hidden="true" tabindex="-1"></a>df</span>
+<span id="cb25-328"><a href="#cb25-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-329"><a href="#cb25-329" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb25-330"><a href="#cb25-330" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>state) <span class="sc">|&gt;</span></span>
+<span id="cb25-331"><a href="#cb25-331" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(mean)  <span class="co">#apply(.,2,mean)</span></span>
+<span id="cb25-332"><a href="#cb25-332" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-333"><a href="#cb25-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-336"><a href="#cb25-336" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-337"><a href="#cb25-337" aria-hidden="true" tabindex="-1"></a>df_pca <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb25-338"><a href="#cb25-338" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>state) <span class="sc">|&gt;</span></span>
+<span id="cb25-339"><a href="#cb25-339" aria-hidden="true" tabindex="-1"></a>  stats<span class="sc">::</span><span class="fu">prcomp</span>(<span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-340"><a href="#cb25-340" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-341"><a href="#cb25-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-342"><a href="#cb25-342" aria-hidden="true" tabindex="-1"></a>主成分得分，表示主成分与原有观测的相关系数</span>
+<span id="cb25-343"><a href="#cb25-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-346"><a href="#cb25-346" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-347"><a href="#cb25-347" aria-hidden="true" tabindex="-1"></a>df_pca<span class="sc">$</span>x</span>
+<span id="cb25-348"><a href="#cb25-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-349"><a href="#cb25-349" aria-hidden="true" tabindex="-1"></a><span class="co"># by default    df_pca$x</span></span>
+<span id="cb25-350"><a href="#cb25-350" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(df_pca, <span class="at">matrix =</span> <span class="st">"scores"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb25-351"><a href="#cb25-351" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">everything</span>(),</span>
+<span id="cb25-352"><a href="#cb25-352" aria-hidden="true" tabindex="-1"></a>                <span class="at">names_from =</span> PC,</span>
+<span id="cb25-353"><a href="#cb25-353" aria-hidden="true" tabindex="-1"></a>                <span class="at">names_prefix =</span> <span class="st">"PC"</span>,</span>
+<span id="cb25-354"><a href="#cb25-354" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_from =</span> value)</span>
+<span id="cb25-355"><a href="#cb25-355" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-356"><a href="#cb25-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-357"><a href="#cb25-357" aria-hidden="true" tabindex="-1"></a>主成分荷载（loading）：表示主成分与原有变量的相关系数</span>
+<span id="cb25-358"><a href="#cb25-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-361"><a href="#cb25-361" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-362"><a href="#cb25-362" aria-hidden="true" tabindex="-1"></a>df_pca<span class="sc">$</span>rotation</span>
+<span id="cb25-363"><a href="#cb25-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-364"><a href="#cb25-364" aria-hidden="true" tabindex="-1"></a><span class="co"># df_pca$Rotation</span></span>
+<span id="cb25-365"><a href="#cb25-365" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(df_pca, <span class="at">matrix =</span> <span class="st">"loadings"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb25-366"><a href="#cb25-366" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(</span>
+<span id="cb25-367"><a href="#cb25-367" aria-hidden="true" tabindex="-1"></a>        <span class="at">names_from =</span> PC,</span>
+<span id="cb25-368"><a href="#cb25-368" aria-hidden="true" tabindex="-1"></a>        <span class="at">names_prefix =</span> <span class="st">"PC"</span>,</span>
+<span id="cb25-369"><a href="#cb25-369" aria-hidden="true" tabindex="-1"></a>        <span class="at">values_from =</span> value,</span>
+<span id="cb25-370"><a href="#cb25-370" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb25-371"><a href="#cb25-371" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-372"><a href="#cb25-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-373"><a href="#cb25-373" aria-hidden="true" tabindex="-1"></a>例如：</span>
+<span id="cb25-374"><a href="#cb25-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-375"><a href="#cb25-375" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-376"><a href="#cb25-376" aria-hidden="true" tabindex="-1"></a>PC_1=-0.536Murrder-0.583Assault-0.278UrbanPop-0.543Rape</span>
+<span id="cb25-377"><a href="#cb25-377" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-378"><a href="#cb25-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-381"><a href="#cb25-381" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-382"><a href="#cb25-382" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(df_pca, <span class="at">matrix =</span> <span class="st">"loadings"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb25-383"><a href="#cb25-383" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(value, column)) <span class="sc">+</span></span>
+<span id="cb25-384"><a href="#cb25-384" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> PC) <span class="sc">+</span></span>
+<span id="cb25-385"><a href="#cb25-385" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb25-386"><a href="#cb25-386" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent)</span>
+<span id="cb25-387"><a href="#cb25-387" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-388"><a href="#cb25-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-389"><a href="#cb25-389" aria-hidden="true" tabindex="-1"></a>特征值 eigenvalues，高维椭球的主轴长度，相关矩阵的特征值。</span>
+<span id="cb25-390"><a href="#cb25-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-391"><a href="#cb25-391" aria-hidden="true" tabindex="-1"></a>方差百分比贡献。</span>
+<span id="cb25-392"><a href="#cb25-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-395"><a href="#cb25-395" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-396"><a href="#cb25-396" aria-hidden="true" tabindex="-1"></a><span class="co"># screen plot</span></span>
+<span id="cb25-397"><a href="#cb25-397" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(df_pca, <span class="at">matrix =</span> <span class="st">"eigenvalues"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb25-398"><a href="#cb25-398" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(PC, percent)) <span class="sc">+</span></span>
+<span id="cb25-399"><a href="#cb25-399" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb25-400"><a href="#cb25-400" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb25-401"><a href="#cb25-401" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent)</span>
+<span id="cb25-402"><a href="#cb25-402" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

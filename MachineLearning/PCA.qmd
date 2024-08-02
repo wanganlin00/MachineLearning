@@ -14,11 +14,11 @@ Cov(y_i,y_j)=
 \end{cases}
 $$
 
-## PCA自定义步骤
+## 自定义 PCA 步骤
 
 ### 数据标准化
 
-R中数据框 n个观测，p个变量， A~n×p~
+R中数据框 n个观测，p个变量
 
 $$
 X=
@@ -32,6 +32,10 @@ X=
 $$
 
 对原始数据矩阵标准化，消除量纲和数量级的影响。
+
+数据标准化确保变量在相同的尺度上，这对于PCA非常重要。
+
+使用R语言内置的 `USArrests` 数据集：
 
 ```{r}
 df <- as_tibble(USArrests, rownames = "state") |> column_to_rownames("state")
@@ -48,15 +52,15 @@ $$
 S=\frac{AA^T}{n-1}
 $$
 
--   $A_{ p×n}$ 显示来自每个变量值与变量平均值的距离$X_i-\bar X$；
--   \$(AA\^T)\_{ii} \$ 显示距离平方的总和(样本方差 $s_i^2$);
+-   $A_{ p×n}$ 显示来自每个变量值与其均值的偏差 $X_i-\bar X$；
+-   $(AA^T)_{ii}$ 显示偏差平方和 （样本方差 $s_i^2$ ）；
 -   $(AA^T)_{ij}，i\ne j$ 显示样本协方差 $s_{ij} = (A 的行 i) · (A 的行 j)$。
 
 ```{r}
-# 协方差矩阵公式
+# 手动计算协方差矩阵
 A <- as.matrix(t((df_center)))
-AA_T <-A%*%t(A)
-S <- AA_T/(50-1)
+AA_T <- A %*% t(A)
+S <- AA_T / (nrow(df_center) - 1)
 S
 # 内置协方差矩阵函数
 cov(df_center)
@@ -64,14 +68,14 @@ cov(df_center)
 
 ### 计算相关系数矩阵
 
-R=（r~ij~）
+相关系数矩阵 $R=(r_{ij})$ 的公式为：
 
 $$
 r_{ij}=\frac {S_{ij}}{\sqrt{S_{ii}×S_{jj}}}
 $$
 
 ```{r}
-
+# 定义自定义函数计算相关系数矩阵
 r <- function(df){
     df <- as.data.frame(df)
     n=length(df)
@@ -87,10 +91,14 @@ r <- function(df){
     return(r)
 }
 r(df)
+
+# 使用内置的相关系数矩阵函数
 cor(df_center)
 ```
 
-总方差T=所有特征值的总和=样本方差的总和=迹(对角线的总和)
+### 总方差
+
+总方差T=所有特征值的总和=样本方差的总和=协方差矩阵的迹(对角线的总和)
 
 `sum(eigen(AA_T)$values)`=`sum(diag(AA_T))`= `sum(svd$d^2)`
 
@@ -107,7 +115,7 @@ sum(y$values)
 sum(diag(AA_T))
 ```
 
-### 奇异值分解
+### 奇异值分解与主成分推导
 
 SVD公式：
 
@@ -115,11 +123,22 @@ $$
 A_{p×n}=U\Sigma V^T 
 $$
 
+A 是中心化后的数据矩阵， U 是左奇异矩阵， $\Sigma$ 是奇异值对角矩阵， V 是右奇异矩阵（（也是主成分方向））
+
 主成分推导：
 
-$$ PC=VX=U \Sigma  $$
+$$ PC=A\cdot V=U \Sigma  $$
+
+在这个公式中：
+
+-   $U$ 是包含左奇异向量的矩阵，表示样本在新坐标系中的坐标。
+
+-   $\Sigma$ 是包含奇异值的对角矩阵，这些奇异值与特征值相关，表示每个主成分的方差大小。
 
 ```{r}
+
+# 进行奇异值分解
+
 svd <- svd(df_center)
 svd$d
 svd$u
@@ -127,17 +146,7 @@ svd$v
 # 奇异值的平方和
 sum(svd$d^2)
 
-# 主成分荷载
-svd$v
-
-
-
-# 方差贡献百分比
-pct <- svd$d^2/sum(svd$d^2)
-pct
-
-
-
+# 奇异值的对角矩阵
 D <- diag(svd$d)
 
 #  df_center  X = U D V'
@@ -145,46 +154,140 @@ X <- svd$u %*% D %*% t(svd$v)
 
 #  D = U' X V
 t(svd$u) %*% X %*% svd$v
+```
 
+### 结果解释
 
+#### 主成分荷载系数
+
+```{r}
+# 主成分荷载系数
+svd$v
+```
+
+在PCA中，右奇异向量矩阵𝑉 的列向量代表数据在新的正交基上的方向，这些基是按数据中方差最大化的方向排列的。每个向量就是一个主成分方向。具体来说，矩阵 `svd$v` 中的每一列都是一个**主成分**， 且这些列向量可以看作是原始变量在新主成分空间中的线性组合系数。
+
+因此，`svd$v` 中的元素表示的是每个原始变量在对应主成分上的贡献，即主成分荷载系数（loadings）。
+
+例如，如果 `V` 的第j 个列向量为 $[v_{1j},v_{2j},...,v_{pj}]$ ，这意味着第j 个主成分可以表示为原始变量的线性组合：
+
+$$
+PC_j=v_{1j}\cdot x_1+v_{2j}\cdot x_2+...+v_{pj}\cdot x_p
+$$
+
+其中， $x_1,x_2,...,x_p$ 是原始变量， $v_{1j},v_{2j},...,v_{pj}$ 是它们在第j 个主成分上的荷载系数。
+
+#### 主成分得分
+
+主成分得分 (principal component scores) 代表了原始数据在新主成分轴上的坐标。
+
+具体来说，主成分得分可以表示为：
+
+$$
+Scores = U\Sigma
+$$
+
+```{r}
 # 得分
 svd$u %*% D
 ```
 
-内置PCA
+#### 主成分标准差
+
+![](images/clipboard-305502058.png)
+
+$$
+Standard \ Deviation \ of \ PC_i =\frac{\sigma_i}{\sqrt{n-1}}
+$$
+
+其中，n 是样本量，σ 是奇异值。
+
+```{r}
+svd$d /sqrt(nrow(df_center)-1)
+```
+
+#### 方差贡献百分比
+
+在主成分分析 (PCA) 中，方差贡献百分比（variance explained ratio）是用来衡量每个主成分解释了数据总方差的比例。这个比例可以通过奇异值分解 (SVD) 的奇异值来计算。
+
+具体来说，方差贡献百分比的计算过程如下：
+
+1.  计算每个主成分的方差。奇异值的平方 $\sigma_i^2$ 表示主成分 $𝑖$的方差。
+
+2.  计算总方差，即所有奇异值的平方和。
+
+3.  每个主成分的方差贡献百分比可以通过将每个奇异值的平方除以总方差来计算。
+
+```{r}
+# 方差贡献百分比
+pct <- svd$d^2/sum(svd$d^2)
+pct
+
+# 累计方差贡献百分比
+cumsum(pct)
+```
+
+## 内置PCA
 
 ```{r}
 pca <- prcomp(df_center)
 pca
-
 summary(pca)
-library(ggfortify)
-autoplot(prcomp(df_center),
-         data=df_center,
-         )
 ```
 
-碎石图
+## 可视化分析
+
+### 判断主成分的个数
+
+1.  Cattell碎石图 图形变化最大处，即拐角处
+2.  Kaiser-Harris准则 特征值大于1，直线y=1以上
+3.  平行分析 基于真实数据的特征值大于一组随机数据矩阵相应的特征值（虚线）
+
+### 碎石图
 
 ```{r}
-plot(svd$d,type="b")
-plot(svd$d^2/sum(svd$d^2),type="b")
+# Create Scree Plot
+screeplot(pca, type = "lines", main = "Scree Plot")
+
+library(ggplot2)
+explained_variance <- pca$sdev^2 / sum(pca$sdev^2)
+explained_variance_df <- data.frame(
+  Principal_Component = paste0("PC", 1:length(explained_variance)),
+  Explained_Variance = explained_variance
+)
+
+ggplot(explained_variance_df, aes(x = Principal_Component, y = Explained_Variance)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  geom_line(aes(group = 1), color = "blue") +
+  geom_point(color = "red") +
+  labs(title = "Scree Plot", x = "Principal Component", y = "Explained Variance") +
+  theme_minimal()
+```
+
+#### 平行分析
+
+```{r}
+fa_parallel <- psych::fa.parallel(df_center, fa = "pc", n.iter = 100)
 ```
 
 ```{r}
-
 svd$v
+tibble(x = 1:4, pc1 = svd$v[, 1]) %>%
+    ggplot(aes(x, pc1)) +
+    geom_point() +
+    theme_classic() +
+    theme(panel.border = element_rect(
+        color = "black",
+        fill = NA,
+    ), # 添加四周框线
+    )
+
 plot(svd$v[,1],ylab = "1st PC")
-plot(svd$v[,2],ylab="2nd PC")
-plot(svd$v[,3],ylab="3rd PC")
-plot(svd$v[,4],ylab="4th PC")
-
-
 plot(svd$v[,1],svd$v[,2],xlab="lst PC",ylab="2nd PC")
 
 ```
 
-## 主成分分析
+## tidy 主成分分析
 
 ```{r}
 library(tidymodels)
@@ -217,8 +320,6 @@ broom::tidy(df_pca, matrix = "scores") |>
                 names_prefix = "PC",
                values_from = value)
 ```
-
-
 
 主成分荷载（loading）：表示主成分与原有变量的相关系数
 
@@ -261,9 +362,3 @@ tidy(df_pca, matrix = "eigenvalues") |>
     geom_line()+
     scale_y_continuous(labels = scales::percent)
 ```
-
-### 判断主成分的个数`psych::fa.parallel(mat)`
-
-1.  Cattell碎石图 图形变化最大处，即拐角处
-2.  Kaiser-Harris准则 特征值大于1，直线y=1以上
-3.  平行分析 基于真实数据的特征值大于一组随机数据矩阵相应的特征值（虚线）
