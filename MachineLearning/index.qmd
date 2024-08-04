@@ -6,6 +6,8 @@
 
 -   [tidymodels](https://www.tidymodels.org/)
 
+-   [h2o](https://github.com/h2oai/h2o-3)
+
 -   [t-Distributed Stochastic Neighbor Embedding (t-SNE)](https://lvdmaaten.github.io/tsne/)
 
 -   [Uniform Manifold Approximation and Projection (UMAP)](https://umap-learn.readthedocs.io/en/latest/){.uri}
