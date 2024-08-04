@@ -1,4 +1,4 @@
-# 基于树的方法
+# 基于树的模型
 
 <https://bonsai.tidymodels.org/articles/bonsai.html>
 

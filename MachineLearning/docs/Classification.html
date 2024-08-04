@@ -117,15 +117,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./predictive_models.html" aria-current="page"> 
-<span class="menu-text">预测模型</span></a>
+<span class="menu-text">预测性模型</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./descriptive_models.html"> 
-<span class="menu-text">描述模型</span></a>
+<span class="menu-text">描述性模型</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./inferential_models.html"> 
-<span class="menu-text">推断模型</span></a>
+<span class="menu-text">推断性模型</span></a>
   </li>  
 </ul>
 </div> <!-- /navcollapse -->
@@ -141,7 +141,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Regression.html">有监督模型（Supervised Models）</a></li><li class="breadcrumb-item"><a href="./Classification.html">分类</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Regression.html">监督学习（Supervised Learning）</a></li><li class="breadcrumb-item"><a href="./Classification.html">分类</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -152,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./predictive_models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">预测模型</span></a>
+ <span class="menu-text"><strong>预测性模型</strong></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -161,10 +161,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">机器学习</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cross_validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">交叉验证</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">有监督模型（Supervised Models）</span></a>
+ <span class="menu-text">监督学习（Supervised Learning）</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -184,13 +190,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tree.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">基于树的方法</span></a>
+  <a href="./tree-based_models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">基于树的模型</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./survival_models.html" class="sidebar-item-text sidebar-link">
+  <a href="./survival.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">生存模型</span></a>
   </div>
 </li>
@@ -199,7 +205,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">无监督模型（Unsupervised Models）</span></a>
+ <span class="menu-text">无监督学习（Unsupervised Learning）</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -209,6 +215,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./Clustering.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">聚类</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./LDA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">线性判别分析</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -231,6 +243,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">集成学习（Ensemble Learning）</span></span>
+  </li>
     </ul>
 </div>
 </nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
@@ -242,159 +258,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>
 <a href="#%E5%88%86%E7%B1%BB" id="toc-分类" class="nav-link active" data-scroll-target="#%E5%88%86%E7%B1%BB"><span class="header-section-number">1</span> 分类</a>
   <ul>
-<li>
-<a href="#lda" id="toc-lda" class="nav-link" data-scroll-target="#lda"><span class="header-section-number">1.1</span> LDA</a>
-  <ul class="collapse">
-<li><a href="#mass" id="toc-mass" class="nav-link" data-scroll-target="#mass"><span class="header-section-number">1.1.1</span> MASS</a></li>
-  <li><a href="#tidymodels" id="toc-tidymodels" class="nav-link" data-scroll-target="#tidymodels"><span class="header-section-number">1.1.2</span> tidymodels</a></li>
-  </ul>
-</li>
+<li><a href="#%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA" id="toc-支持向量机" class="nav-link" data-scroll-target="#%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA"><span class="header-section-number">1.1</span> 支持向量机</a></li>
   <li><a href="#k-nearest-neighbors" id="toc-k-nearest-neighbors" class="nav-link" data-scroll-target="#k-nearest-neighbors"><span class="header-section-number">1.2</span> K-Nearest Neighbors</a></li>
+  <li><a href="#lda" id="toc-lda" class="nav-link" data-scroll-target="#lda"><span class="header-section-number">1.3</span> LDA</a></li>
   <li>
-<a href="#%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83" id="toc-模型比较" class="nav-link" data-scroll-target="#%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83"><span class="header-section-number">1.3</span> 模型比较</a>
+<a href="#%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83" id="toc-模型比较" class="nav-link" data-scroll-target="#%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83"><span class="header-section-number">1.4</span> 模型比较</a>
   <ul class="collapse">
-<li><a href="#%E7%81%B5%E6%95%8F%E5%BA%A6%E5%92%8C%E7%89%B9%E5%BC%82%E6%80%A7" id="toc-灵敏度和特异性" class="nav-link" data-scroll-target="#%E7%81%B5%E6%95%8F%E5%BA%A6%E5%92%8C%E7%89%B9%E5%BC%82%E6%80%A7"><span class="header-section-number">1.3.1</span> 灵敏度和特异性</a></li>
-  <li><a href="#roc-%E6%9B%B2%E7%BA%BF" id="toc-roc-曲线" class="nav-link" data-scroll-target="#roc-%E6%9B%B2%E7%BA%BF"><span class="header-section-number">1.3.2</span> ROC 曲线</a></li>
+<li><a href="#%E7%81%B5%E6%95%8F%E5%BA%A6%E5%92%8C%E7%89%B9%E5%BC%82%E6%80%A7" id="toc-灵敏度和特异性" class="nav-link" data-scroll-target="#%E7%81%B5%E6%95%8F%E5%BA%A6%E5%92%8C%E7%89%B9%E5%BC%82%E6%80%A7"><span class="header-section-number">1.4.1</span> 灵敏度和特异性</a></li>
+  <li><a href="#roc-%E6%9B%B2%E7%BA%BF" id="toc-roc-曲线" class="nav-link" data-scroll-target="#roc-%E6%9B%B2%E7%BA%BF"><span class="header-section-number">1.4.2</span> ROC 曲线</a></li>
   </ul>
 </li>
+  <li><a href="#%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF" id="toc-朴素贝叶斯" class="nav-link" data-scroll-target="#%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF"><span class="header-section-number">1.5</span> <strong>朴素贝叶斯</strong></a></li>
+  <li><a href="#%E5%9F%BA%E4%BA%8E%E6%A0%91%E7%9A%84%E6%A8%A1%E5%9E%8B" id="toc-基于树的模型" class="nav-link" data-scroll-target="#%E5%9F%BA%E4%BA%8E%E6%A0%91%E7%9A%84%E6%A8%A1%E5%9E%8B"><span class="header-section-number">1.6</span> 基于树的模型</a></li>
   </ul>
 </li>
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><div class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Regression.html">有监督模型（Supervised Models）</a></li><li class="breadcrumb-item"><a href="./Classification.html">分类</a></li></ol></nav><div class="quarto-title-tools-only"><h1></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div><section id="分类" class="level1" data-number="1"><h1 data-number="1">
+<main class="content" id="quarto-document-content"><div class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Regression.html">监督学习（Supervised Learning）</a></li><li class="breadcrumb-item"><a href="./Classification.html">分类</a></li></ol></nav><div class="quarto-title-tools-only"><h1></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div><section id="分类" class="level1" data-number="1"><h1 data-number="1">
 <span class="header-section-number">1</span> 分类</h1>
-<section id="lda" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="lda">
-<span class="header-section-number">1.1</span> LDA</h2>
-<p>Fisher线性判别分析（Linear Discriminant Analysis, LDA）</p>
-<p>Fisher判别法试图最大化类间差异（不同类别的数据点彼此远离）并最小化类内差异（同一类别的数据点尽可能聚集。</p>
-<p>它侧重于最大化类间差异（between-class variance）与类内差异（within-class variance）的比率</p>
-<section id="mass" class="level3" data-number="1.1.1"><h3 data-number="1.1.1" class="anchored" data-anchor-id="mass">
-<span class="header-section-number">1.1.1</span> MASS</h3>
+<section id="支持向量机" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="支持向量机">
+<span class="header-section-number">1.1</span> 支持向量机</h2>
+<p><strong>支持向量机（Support Vector Machine, SVM）</strong>：用于二分类和多分类问题，寻找最佳决策边界。</p>
+</section><section id="k-nearest-neighbors" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="k-nearest-neighbors">
+<span class="header-section-number">1.2</span> K-Nearest Neighbors</h2>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 加载MASS包，它包含了lda函数</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">MASS</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># 加载内置的鸢尾花数据集</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># 查看数据集结构</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 'data.frame':    150 obs. of  5 variables:</span></span>
-<span><span class="co">#&gt;  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...</span></span>
-<span><span class="co">#&gt;  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...</span></span>
-<span><span class="co">#&gt;  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...</span></span>
-<span><span class="co">#&gt;  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...</span></span>
-<span><span class="co">#&gt;  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...</span></span>
-<span></span>
-<span><span class="co"># 应用Fisher线性判别分析</span></span>
-<span><span class="co"># 使用鸢尾花数据集的前四列作为特征，Species作为类别</span></span>
-<span><span class="va">lda_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/lda.html">lda</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">~</span> <span class="va">.</span>, data<span class="op">=</span><span class="va">iris</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># 查看判别模型的摘要</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lda_model</span><span class="op">)</span></span>
-<span><span class="co">#&gt;         Length Class  Mode     </span></span>
-<span><span class="co">#&gt; prior    3     -none- numeric  </span></span>
-<span><span class="co">#&gt; counts   3     -none- numeric  </span></span>
-<span><span class="co">#&gt; means   12     -none- numeric  </span></span>
-<span><span class="co">#&gt; scaling  8     -none- numeric  </span></span>
-<span><span class="co">#&gt; lev      3     -none- character</span></span>
-<span><span class="co">#&gt; svd      2     -none- numeric  </span></span>
-<span><span class="co">#&gt; N        1     -none- numeric  </span></span>
-<span><span class="co">#&gt; call     3     -none- call     </span></span>
-<span><span class="co">#&gt; terms    3     terms  call     </span></span>
-<span><span class="co">#&gt; xlevels  0     -none- list</span></span>
-<span><span class="va">lda_model</span></span>
-<span><span class="co">#&gt; Call:</span></span>
-<span><span class="co">#&gt; lda(Species ~ ., data = iris)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Prior probabilities of groups:</span></span>
-<span><span class="co">#&gt;     setosa versicolor  virginica </span></span>
-<span><span class="co">#&gt;  0.3333333  0.3333333  0.3333333 </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Group means:</span></span>
-<span><span class="co">#&gt;            Sepal.Length Sepal.Width Petal.Length Petal.Width</span></span>
-<span><span class="co">#&gt; setosa            5.006       3.428        1.462       0.246</span></span>
-<span><span class="co">#&gt; versicolor        5.936       2.770        4.260       1.326</span></span>
-<span><span class="co">#&gt; virginica         6.588       2.974        5.552       2.026</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Coefficients of linear discriminants:</span></span>
-<span><span class="co">#&gt;                     LD1         LD2</span></span>
-<span><span class="co">#&gt; Sepal.Length  0.8293776 -0.02410215</span></span>
-<span><span class="co">#&gt; Sepal.Width   1.5344731 -2.16452123</span></span>
-<span><span class="co">#&gt; Petal.Length -2.2012117  0.93192121</span></span>
-<span><span class="co">#&gt; Petal.Width  -2.8104603 -2.83918785</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Proportion of trace:</span></span>
-<span><span class="co">#&gt;    LD1    LD2 </span></span>
-<span><span class="co">#&gt; 0.9912 0.0088</span></span>
-<span><span class="co"># 打印判别函数的系数</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">lda_model</span><span class="op">$</span><span class="va">coefficients</span><span class="op">)</span></span>
-<span><span class="co">#&gt; NULL</span></span>
-<span></span>
-<span><span class="co"># 使用判别模型对数据进行分类</span></span>
-<span><span class="va">predicted_species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">lda_model</span>, <span class="va">iris</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># 计算准确率</span></span>
-<span><span class="va">accuracy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">predicted_species</span><span class="op">$</span><span class="va">class</span> <span class="op">==</span> <span class="va">iris</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"分类准确率:"</span>, <span class="va">accuracy</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "分类准确率: 0.98"</span></span>
-<span></span>
-<span><span class="co"># 可视化判别结果</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">lda_model</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="Classification_files/figure-html/unnamed-chunk-1-1.svg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<ol type="1">
-<li>
-<p><strong>模型调用（Call）</strong>:</p>
-<ul>
-<li>显示了创建LDA模型时使用的函数调用。在这个例子中，模型使用鸢尾花数据集的所有特征（Sepal.Length, Sepal.Width, Petal.Length, Petal.Width）来预测物种（Species）。</li>
-</ul>
-</li>
-<li>
-<p><strong>组的先验概率（Prior probabilities of groups）</strong>:</p>
-<ul>
-<li>显示了每个物种（setosa, versicolor, virginica）的先验概率。这里每个物种的先验概率都是0.3333，意味着在没有任何额外信息的情况下，每个物种出现的概率是相同的。</li>
-</ul>
-</li>
-<li>
-<p><strong>组内均值（Group means）</strong>:</p>
-<ul>
-<li>显示了每个物种在各个特征上的均值。例如，setosa物种的花萼长度（Sepal.Length）均值是5.006，花萼宽度（Sepal.Width）均值是3.428，花瓣长度（Petal.Length）均值是1.462，花瓣宽度（Petal.Width）均值是0.246。</li>
-</ul>
-</li>
-<li>
-<p><strong>线性判别系数（Coefficients of linear discriminants）</strong>:</p>
-<ul>
-<li>显示了两个线性判别函数（LD1和LD2）的系数。这些系数用于计算判别分数，以区分不同的物种。例如，LD1判别函数中，花萼长度（Sepal.Length）的系数是0.8293776，花萼宽度（Sepal.Width）的系数是1.5344731，以此类推。</li>
-</ul>
-</li>
-<li>
-<p><strong>特征值的比例（Proportion of trace）</strong>:</p>
-<ul>
-<li>显示了每个线性判别函数对总方差的解释比例。在这个例子中，LD1解释了99.12%的方差，而LD2仅解释了0.88%的方差。这表明LD1是主要的判别方向，而LD2的贡献相对较小。</li>
-</ul>
-</li>
-</ol>
-<p>如何使用这些信息：</p>
-<ul>
-<li><p>可以使用这些系数来计算每个观测值在LD1和LD2上的判别分数。判别分数的计算公式为： LD1=0.8293776×Sepal.Length+1.5344731×Sepal.Width−2.2012117×Petal.Length−2.8104603×Petal.WidthLD1=0.8293776×Sepal.Length+1.5344731×Sepal.Width−2.2012117×Petal.Length−2.8104603×Petal.Width LD2=−0.02410215×Sepal.Length−2.16452123×Sepal.Width+0.93192121×Petal.Length−2.83918785×Petal.WidthLD2=−0.02410215×Sepal.Length−2.16452123×Sepal.Width+0.93192121×Petal.Length−2.83918785×Petal.Width</p></li>
-<li><p>通常，主要的判别函数（在这个例子中是LD1）足以进行有效的分类。如果需要，也可以使用LD2作为辅助。</p></li>
-<li><p>根据判别分数，可以确定每个观测值最有可能属于的物种类别。</p></li>
-</ul></section><section id="tidymodels" class="level3" data-number="1.1.2"><h3 data-number="1.1.2" class="anchored" data-anchor-id="tidymodels">
-<span class="header-section-number">1.1.2</span> tidymodels</h3>
-<div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/discrim">discrim</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">Smarket</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/Smarket.csv"</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">Smarket</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/Smarket.csv"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 1250 Columns: 9</span></span>
 <span><span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Delimiter: ","</span></span>
@@ -417,11 +306,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lda_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/discrim_linear.html">discrim_linear</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"MASS"</span><span class="op">)</span></span>
-<span><span class="va">lda_fit</span> <span class="op">&lt;-</span> <span class="va">lda_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">Direction</span> <span class="op">~</span> <span class="va">Lag1</span> <span class="op">+</span> <span class="va">Lag2</span>, data <span class="op">=</span> <span class="va">Smarket</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">knn_spec</span> <span class="op">&lt;-</span> <span class="fu">nearest_neighbor</span><span class="op">(</span>neighbors <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">set_mode</span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"kknn"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">knn_fit</span> <span class="op">&lt;-</span> <span class="va">knn_spec</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">fit</span><span class="op">(</span><span class="va">Direction</span> <span class="op">~</span> <span class="va">Lag1</span> <span class="op">+</span> <span class="va">Lag2</span>, data <span class="op">=</span> <span class="va">Smarket</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">knn_fit</span></span>
+<span><span class="co">#&gt; parsnip model object</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; kknn::train.kknn(formula = Direction ~ Lag1 + Lag2, data = data,     ks = min_rows(3, data, 5))</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Type of response variable: nominal</span></span>
+<span><span class="co">#&gt; Minimal misclassification: 0.5064</span></span>
+<span><span class="co">#&gt; Best kernel: optimal</span></span>
+<span><span class="co">#&gt; Best k: 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">augment</span><span class="op">(</span><span class="va">knn_fit</span>, new_data <span class="op">=</span> <span class="va">Smarket</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">conf_mat</span><span class="op">(</span>truth <span class="op">=</span> <span class="va">Direction</span>, estimate <span class="op">=</span> <span class="va">.pred_class</span><span class="op">)</span> </span>
+<span><span class="co">#&gt;           Truth</span></span>
+<span><span class="co">#&gt; Prediction Down  Up</span></span>
+<span><span class="co">#&gt;       Down  602   0</span></span>
+<span><span class="co">#&gt;       Up      0 648</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">augment</span><span class="op">(</span><span class="va">knn_fit</span>, new_data <span class="op">=</span> <span class="va">Smarket</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">accuracy</span><span class="op">(</span>truth <span class="op">=</span> <span class="va">Direction</span>, estimate <span class="op">=</span> <span class="va">.pred_class</span><span class="op">)</span> </span>
+<span><span class="co">#&gt; # A tibble: 1 × 3</span></span>
+<span><span class="co">#&gt;   .metric  .estimator .estimate</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 accuracy binary             1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section><section id="lda" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="lda">
+<span class="header-section-number">1.3</span> LDA</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lda_spec</span> <span class="op">&lt;-</span> <span class="fu">discrim_linear</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">set_mode</span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"MASS"</span><span class="op">)</span></span>
+<span><span class="va">lda_fit</span> <span class="op">&lt;-</span> <span class="va">lda_spec</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">fit</span><span class="op">(</span><span class="va">Direction</span> <span class="op">~</span> <span class="va">Lag1</span> <span class="op">+</span> <span class="va">Lag2</span>, data <span class="op">=</span> <span class="va">Smarket</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">lda_fit</span></span>
 <span><span class="co">#&gt; parsnip model object</span></span>
@@ -444,125 +374,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; Lag2 -0.4707872</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+</section><section id="模型比较" class="level2" data-number="1.4"><h2 data-number="1.4" class="anchored" data-anchor-id="模型比较">
+<span class="header-section-number">1.4</span> 模型比较</h2>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">lda_fit</span>, new_data <span class="op">=</span> <span class="va">Smarket</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 1,250 × 1</span></span>
-<span><span class="co">#&gt;    .pred_class</span></span>
-<span><span class="co">#&gt;    &lt;fct&gt;      </span></span>
-<span><span class="co">#&gt;  1 Up         </span></span>
-<span><span class="co">#&gt;  2 Down       </span></span>
-<span><span class="co">#&gt;  3 Down       </span></span>
-<span><span class="co">#&gt;  4 Up         </span></span>
-<span><span class="co">#&gt;  5 Up         </span></span>
-<span><span class="co">#&gt;  6 Up         </span></span>
-<span><span class="co">#&gt;  7 Down       </span></span>
-<span><span class="co">#&gt;  8 Up         </span></span>
-<span><span class="co">#&gt;  9 Up         </span></span>
-<span><span class="co">#&gt; 10 Down       </span></span>
-<span><span class="co">#&gt; # ℹ 1,240 more rows</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">lda_fit</span>, new_data <span class="op">=</span> <span class="va">Smarket</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 1,250 × 2</span></span>
-<span><span class="co">#&gt;    .pred_Down .pred_Up</span></span>
-<span><span class="co">#&gt;         &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1      0.486    0.514</span></span>
-<span><span class="co">#&gt;  2      0.503    0.497</span></span>
-<span><span class="co">#&gt;  3      0.510    0.490</span></span>
-<span><span class="co">#&gt;  4      0.482    0.518</span></span>
-<span><span class="co">#&gt;  5      0.485    0.515</span></span>
-<span><span class="co">#&gt;  6      0.492    0.508</span></span>
-<span><span class="co">#&gt;  7      0.509    0.491</span></span>
-<span><span class="co">#&gt;  8      0.490    0.510</span></span>
-<span><span class="co">#&gt;  9      0.477    0.523</span></span>
-<span><span class="co">#&gt; 10      0.505    0.495</span></span>
-<span><span class="co">#&gt; # ℹ 1,240 more rows</span></span>
-<span><span class="fu"><a href="https://generics.r-lib.org/reference/augment.html">augment</a></span><span class="op">(</span><span class="va">lda_fit</span>, new_data <span class="op">=</span> <span class="va">Smarket</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">conf_mat</span><span class="op">(</span>truth <span class="op">=</span> <span class="va">Direction</span>, estimate <span class="op">=</span> <span class="va">.pred_class</span><span class="op">)</span> </span>
-<span><span class="co">#&gt;           Truth</span></span>
-<span><span class="co">#&gt; Prediction Down  Up</span></span>
-<span><span class="co">#&gt;       Down  114 102</span></span>
-<span><span class="co">#&gt;       Up    488 546</span></span>
-<span></span>
-<span><span class="fu"><a href="https://generics.r-lib.org/reference/augment.html">augment</a></span><span class="op">(</span><span class="va">lda_fit</span>, new_data <span class="op">=</span> <span class="va">Smarket</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">accuracy</span><span class="op">(</span>truth <span class="op">=</span> <span class="va">Direction</span>, estimate <span class="op">=</span> <span class="va">.pred_class</span><span class="op">)</span> </span>
-<span><span class="co">#&gt; # A tibble: 1 × 3</span></span>
-<span><span class="co">#&gt;   .metric  .estimator .estimate</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 accuracy binary         0.528</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-</section></section><section id="k-nearest-neighbors" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="k-nearest-neighbors">
-<span class="header-section-number">1.2</span> K-Nearest Neighbors</h2>
-<div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df3</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/Smarket.csv"</span><span class="op">)</span> </span>
-<span><span class="co">#&gt; Rows: 1250 Columns: 9</span></span>
-<span><span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt; Delimiter: ","</span></span>
-<span><span class="co">#&gt; chr (1): Direction</span></span>
-<span><span class="co">#&gt; dbl (8): Year, Lag1, Lag2, Lag3, Lag4, Lag5, Volume, Today</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span></span>
-<span><span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df3</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 6 × 9</span></span>
-<span><span class="co">#&gt;    Year   Lag1   Lag2   Lag3   Lag4   Lag5 Volume  Today Direction</span></span>
-<span><span class="co">#&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;    </span></span>
-<span><span class="co">#&gt; 1  2001  0.381 -0.192 -2.62  -1.06   5.01    1.19  0.959 Up       </span></span>
-<span><span class="co">#&gt; 2  2001  0.959  0.381 -0.192 -2.62  -1.06    1.30  1.03  Up       </span></span>
-<span><span class="co">#&gt; 3  2001  1.03   0.959  0.381 -0.192 -2.62    1.41 -0.623 Down     </span></span>
-<span><span class="co">#&gt; 4  2001 -0.623  1.03   0.959  0.381 -0.192   1.28  0.614 Up       </span></span>
-<span><span class="co">#&gt; 5  2001  0.614 -0.623  1.03   0.959  0.381   1.21  0.213 Up       </span></span>
-<span><span class="co">#&gt; 6  2001  0.213  0.614 -0.623  1.03   0.959   1.35  1.39  Up</span></span>
-<span><span class="va">df3</span><span class="op">$</span><span class="va">Direction</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">df3</span><span class="op">$</span><span class="va">Direction</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">knn_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/nearest_neighbor.html">nearest_neighbor</a></span><span class="op">(</span>neighbors <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"kknn"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">knn_fit</span> <span class="op">&lt;-</span> <span class="va">knn_spec</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">Direction</span> <span class="op">~</span> <span class="va">Lag1</span> <span class="op">+</span> <span class="va">Lag2</span>, data <span class="op">=</span> <span class="va">df3</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">knn_fit</span></span>
-<span><span class="co">#&gt; parsnip model object</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Call:</span></span>
-<span><span class="co">#&gt; kknn::train.kknn(formula = Direction ~ Lag1 + Lag2, data = data,     ks = min_rows(3, data, 5))</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Type of response variable: nominal</span></span>
-<span><span class="co">#&gt; Minimal misclassification: 0.5064</span></span>
-<span><span class="co">#&gt; Best kernel: optimal</span></span>
-<span><span class="co">#&gt; Best k: 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://generics.r-lib.org/reference/augment.html">augment</a></span><span class="op">(</span><span class="va">knn_fit</span>, new_data <span class="op">=</span> <span class="va">df3</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">conf_mat</span><span class="op">(</span>truth <span class="op">=</span> <span class="va">Direction</span>, estimate <span class="op">=</span> <span class="va">.pred_class</span><span class="op">)</span> </span>
-<span><span class="co">#&gt;           Truth</span></span>
-<span><span class="co">#&gt; Prediction Down  Up</span></span>
-<span><span class="co">#&gt;       Down  602   0</span></span>
-<span><span class="co">#&gt;       Up      0 648</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://generics.r-lib.org/reference/augment.html">augment</a></span><span class="op">(</span><span class="va">knn_fit</span>, new_data <span class="op">=</span> <span class="va">df3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">accuracy</span><span class="op">(</span>truth <span class="op">=</span> <span class="va">Direction</span>, estimate <span class="op">=</span> <span class="va">.pred_class</span><span class="op">)</span> </span>
-<span><span class="co">#&gt; # A tibble: 1 × 3</span></span>
-<span><span class="co">#&gt;   .metric  .estimator .estimate</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 accuracy binary             1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-</section><section id="模型比较" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="模型比较">
-<span class="header-section-number">1.3</span> 模型比较</h2>
-<div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"LDA"</span> <span class="op">=</span> <span class="va">lda_fit</span>,</span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"LDA"</span> <span class="op">=</span> <span class="va">lda_fit</span>,</span>
 <span>               <span class="st">"KNN"</span> <span class="op">=</span> <span class="va">knn_fit</span><span class="op">)</span></span>
 <span><span class="va">preds</span> <span class="op">&lt;-</span> <span class="fu">imap_dfr</span><span class="op">(</span><span class="va">models</span>, <span class="va">augment</span>, </span>
 <span>                  new_data <span class="op">=</span> <span class="va">Smarket</span>, .id <span class="op">=</span> <span class="st">"model"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">preds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">preds</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">Direction</span>, <span class="va">.pred_class</span>, <span class="va">.pred_Down</span>, <span class="va">.pred_Up</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 2,500 × 5</span></span>
 <span><span class="co">#&gt;    model Direction .pred_class .pred_Down .pred_Up</span></span>
@@ -580,14 +400,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; # ℹ 2,490 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="灵敏度和特异性" class="level3" data-number="1.3.1"><h3 data-number="1.3.1" class="anchored" data-anchor-id="灵敏度和特异性">
-<span class="header-section-number">1.3.1</span> 灵敏度和特异性</h3>
+<section id="灵敏度和特异性" class="level3" data-number="1.4.1"><h3 data-number="1.4.1" class="anchored" data-anchor-id="灵敏度和特异性">
+<span class="header-section-number">1.4.1</span> 灵敏度和特异性</h3>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">multi_metric</span> <span class="op">&lt;-</span> <span class="fu">metric_set</span><span class="op">(</span> <span class="va">sensitivity</span>, <span class="va">specificity</span><span class="op">)</span>  <span class="co"># accuracy</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">multi_metric</span> <span class="op">&lt;-</span> <span class="fu">metric_set</span><span class="op">(</span> <span class="va">sensitivity</span>, <span class="va">specificity</span><span class="op">)</span>  <span class="co"># accuracy</span></span>
 <span></span>
 <span></span>
-<span><span class="va">preds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">model</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">preds</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">model</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">multi_metric</span><span class="op">(</span>truth <span class="op">=</span> <span class="va">Direction</span>, estimate <span class="op">=</span> <span class="va">.pred_class</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 4 × 4</span></span>
 <span><span class="co">#&gt;   model .metric     .estimator .estimate</span></span>
@@ -598,25 +418,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 4 LDA   specificity binary         0.843</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section><section id="roc-曲线" class="level3" data-number="1.3.2"><h3 data-number="1.3.2" class="anchored" data-anchor-id="roc-曲线">
-<span class="header-section-number">1.3.2</span> ROC 曲线</h3>
+</section><section id="roc-曲线" class="level3" data-number="1.4.2"><h3 data-number="1.4.2" class="anchored" data-anchor-id="roc-曲线">
+<span class="header-section-number">1.4.2</span> ROC 曲线</h3>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">preds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">model</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">roc_curve</span><span class="op">(</span><span class="va">Direction</span>, <span class="va">.pred_Down</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">preds</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">model</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">roc_curve</span><span class="op">(</span><span class="va">Direction</span>, <span class="va">.pred_Down</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">autoplot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Classification_files/figure-html/unnamed-chunk-12-1.svg" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="Classification_files/figure-html/unnamed-chunk-8-1.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
+</section></section><section id="朴素贝叶斯" class="level2" data-number="1.5"><h2 data-number="1.5" class="anchored" data-anchor-id="朴素贝叶斯">
+<span class="header-section-number">1.5</span> <strong>朴素贝叶斯</strong>
+</h2>
+<p><strong>朴素贝叶斯（Naive Bayes）</strong>：基于贝叶斯定理的简单而高效的分类算法。</p>
+</section><section id="基于树的模型" class="level2" data-number="1.6"><h2 data-number="1.6" class="anchored" data-anchor-id="基于树的模型">
+<span class="header-section-number">1.6</span> 基于树的模型</h2>
+<ul>
+<li><p><strong>决策树（Decision Tree）</strong>：基于树状模型进行决策的分类算法。</p></li>
+<li><p><strong>随机森林（Random Forest）</strong>：由多棵决策树组成的集成学习模型。</p></li>
+<li><p><strong>梯度提升树（Gradient Boosting Trees）</strong>：通过加法模型和前向分步算法实现的集成学习模型。</p></li>
+</ul>
 
 
 <!-- -->
 
-</section></section></section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1076,171 +907,97 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb13" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 分类</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## LDA</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>Fisher线性判别分析（Linear Discriminant Analysis, LDA）</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>Fisher判别法试图最大化类间差异（不同类别的数据点彼此远离）并最小化类内差异（同一类别的数据点尽可能聚集。</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>它侧重于最大化类间差异（between-class variance）与类内差异（within-class variance）的比率</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">### MASS</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载MASS包，它包含了lda函数</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载内置的鸢尾花数据集</span></span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看数据集结构</span></span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris)</span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 应用Fisher线性判别分析</span></span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用鸢尾花数据集的前四列作为特征，Species作为类别</span></span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>lda_model <span class="ot">&lt;-</span> <span class="fu">lda</span>(Species <span class="sc">~</span> ., <span class="at">data=</span>iris)</span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看判别模型的摘要</span></span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lda_model)</span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>lda_model</span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 打印判别函数的系数</span></span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(lda_model<span class="sc">$</span>coefficients)</span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用判别模型对数据进行分类</span></span>
-<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>predicted_species <span class="ot">&lt;-</span> <span class="fu">predict</span>(lda_model, iris)</span>
-<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算准确率</span></span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>accuracy <span class="ot">&lt;-</span> <span class="fu">sum</span>(predicted_species<span class="sc">$</span>class <span class="sc">==</span> iris<span class="sc">$</span>Species) <span class="sc">/</span> <span class="fu">nrow</span>(iris)</span>
-<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"分类准确率:"</span>, accuracy))</span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a><span class="co"># 可视化判别结果</span></span>
-<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lda_model)</span>
-<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**模型调用（Call）**:</span>
-<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>显示了创建LDA模型时使用的函数调用。在这个例子中，模型使用鸢尾花数据集的所有特征（Sepal.Length, Sepal.Width, Petal.Length, Petal.Width）来预测物种（Species）。</span>
-<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**组的先验概率（Prior probabilities of groups）**:</span>
-<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>显示了每个物种（setosa, versicolor, virginica）的先验概率。这里每个物种的先验概率都是0.3333，意味着在没有任何额外信息的情况下，每个物种出现的概率是相同的。</span>
-<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**组内均值（Group means）**:</span>
-<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>显示了每个物种在各个特征上的均值。例如，setosa物种的花萼长度（Sepal.Length）均值是5.006，花萼宽度（Sepal.Width）均值是3.428，花瓣长度（Petal.Length）均值是1.462，花瓣宽度（Petal.Width）均值是0.246。</span>
-<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>**线性判别系数（Coefficients of linear discriminants）**:</span>
-<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>显示了两个线性判别函数（LD1和LD2）的系数。这些系数用于计算判别分数，以区分不同的物种。例如，LD1判别函数中，花萼长度（Sepal.Length）的系数是0.8293776，花萼宽度（Sepal.Width）的系数是1.5344731，以此类推。</span>
-<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>**特征值的比例（Proportion of trace）**:</span>
-<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>显示了每个线性判别函数对总方差的解释比例。在这个例子中，LD1解释了99.12%的方差，而LD2仅解释了0.88%的方差。这表明LD1是主要的判别方向，而LD2的贡献相对较小。</span>
-<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>如何使用这些信息：</span>
-<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>可以使用这些系数来计算每个观测值在LD1和LD2上的判别分数。判别分数的计算公式为： LD1=0.8293776×Sepal.Length+1.5344731×Sepal.Width−2.2012117×Petal.Length−2.8104603×Petal.WidthLD1=0.8293776×Sepal.Length+1.5344731×Sepal.Width−2.2012117×Petal.Length−2.8104603×Petal.Width LD2=−0.02410215×Sepal.Length−2.16452123×Sepal.Width+0.93192121×Petal.Length−2.83918785×Petal.WidthLD2=−0.02410215×Sepal.Length−2.16452123×Sepal.Width+0.93192121×Petal.Length−2.83918785×Petal.Width</span>
-<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>通常，主要的判别函数（在这个例子中是LD1）足以进行有效的分类。如果需要，也可以使用LD2作为辅助。</span>
-<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>根据判别分数，可以确定每个观测值最有可能属于的物种类别。</span>
-<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a><span class="fu">### tidymodels</span></span>
-<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
-<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(discrim)</span>
-<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a>Smarket <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Smarket.csv"</span>)</span>
-<span id="cb13-87"><a href="#cb13-87" aria-hidden="true" tabindex="-1"></a>Smarket<span class="sc">$</span>Direction <span class="ot">&lt;-</span> <span class="fu">factor</span>(Smarket<span class="sc">$</span>Direction)</span>
-<span id="cb13-88"><a href="#cb13-88" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Smarket)</span>
-<span id="cb13-89"><a href="#cb13-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-90"><a href="#cb13-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-93"><a href="#cb13-93" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb13-94"><a href="#cb13-94" aria-hidden="true" tabindex="-1"></a>lda_spec <span class="ot">&lt;-</span> <span class="fu">discrim_linear</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb13-95"><a href="#cb13-95" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb13-96"><a href="#cb13-96" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"MASS"</span>)</span>
-<span id="cb13-97"><a href="#cb13-97" aria-hidden="true" tabindex="-1"></a>lda_fit <span class="ot">&lt;-</span> lda_spec <span class="sc">%&gt;%</span></span>
-<span id="cb13-98"><a href="#cb13-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(Direction <span class="sc">~</span> Lag1 <span class="sc">+</span> Lag2, <span class="at">data =</span> Smarket)</span>
-<span id="cb13-99"><a href="#cb13-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-100"><a href="#cb13-100" aria-hidden="true" tabindex="-1"></a>lda_fit</span>
-<span id="cb13-101"><a href="#cb13-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-102"><a href="#cb13-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-105"><a href="#cb13-105" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb13-106"><a href="#cb13-106" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(lda_fit, <span class="at">new_data =</span> Smarket)</span>
-<span id="cb13-107"><a href="#cb13-107" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(lda_fit, <span class="at">new_data =</span> Smarket, <span class="at">type =</span> <span class="st">"prob"</span>)</span>
-<span id="cb13-108"><a href="#cb13-108" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(lda_fit, <span class="at">new_data =</span> Smarket) <span class="sc">%&gt;%</span></span>
-<span id="cb13-109"><a href="#cb13-109" aria-hidden="true" tabindex="-1"></a>  <span class="fu">conf_mat</span>(<span class="at">truth =</span> Direction, <span class="at">estimate =</span> .pred_class) </span>
-<span id="cb13-110"><a href="#cb13-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-111"><a href="#cb13-111" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(lda_fit, <span class="at">new_data =</span> Smarket) <span class="sc">%&gt;%</span></span>
-<span id="cb13-112"><a href="#cb13-112" aria-hidden="true" tabindex="-1"></a>  <span class="fu">accuracy</span>(<span class="at">truth =</span> Direction, <span class="at">estimate =</span> .pred_class) </span>
-<span id="cb13-113"><a href="#cb13-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-114"><a href="#cb13-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-115"><a href="#cb13-115" aria-hidden="true" tabindex="-1"></a><span class="fu">## K-Nearest Neighbors</span></span>
-<span id="cb13-116"><a href="#cb13-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-119"><a href="#cb13-119" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb13-120"><a href="#cb13-120" aria-hidden="true" tabindex="-1"></a>df3 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Smarket.csv"</span>) </span>
-<span id="cb13-121"><a href="#cb13-121" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df3)</span>
-<span id="cb13-122"><a href="#cb13-122" aria-hidden="true" tabindex="-1"></a>df3<span class="sc">$</span>Direction <span class="ot">&lt;-</span> <span class="fu">factor</span>(df3<span class="sc">$</span>Direction)</span>
-<span id="cb13-123"><a href="#cb13-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-124"><a href="#cb13-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-127"><a href="#cb13-127" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb13-128"><a href="#cb13-128" aria-hidden="true" tabindex="-1"></a>knn_spec <span class="ot">&lt;-</span> <span class="fu">nearest_neighbor</span>(<span class="at">neighbors =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb13-129"><a href="#cb13-129" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb13-130"><a href="#cb13-130" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"kknn"</span>)</span>
-<span id="cb13-131"><a href="#cb13-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-132"><a href="#cb13-132" aria-hidden="true" tabindex="-1"></a>knn_fit <span class="ot">&lt;-</span> knn_spec <span class="sc">|&gt;</span></span>
-<span id="cb13-133"><a href="#cb13-133" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(Direction <span class="sc">~</span> Lag1 <span class="sc">+</span> Lag2, <span class="at">data =</span> df3)</span>
-<span id="cb13-134"><a href="#cb13-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-135"><a href="#cb13-135" aria-hidden="true" tabindex="-1"></a>knn_fit</span>
-<span id="cb13-136"><a href="#cb13-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-137"><a href="#cb13-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-138"><a href="#cb13-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-141"><a href="#cb13-141" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb13-142"><a href="#cb13-142" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(knn_fit, <span class="at">new_data =</span> df3) <span class="sc">|&gt;</span> </span>
-<span id="cb13-143"><a href="#cb13-143" aria-hidden="true" tabindex="-1"></a>  <span class="fu">conf_mat</span>(<span class="at">truth =</span> Direction, <span class="at">estimate =</span> .pred_class) </span>
-<span id="cb13-144"><a href="#cb13-144" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-145"><a href="#cb13-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-148"><a href="#cb13-148" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb13-149"><a href="#cb13-149" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(knn_fit, <span class="at">new_data =</span> df3) <span class="sc">|&gt;</span></span>
-<span id="cb13-150"><a href="#cb13-150" aria-hidden="true" tabindex="-1"></a>  <span class="fu">accuracy</span>(<span class="at">truth =</span> Direction, <span class="at">estimate =</span> .pred_class) </span>
-<span id="cb13-151"><a href="#cb13-151" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-152"><a href="#cb13-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-153"><a href="#cb13-153" aria-hidden="true" tabindex="-1"></a><span class="fu">## 模型比较</span></span>
-<span id="cb13-154"><a href="#cb13-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-157"><a href="#cb13-157" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb13-158"><a href="#cb13-158" aria-hidden="true" tabindex="-1"></a>models <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">"LDA"</span> <span class="ot">=</span> lda_fit,</span>
-<span id="cb13-159"><a href="#cb13-159" aria-hidden="true" tabindex="-1"></a>               <span class="st">"KNN"</span> <span class="ot">=</span> knn_fit)</span>
-<span id="cb13-160"><a href="#cb13-160" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">imap_dfr</span>(models, augment, </span>
-<span id="cb13-161"><a href="#cb13-161" aria-hidden="true" tabindex="-1"></a>                  <span class="at">new_data =</span> Smarket, <span class="at">.id =</span> <span class="st">"model"</span>)</span>
-<span id="cb13-162"><a href="#cb13-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-163"><a href="#cb13-163" aria-hidden="true" tabindex="-1"></a>preds <span class="sc">%&gt;%</span></span>
-<span id="cb13-164"><a href="#cb13-164" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(model, Direction, .pred_class, .pred_Down, .pred_Up)</span>
-<span id="cb13-165"><a href="#cb13-165" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-166"><a href="#cb13-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-167"><a href="#cb13-167" aria-hidden="true" tabindex="-1"></a><span class="fu">### 灵敏度和特异性</span></span>
-<span id="cb13-168"><a href="#cb13-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-171"><a href="#cb13-171" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb13-172"><a href="#cb13-172" aria-hidden="true" tabindex="-1"></a>multi_metric <span class="ot">&lt;-</span> <span class="fu">metric_set</span>( sensitivity, specificity)  <span class="co"># accuracy</span></span>
-<span id="cb13-173"><a href="#cb13-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-174"><a href="#cb13-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-175"><a href="#cb13-175" aria-hidden="true" tabindex="-1"></a>preds <span class="sc">%&gt;%</span></span>
-<span id="cb13-176"><a href="#cb13-176" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(model) <span class="sc">%&gt;%</span></span>
-<span id="cb13-177"><a href="#cb13-177" aria-hidden="true" tabindex="-1"></a>  <span class="fu">multi_metric</span>(<span class="at">truth =</span> Direction, <span class="at">estimate =</span> .pred_class)</span>
-<span id="cb13-178"><a href="#cb13-178" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-179"><a href="#cb13-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-180"><a href="#cb13-180" aria-hidden="true" tabindex="-1"></a><span class="fu">### ROC 曲线</span></span>
-<span id="cb13-181"><a href="#cb13-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-184"><a href="#cb13-184" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb13-185"><a href="#cb13-185" aria-hidden="true" tabindex="-1"></a>preds <span class="sc">%&gt;%</span></span>
-<span id="cb13-186"><a href="#cb13-186" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(model) <span class="sc">%&gt;%</span></span>
-<span id="cb13-187"><a href="#cb13-187" aria-hidden="true" tabindex="-1"></a>  <span class="fu">roc_curve</span>(Direction, .pred_Down) <span class="sc">%&gt;%</span></span>
-<span id="cb13-188"><a href="#cb13-188" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span>
-<span id="cb13-189"><a href="#cb13-189" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb9" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 分类</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## 支持向量机</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>**支持向量机（Support Vector Machine, SVM）**：用于二分类和多分类问题，寻找最佳决策边界。</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## K-Nearest Neighbors</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>Smarket <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Smarket.csv"</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>Smarket<span class="sc">$</span>Direction <span class="ot">&lt;-</span> <span class="fu">factor</span>(Smarket<span class="sc">$</span>Direction)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Smarket)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>knn_spec <span class="ot">&lt;-</span> <span class="fu">nearest_neighbor</span>(<span class="at">neighbors =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"kknn"</span>)</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>knn_fit <span class="ot">&lt;-</span> knn_spec <span class="sc">|&gt;</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(Direction <span class="sc">~</span> Lag1 <span class="sc">+</span> Lag2, <span class="at">data =</span> Smarket)</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>knn_fit</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(knn_fit, <span class="at">new_data =</span> Smarket) <span class="sc">|&gt;</span> </span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">conf_mat</span>(<span class="at">truth =</span> Direction, <span class="at">estimate =</span> .pred_class) </span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(knn_fit, <span class="at">new_data =</span> Smarket) <span class="sc">|&gt;</span></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">accuracy</span>(<span class="at">truth =</span> Direction, <span class="at">estimate =</span> .pred_class) </span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## LDA</span></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>lda_spec <span class="ot">&lt;-</span> <span class="fu">discrim_linear</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"MASS"</span>)</span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>lda_fit <span class="ot">&lt;-</span> lda_spec <span class="sc">%&gt;%</span></span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(Direction <span class="sc">~</span> Lag1 <span class="sc">+</span> Lag2, <span class="at">data =</span> Smarket)</span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>lda_fit</span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a><span class="fu">## 模型比较</span></span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>models <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">"LDA"</span> <span class="ot">=</span> lda_fit,</span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>               <span class="st">"KNN"</span> <span class="ot">=</span> knn_fit)</span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">imap_dfr</span>(models, augment, </span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>                  <span class="at">new_data =</span> Smarket, <span class="at">.id =</span> <span class="st">"model"</span>)</span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>preds <span class="sc">%&gt;%</span></span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(model, Direction, .pred_class, .pred_Down, .pred_Up)</span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a><span class="fu">### 灵敏度和特异性</span></span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a>multi_metric <span class="ot">&lt;-</span> <span class="fu">metric_set</span>( sensitivity, specificity)  <span class="co"># accuracy</span></span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a>preds <span class="sc">%&gt;%</span></span>
+<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(model) <span class="sc">%&gt;%</span></span>
+<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">multi_metric</span>(<span class="at">truth =</span> Direction, <span class="at">estimate =</span> .pred_class)</span>
+<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a><span class="fu">### ROC 曲线</span></span>
+<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a>preds <span class="sc">%&gt;%</span></span>
+<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(model) <span class="sc">%&gt;%</span></span>
+<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a>  <span class="fu">roc_curve</span>(Direction, .pred_Down) <span class="sc">%&gt;%</span></span>
+<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span>
+<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-97"><a href="#cb9-97" aria-hidden="true" tabindex="-1"></a><span class="fu">## **朴素贝叶斯**</span></span>
+<span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a>**朴素贝叶斯（Naive Bayes）**：基于贝叶斯定理的简单而高效的分类算法。</span>
+<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a><span class="fu">## 基于树的模型</span></span>
+<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**决策树（Decision Tree）**：基于树状模型进行决策的分类算法。</span>
+<span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**随机森林（Random Forest）**：由多棵决策树组成的集成学习模型。</span>
+<span id="cb9-106"><a href="#cb9-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**梯度提升树（Gradient Boosting Trees）**：通过加法模型和前向分步算法实现的集成学习模型。</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

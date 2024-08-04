@@ -1,8 +1,12 @@
-# 描述性模型 {.unnumbered}
+# **描述性模型** {.unnumbered}
 
--   *locally estimated scatterplot smoothing* model （LOESS）[^descriptive_models-1]
+描述性模型（Descriptive Models）是用于总结、描述和理解数据特征的统计工具和方法。它们的主要目标是提供对数据的整体认识，而不是预测未来或解释因果关系。通过揭示数据的内在结构和模式，描述性模型可以帮助研究人员和分析师更好地理解数据的分布、趋势和变异性。
 
--   probe-level models (PLMs)[^descriptive_models-2]，如微阵列，芯片
+以下是两种常见的描述性模型：
+
+-   局部回归散点平滑模型 （*locally estimated scatterplot smoothing* model ，LOESS）[^descriptive_models-1]
+
+-   探针水平模型 （probe-level models ，PLMs）[^descriptive_models-2]，如微阵列，芯片
 
 [^descriptive_models-1]: Cleveland, W. 1979. “Robust Locally Weighted Regression and Smoothing Scatterplots.” *Journal of the American Statistical Association* 74 (368): 829–36.
 

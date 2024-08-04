@@ -128,15 +128,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./predictive_models.html" aria-current="page"> 
-<span class="menu-text">预测模型</span></a>
+<span class="menu-text">预测性模型</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./descriptive_models.html"> 
-<span class="menu-text">描述模型</span></a>
+<span class="menu-text">描述性模型</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./inferential_models.html"> 
-<span class="menu-text">推断模型</span></a>
+<span class="menu-text">推断性模型</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -154,7 +154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Regression.html">有监督模型（Supervised Models）</a></li><li class="breadcrumb-item"><a href="./Regression.html">回归</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Regression.html">监督学习（Supervised Learning）</a></li><li class="breadcrumb-item"><a href="./Regression.html">回归</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -169,7 +169,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./predictive_models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">预测模型</span></a>
+ <span class="menu-text"><strong>预测性模型</strong></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -178,10 +178,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">机器学习</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cross_validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">交叉验证</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">有监督模型（Supervised Models）</span></a>
+ <span class="menu-text">监督学习（Supervised Learning）</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -201,13 +207,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tree.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">基于树的方法</span></a>
+  <a href="./tree-based_models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">基于树的模型</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./survival_models.html" class="sidebar-item-text sidebar-link">
+  <a href="./survival.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">生存模型</span></a>
   </div>
 </li>
@@ -216,7 +222,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">无监督模型（Unsupervised Models）</span></a>
+ <span class="menu-text">无监督学习（Unsupervised Learning）</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -226,6 +232,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./Clustering.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">聚类</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./LDA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">线性判别分析</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -248,6 +260,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">集成学习（Ensemble Learning）</span></span>
+  </li>
     </ul>
     </div>
 </nav>
@@ -263,13 +279,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><div class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Regression.html">有监督模型（Supervised Models）</a></li><li class="breadcrumb-item"><a href="./Regression.html">回归</a></li></ol></nav><div class="quarto-title-tools-only"><h1></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<main class="content" id="quarto-document-content"><div class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Regression.html">监督学习（Supervised Learning）</a></li><li class="breadcrumb-item"><a href="./Regression.html">回归</a></li></ol></nav><div class="quarto-title-tools-only"><h1></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 
 
 
 
 <section id="回归" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> 回归</h1>
+<p>用于预测连续型数值。</p>
+<ul>
+<li><p><strong>线性回归（Linear Regression）</strong>：预测因变量与一个或多个自变量之间的线性关系。</p></li>
+<li><p><strong>岭回归（Ridge Regression）</strong>：线性回归的正则化版本，减少过拟合。</p></li>
+<li><p><strong>Lasso回归（Lasso Regression）</strong>：另一种正则化的线性回归，通过L1正则化进行特征选择。</p></li>
+</ul>
 
 
 <!-- -->
@@ -737,7 +759,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 回归</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 回归</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>用于预测连续型数值。</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**线性回归（Linear Regression）**：预测因变量与一个或多个自变量之间的线性关系。</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**岭回归（Ridge Regression）**：线性回归的正则化版本，减少过拟合。</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Lasso回归（Lasso Regression）**：另一种正则化的线性回归，通过L1正则化进行特征选择。</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

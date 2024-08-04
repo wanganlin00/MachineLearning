@@ -478,6 +478,8 @@ classification_metrics(two_class_example, truth = truth, estimate = predicted)
 
 感兴趣 事件水平
 
+第二级逻辑将结果编码为0/1（在这种情况下，第二个值是事件）
+
 ```{r}
 f_meas(two_class_example, truth, predicted, event_level = "second")
 ```

@@ -1,5 +1,7 @@
 # 推荐阅读 {.unnumbered style="color:red"}
 
+-   [Machine Learning with R (4E)](https://github.com/PacktPublishing/Machine-Learning-with-R-Fourth-Edition)
+
 -   [Tidy Modeling with R](https://www.tmwr.org/)
 
 -   [tidymodels](https://www.tidymodels.org/)

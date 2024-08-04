@@ -117,15 +117,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./predictive_models.html" aria-current="page"> 
-<span class="menu-text">预测模型</span></a>
+<span class="menu-text">预测性模型</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./descriptive_models.html"> 
-<span class="menu-text">描述模型</span></a>
+<span class="menu-text">描述性模型</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./inferential_models.html"> 
-<span class="menu-text">推断模型</span></a>
+<span class="menu-text">推断性模型</span></a>
   </li>  
 </ul>
 </div> <!-- /navcollapse -->
@@ -152,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./predictive_models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">预测模型</span></a>
+ <span class="menu-text"><strong>预测性模型</strong></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -161,10 +161,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">机器学习</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cross_validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">交叉验证</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">有监督模型（Supervised Models）</span></a>
+ <span class="menu-text">监督学习（Supervised Learning）</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -184,13 +190,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tree.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">基于树的方法</span></a>
+  <a href="./tree-based_models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">基于树的模型</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./survival_models.html" class="sidebar-item-text sidebar-link">
+  <a href="./survival.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">生存模型</span></a>
   </div>
 </li>
@@ -199,7 +205,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">无监督模型（Unsupervised Models）</span></a>
+ <span class="menu-text">无监督学习（Unsupervised Learning）</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -209,6 +215,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./Clustering.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">聚类</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./LDA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">线性判别分析</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -231,6 +243,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">集成学习（Ensemble Learning）</span></span>
+  </li>
     </ul>
 </div>
 </nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
@@ -615,7 +631,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </h3>
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/multilevelmod">multilevelmod</a></span><span class="op">)</span></span>
-<span><span class="va">multilevel_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"lmer"</span><span class="op">)</span></span>
+<span><span class="va">multilevel_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"lmer"</span><span class="op">)</span></span>
 <span><span class="va">multilevel_spec</span></span>
 <span><span class="co">#&gt; Linear Regression Model Specification (regression)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -647,8 +663,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 10 2       A              t4      123</span></span>
 <span><span class="co">#&gt; # ℹ 65 more rows</span></span>
 <span><span class="va">multilevel_workflow</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">add_variables</span><span class="op">(</span>outcome <span class="op">=</span> <span class="va">BP</span>, predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">induced_method</span>,<span class="va">time</span>,<span class="va">subject</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">add_variables</span><span class="op">(</span>outcome <span class="op">=</span> <span class="va">BP</span>, predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">induced_method</span>,<span class="va">time</span>,<span class="va">subject</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">add_model</span><span class="op">(</span><span class="va">multilevel_spec</span>, </span>
 <span>            <span class="co"># This formula is given to the model</span></span>
 <span>            formula <span class="op">=</span> <span class="va">BP</span> <span class="op">~</span> <span class="va">induced_method</span><span class="op">+</span><span class="va">time</span> <span class="op">+</span> <span class="op">(</span> <span class="fl">1</span><span class="op">|</span> <span class="va">subject</span><span class="op">)</span><span class="op">)</span></span>
@@ -703,8 +719,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="va">parametric_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/survival_reg.html">survival_reg</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">parametric_workflow</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">add_variables</span><span class="op">(</span>outcome <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">fustat</span>, <span class="va">futime</span><span class="op">)</span>, predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">rx</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">add_variables</span><span class="op">(</span>outcome <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">fustat</span>, <span class="va">futime</span><span class="op">)</span>, predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">rx</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">add_model</span><span class="op">(</span><span class="va">parametric_spec</span>, </span>
 <span>            formula <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span><span class="op">(</span><span class="va">futime</span>, <span class="va">fustat</span><span class="op">)</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/survival/man/strata.html">strata</a></span><span class="op">(</span><span class="va">rx</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -777,7 +793,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span></span>
 <span><span class="va">location_models</span> <span class="op">&lt;-</span></span>
-<span>   <span class="va">location_models</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span></span>
+<span>   <span class="va">location_models</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>   <span class="fu">mutate</span><span class="op">(</span>fit <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">info</span>, <span class="op">~</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">workflow</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">ames_train</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">location_models</span></span>
 <span><span class="co">#&gt; # A workflow set/tibble: 4 × 5</span></span>
@@ -839,7 +855,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;               </span></span>
 <span><span class="co">#&gt; 1 rmse    standard       0.157 Preprocessor1_Model1</span></span>
 <span><span class="co">#&gt; 2 rsq     standard       0.152 Preprocessor1_Model1</span></span>
-<span><span class="fu"><a href="https://tune.tidymodels.org/reference/collect_predictions.html">collect_predictions</a></span><span class="op">(</span><span class="va">final_lm_res</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> <span class="fu">slice</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://tune.tidymodels.org/reference/collect_predictions.html">collect_predictions</a></span><span class="op">(</span><span class="va">final_lm_res</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">slice</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 5 × 5</span></span>
 <span><span class="co">#&gt;   .pred id                .row Sale_Price .config             </span></span>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;            &lt;int&gt;      &lt;dbl&gt; &lt;chr&gt;               </span></span>
@@ -858,8 +874,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">simple_ames</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu">recipe</span><span class="op">(</span><span class="va">Sale_Price</span> <span class="op">~</span> <span class="va">Neighborhood</span> <span class="op">+</span> <span class="va">Gr_Liv_Area</span> <span class="op">+</span> <span class="va">Year_Built</span> <span class="op">+</span> <span class="va">Bldg_Type</span>,</span>
-<span>         data <span class="op">=</span> <span class="va">ames_train</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">step_log</span><span class="op">(</span><span class="va">Gr_Liv_Area</span>, base <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span>         data <span class="op">=</span> <span class="va">ames_train</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">step_log</span><span class="op">(</span><span class="va">Gr_Liv_Area</span>, base <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">step_dummy</span><span class="op">(</span><span class="fu">all_nominal_predictors</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="co"># 因子或字符变量，名义nominal</span></span>
 <span><span class="co"># all_numeric_predictors()  all_numeric()  all_predictors()  all_outcomes()</span></span>
 <span></span>
@@ -880,9 +896,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lm_wflow</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="va">lm_wflow</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="va">lm_wflow</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="co">#一次只能有一种预处理方法，需要在添加配方之前删除现有的预处理器</span></span>
-<span>  <span class="fu">remove_variables</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">remove_variables</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">simple_ames</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">lm_wflow</span></span>
@@ -922,7 +938,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; # ℹ 578 more rows</span></span>
 <span></span>
 <span><span class="co"># 提取模型信息</span></span>
-<span><span class="va">lm_fit</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">lm_fit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html">extract_recipe</a></span><span class="op">(</span>estimated <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── Recipe ──────────────────────────────────────────────────────────────────────</span></span>
@@ -939,8 +955,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; • Log transformation on: Gr_Liv_Area | Trained</span></span>
 <span><span class="co">#&gt; • Dummy variables from: Neighborhood and Bldg_Type | Trained</span></span>
 <span></span>
-<span><span class="va">lm_fit</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html">extract_fit_parsnip</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">lm_fit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html">extract_fit_parsnip</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 35 × 5</span></span>
 <span><span class="co">#&gt;    term                            estimate std.error statistic   p.value</span></span>
@@ -962,9 +978,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
 <span><span class="va">simple_ames</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu">recipe</span><span class="op">(</span><span class="va">Sale_Price</span> <span class="op">~</span> <span class="va">Neighborhood</span> <span class="op">+</span> <span class="va">Gr_Liv_Area</span> <span class="op">+</span> <span class="va">Year_Built</span> <span class="op">+</span> <span class="va">Bldg_Type</span>,</span>
-<span>         data <span class="op">=</span> <span class="va">ames_train</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">step_log</span><span class="op">(</span><span class="va">Gr_Liv_Area</span>, base <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">step_other</span><span class="op">(</span><span class="va">Neighborhood</span>, threshold <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span>         data <span class="op">=</span> <span class="va">ames_train</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">step_log</span><span class="op">(</span><span class="va">Gr_Liv_Area</span>, base <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">step_other</span><span class="op">(</span><span class="va">Neighborhood</span>, threshold <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">step_dummy</span><span class="op">(</span><span class="fu">all_nominal_predictors</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
@@ -989,10 +1005,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">simple_ames</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu">recipe</span><span class="op">(</span><span class="va">Sale_Price</span> <span class="op">~</span> <span class="va">Neighborhood</span> <span class="op">+</span> <span class="va">Gr_Liv_Area</span> <span class="op">+</span> <span class="va">Year_Built</span> <span class="op">+</span> <span class="va">Bldg_Type</span>,</span>
-<span>         data <span class="op">=</span> <span class="va">ames_train</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">step_log</span><span class="op">(</span><span class="va">Gr_Liv_Area</span>, base <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">step_other</span><span class="op">(</span><span class="va">Neighborhood</span>, threshold <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">step_dummy</span><span class="op">(</span><span class="fu">all_nominal_predictors</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span>         data <span class="op">=</span> <span class="va">ames_train</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">step_log</span><span class="op">(</span><span class="va">Gr_Liv_Area</span>, base <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">step_other</span><span class="op">(</span><span class="va">Neighborhood</span>, threshold <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">step_dummy</span><span class="op">(</span><span class="fu">all_nominal_predictors</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co"># Gr_Liv_Area is on the log scale from a previous step</span></span>
 <span>  <span class="fu">step_interact</span><span class="op">(</span> <span class="op">~</span> <span class="va">Gr_Liv_Area</span><span class="op">:</span><span class="fu">starts_with</span><span class="op">(</span><span class="st">"Bldg_Type_"</span><span class="op">)</span> <span class="op">)</span></span>
 <span></span>
@@ -1042,7 +1058,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">recipe</span><span class="op">(</span><span class="va">Sale_Price</span> <span class="op">~</span> <span class="va">Neighborhood</span> <span class="op">+</span> <span class="va">Gr_Liv_Area</span> <span class="op">+</span> <span class="va">Year_Built</span> <span class="op">+</span> <span class="va">Bldg_Type</span> <span class="op">+</span> <span class="va">Latitude</span>,</span>
-<span>         data <span class="op">=</span> <span class="va">ames_train</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span></span>
+<span>         data <span class="op">=</span> <span class="va">ames_train</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">step_ns</span><span class="op">(</span><span class="va">Latitude</span>, deg_free <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── Recipe ──────────────────────────────────────────────────────────────────────</span></span>
@@ -1062,7 +1078,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span>  <span class="co"># Use a regular expression to capture house size predictors: </span></span>
 <span><span class="fu">recipe</span><span class="op">(</span><span class="va">Sale_Price</span> <span class="op">~</span> <span class="va">Neighborhood</span> <span class="op">+</span> <span class="va">Gr_Liv_Area</span> <span class="op">+</span> <span class="va">Year_Built</span> <span class="op">+</span> <span class="va">Bldg_Type</span> <span class="op">+</span> <span class="va">Latitude</span><span class="op">+</span><span class="va">Total_Bsmt_SF</span><span class="op">+</span><span class="va">First_Flr_SF</span><span class="op">+</span><span class="va">Gr_Liv_Area</span>,</span>
-<span>         data <span class="op">=</span> <span class="va">ames_train</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span></span>
+<span>         data <span class="op">=</span> <span class="va">ames_train</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu">step_pca</span><span class="op">(</span><span class="fu">matches</span><span class="op">(</span><span class="st">"(SF$)|(Gr_Liv)"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── Recipe ──────────────────────────────────────────────────────────────────────</span></span>
@@ -1094,11 +1110,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ames_rec</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu">recipe</span><span class="op">(</span><span class="va">Sale_Price</span> <span class="op">~</span> <span class="va">Neighborhood</span> <span class="op">+</span> <span class="va">Gr_Liv_Area</span> <span class="op">+</span> <span class="va">Year_Built</span> <span class="op">+</span> <span class="va">Bldg_Type</span> <span class="op">+</span> </span>
-<span>           <span class="va">Latitude</span> <span class="op">+</span> <span class="va">Longitude</span>, data <span class="op">=</span> <span class="va">ames_train</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">step_log</span><span class="op">(</span><span class="va">Gr_Liv_Area</span>, base <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">step_other</span><span class="op">(</span><span class="va">Neighborhood</span>, threshold <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">step_dummy</span><span class="op">(</span><span class="fu">all_nominal_predictors</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">step_interact</span><span class="op">(</span> <span class="op">~</span> <span class="va">Gr_Liv_Area</span><span class="op">:</span><span class="fu">starts_with</span><span class="op">(</span><span class="st">"Bldg_Type_"</span><span class="op">)</span> <span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span>           <span class="va">Latitude</span> <span class="op">+</span> <span class="va">Longitude</span>, data <span class="op">=</span> <span class="va">ames_train</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">step_log</span><span class="op">(</span><span class="va">Gr_Liv_Area</span>, base <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">step_other</span><span class="op">(</span><span class="va">Neighborhood</span>, threshold <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">step_dummy</span><span class="op">(</span><span class="fu">all_nominal_predictors</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">step_interact</span><span class="op">(</span> <span class="op">~</span> <span class="va">Gr_Liv_Area</span><span class="op">:</span><span class="fu">starts_with</span><span class="op">(</span><span class="st">"Bldg_Type_"</span><span class="op">)</span> <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">step_ns</span><span class="op">(</span><span class="va">Latitude</span>, <span class="va">Longitude</span>, deg_free <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">ames_rec</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 5 × 6</span></span>
@@ -1114,22 +1130,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ames_rec</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu">recipe</span><span class="op">(</span><span class="va">Sale_Price</span> <span class="op">~</span> <span class="va">Neighborhood</span> <span class="op">+</span> <span class="va">Gr_Liv_Area</span> <span class="op">+</span> <span class="va">Year_Built</span> <span class="op">+</span> <span class="va">Bldg_Type</span> <span class="op">+</span> </span>
-<span>           <span class="va">Latitude</span> <span class="op">+</span> <span class="va">Longitude</span>, data <span class="op">=</span> <span class="va">ames_train</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">step_log</span><span class="op">(</span><span class="va">Gr_Liv_Area</span>, base <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">step_other</span><span class="op">(</span><span class="va">Neighborhood</span>, threshold <span class="op">=</span> <span class="fl">0.01</span>, id <span class="op">=</span> <span class="st">"my_id"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">step_dummy</span><span class="op">(</span><span class="fu">all_nominal_predictors</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">step_interact</span><span class="op">(</span> <span class="op">~</span> <span class="va">Gr_Liv_Area</span><span class="op">:</span><span class="fu">starts_with</span><span class="op">(</span><span class="st">"Bldg_Type_"</span><span class="op">)</span> <span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span>           <span class="va">Latitude</span> <span class="op">+</span> <span class="va">Longitude</span>, data <span class="op">=</span> <span class="va">ames_train</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">step_log</span><span class="op">(</span><span class="va">Gr_Liv_Area</span>, base <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">step_other</span><span class="op">(</span><span class="va">Neighborhood</span>, threshold <span class="op">=</span> <span class="fl">0.01</span>, id <span class="op">=</span> <span class="st">"my_id"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">step_dummy</span><span class="op">(</span><span class="fu">all_nominal_predictors</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">step_interact</span><span class="op">(</span> <span class="op">~</span> <span class="va">Gr_Liv_Area</span><span class="op">:</span><span class="fu">starts_with</span><span class="op">(</span><span class="st">"Bldg_Type_"</span><span class="op">)</span> <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">step_ns</span><span class="op">(</span><span class="va">Latitude</span>, <span class="va">Longitude</span>, deg_free <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">lm_wflow</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">add_model</span><span class="op">(</span><span class="va">lm_model</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">add_model</span><span class="op">(</span><span class="va">lm_model</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">ames_rec</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">lm_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">lm_wflow</span>, <span class="va">ames_train</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">estimated_recipe</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="va">lm_fit</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="va">lm_fit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html">extract_recipe</a></span><span class="op">(</span>estimated <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">estimated_recipe</span>, id <span class="op">=</span> <span class="st">"my_id"</span><span class="op">)</span></span>
@@ -1167,7 +1183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="列角色" class="level3" data-number="1.5.8"><h3 data-number="1.5.8" class="anchored" data-anchor-id="列角色">
 <span class="header-section-number">1.5.8</span> 列角色</h3>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ames_rec</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> <span class="fu">update_role</span><span class="op">(</span><span class="va">Year_Built</span>, new_role <span class="op">=</span> <span class="st">"Street"</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ames_rec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">update_role</span><span class="op">(</span><span class="va">Year_Built</span>, new_role <span class="op">=</span> <span class="st">"Street"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── Recipe ──────────────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -1194,7 +1210,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="回归指标" class="level3" data-number="1.6.1"><h3 data-number="1.6.1" class="anchored" data-anchor-id="回归指标">
 <span class="header-section-number">1.6.1</span> 回归指标</h3>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ames_test_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">lm_fit</span>, new_data <span class="op">=</span> <span class="va">ames_test</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">Sale_Price</span><span class="op">)</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ames_test_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">lm_fit</span>, new_data <span class="op">=</span> <span class="va">ames_test</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">Sale_Price</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">ames_test_res</span></span>
 <span><span class="co">#&gt; # A tibble: 588 × 1</span></span>
 <span><span class="co">#&gt;    .pred</span></span>
@@ -1211,7 +1227,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 10  5.32</span></span>
 <span><span class="co">#&gt; # ℹ 578 more rows</span></span>
 <span></span>
-<span><span class="va">ames_test_res</span> <span class="op">&lt;-</span> <span class="fu">bind_cols</span><span class="op">(</span><span class="va">ames_test_res</span>, <span class="va">ames_test</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> <span class="fu">select</span><span class="op">(</span><span class="va">Sale_Price</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ames_test_res</span> <span class="op">&lt;-</span> <span class="fu">bind_cols</span><span class="op">(</span><span class="va">ames_test_res</span>, <span class="va">ames_test</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">select</span><span class="op">(</span><span class="va">Sale_Price</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">ames_test_res</span></span>
 <span><span class="co">#&gt; # A tibble: 588 × 2</span></span>
 <span><span class="co">#&gt;    .pred Sale_Price</span></span>
@@ -1338,6 +1354,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <p>感兴趣 事件水平</p>
+<p>第二级逻辑将结果编码为0/1（在这种情况下，第二个值是事件）</p>
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">f_meas</span><span class="op">(</span><span class="va">two_class_example</span>, <span class="va">truth</span>, <span class="va">predicted</span>, event_level <span class="op">=</span> <span class="st">"second"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 × 3</span></span>
@@ -1451,8 +1468,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hpc_cv</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">Resample</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hpc_cv</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">Resample</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">accuracy</span><span class="op">(</span><span class="va">obs</span>, <span class="va">pred</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 10 × 4</span></span>
 <span><span class="co">#&gt;    Resample .metric  .estimator .estimate</span></span>
@@ -1469,9 +1486,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 10 Fold10   accuracy multiclass     0.699</span></span>
 <span></span>
 <span><span class="co"># Four 1-vs-all ROC curves for each fold</span></span>
-<span><span class="va">hpc_cv</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">Resample</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">roc_curve</span><span class="op">(</span><span class="va">obs</span>, <span class="va">VF</span>, <span class="cn">F</span>, <span class="va">M</span>, <span class="va">L</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">hpc_cv</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">Resample</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">roc_curve</span><span class="op">(</span><span class="va">obs</span>, <span class="va">VF</span>, <span class="cn">F</span>, <span class="va">M</span>, <span class="va">L</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
@@ -1503,18 +1520,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rf_model</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>trees <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"ranger"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>trees <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"ranger"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">rf_wflow</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">add_formula</span><span class="op">(</span></span>
 <span>    <span class="va">Sale_Price</span> <span class="op">~</span> <span class="va">Neighborhood</span> <span class="op">+</span> <span class="va">Gr_Liv_Area</span> <span class="op">+</span> <span class="va">Year_Built</span> <span class="op">+</span> <span class="va">Bldg_Type</span> <span class="op">+</span> </span>
-<span>      <span class="va">Latitude</span> <span class="op">+</span> <span class="va">Longitude</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span>      <span class="va">Latitude</span> <span class="op">+</span> <span class="va">Longitude</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">add_model</span><span class="op">(</span><span class="va">rf_model</span><span class="op">)</span> </span>
 <span></span>
-<span><span class="va">rf_fit</span> <span class="op">&lt;-</span> <span class="va">rf_wflow</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ames_train</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">rf_fit</span> <span class="op">&lt;-</span> <span class="va">rf_wflow</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ames_train</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
@@ -1528,11 +1545,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="co"># Estimate these metrics:</span></span>
 <span>  <span class="va">reg_metrics</span> <span class="op">&lt;-</span> <span class="fu">metric_set</span><span class="op">(</span><span class="va">rmse</span>, <span class="va">rsq</span><span class="op">)</span></span>
 <span>  </span>
-<span>  <span class="va">model</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu">bind_cols</span><span class="op">(</span><span class="va">dat</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> <span class="fu">select</span><span class="op">(</span><span class="va">Sale_Price</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu">reg_metrics</span><span class="op">(</span><span class="va">Sale_Price</span>, <span class="va">.pred</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">.estimator</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="va">model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">bind_cols</span><span class="op">(</span><span class="va">dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">select</span><span class="op">(</span><span class="va">Sale_Price</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">reg_metrics</span><span class="op">(</span><span class="va">Sale_Price</span>, <span class="va">.pred</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">.estimator</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu">mutate</span><span class="op">(</span>object <span class="op">=</span> <span class="va">obj_name</span>, data <span class="op">=</span> <span class="va">data_name</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -1590,7 +1607,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span></span>
 <span><span class="co"># 检索分区数据</span></span>
-<span><span class="va">ames_folds</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> <span class="fu">analysis</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">ames_folds</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">analysis</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2107   74</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
@@ -1602,7 +1619,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1003</span><span class="op">)</span></span>
 <span><span class="va">rf_res</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="va">rf_wflow</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="va">rf_wflow</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">fit_resamples</span><span class="op">(</span>resamples <span class="op">=</span> <span class="va">ames_folds</span>, control <span class="op">=</span> <span class="va">keep_pred</span><span class="op">)</span></span>
 <span><span class="va">rf_res</span></span>
 <span><span class="co">#&gt; # Resampling results</span></span>
@@ -1669,7 +1686,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">assess_res</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">assess_res</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Sale_Price</span>, y <span class="op">=</span> <span class="va">.pred</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">.15</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_abline</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -1685,9 +1702,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 找到残差最大的2个</span></span>
 <span><span class="va">over_predicted</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="va">assess_res</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>residual <span class="op">=</span> <span class="va">Sale_Price</span> <span class="op">-</span> <span class="va">.pred</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">residual</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="va">assess_res</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>residual <span class="op">=</span> <span class="va">Sale_Price</span> <span class="op">-</span> <span class="va">.pred</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">residual</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">slice</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">over_predicted</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 6</span></span>
@@ -1696,8 +1713,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 1  4.97 Fold10    33       4.11 Preprocessor1_Model1   -0.858</span></span>
 <span><span class="co">#&gt; 2  4.93 Fold04   323       4.12 Preprocessor1_Model1   -0.814</span></span>
 <span></span>
-<span><span class="va">ames_train</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">slice</span><span class="op">(</span><span class="va">over_predicted</span><span class="op">$</span><span class="va">.row</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">ames_train</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">slice</span><span class="op">(</span><span class="va">over_predicted</span><span class="op">$</span><span class="va">.row</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">select</span><span class="op">(</span><span class="va">Gr_Liv_Area</span>, <span class="va">Neighborhood</span>, <span class="va">Year_Built</span>, <span class="va">Bedroom_AbvGr</span>, <span class="va">Full_Bath</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 5</span></span>
 <span><span class="co">#&gt;   Gr_Liv_Area Neighborhood           Year_Built Bedroom_AbvGr Full_Bath</span></span>
@@ -1782,7 +1799,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">val_res</span> <span class="op">&lt;-</span> <span class="va">rf_wflow</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> <span class="fu">fit_resamples</span><span class="op">(</span>resamples <span class="op">=</span> <span class="va">val_set</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">val_res</span> <span class="op">&lt;-</span> <span class="va">rf_wflow</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">fit_resamples</span><span class="op">(</span>resamples <span class="op">=</span> <span class="va">val_set</span><span class="op">)</span></span>
 <span><span class="va">val_res</span></span>
 <span><span class="co">#&gt; # Resampling results</span></span>
 <span><span class="co">#&gt; # Validation Set (0.75/0.25) </span></span>
@@ -1822,14 +1839,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>时间序列数据</p>
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">time_slices</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu">tibble</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">365</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">tibble</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">365</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">rolling_origin</span><span class="op">(</span>initial <span class="op">=</span> <span class="fl">6</span> <span class="op">*</span> <span class="fl">30</span>, assess <span class="op">=</span> <span class="fl">30</span>, skip <span class="op">=</span> <span class="fl">29</span>, cumulative <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">data_range</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">summarize</span><span class="op">(</span><span class="va">x</span>, first <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, last <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="fu">map_dfr</span><span class="op">(</span><span class="va">time_slices</span><span class="op">$</span><span class="va">splits</span>, <span class="op">~</span>   <span class="fu">analysis</span><span class="op">(</span><span class="va">.x</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> <span class="fu">data_range</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">map_dfr</span><span class="op">(</span><span class="va">time_slices</span><span class="op">$</span><span class="va">splits</span>, <span class="op">~</span>   <span class="fu">analysis</span><span class="op">(</span><span class="va">.x</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">data_range</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 2</span></span>
 <span><span class="co">#&gt;   first  last</span></span>
 <span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span></span>
@@ -1840,7 +1857,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5   121   300</span></span>
 <span><span class="co">#&gt; 6   151   330</span></span>
 <span></span>
-<span><span class="fu">map_dfr</span><span class="op">(</span><span class="va">time_slices</span><span class="op">$</span><span class="va">splits</span>, <span class="op">~</span> <span class="fu">assessment</span><span class="op">(</span><span class="va">.x</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> <span class="fu">data_range</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">map_dfr</span><span class="op">(</span><span class="va">time_slices</span><span class="op">$</span><span class="va">splits</span>, <span class="op">~</span> <span class="fu">assessment</span><span class="op">(</span><span class="va">.x</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">data_range</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 2</span></span>
 <span><span class="co">#&gt;   first  last</span></span>
 <span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span></span>
@@ -1866,18 +1883,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ames_rec</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu">recipe</span><span class="op">(</span><span class="va">Sale_Price</span> <span class="op">~</span> <span class="va">Neighborhood</span> <span class="op">+</span> <span class="va">Gr_Liv_Area</span> <span class="op">+</span> <span class="va">Year_Built</span> <span class="op">+</span> <span class="va">Bldg_Type</span> <span class="op">+</span> </span>
-<span>           <span class="va">Latitude</span> <span class="op">+</span> <span class="va">Longitude</span>, data <span class="op">=</span> <span class="va">ames_train</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">step_other</span><span class="op">(</span><span class="va">Neighborhood</span>, threshold <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">step_dummy</span><span class="op">(</span><span class="fu">all_nominal_predictors</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">step_interact</span><span class="op">(</span> <span class="op">~</span> <span class="va">Gr_Liv_Area</span><span class="op">:</span><span class="fu">starts_with</span><span class="op">(</span><span class="st">"Bldg_Type_"</span><span class="op">)</span> <span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
+<span>           <span class="va">Latitude</span> <span class="op">+</span> <span class="va">Longitude</span>, data <span class="op">=</span> <span class="va">ames_train</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">step_other</span><span class="op">(</span><span class="va">Neighborhood</span>, threshold <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">step_dummy</span><span class="op">(</span><span class="fu">all_nominal_predictors</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">step_interact</span><span class="op">(</span> <span class="op">~</span> <span class="va">Gr_Liv_Area</span><span class="op">:</span><span class="fu">starts_with</span><span class="op">(</span><span class="st">"Bldg_Type_"</span><span class="op">)</span> <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">step_ns</span><span class="op">(</span><span class="va">Latitude</span>, <span class="va">Longitude</span>, deg_free <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">lm_wflow</span> <span class="op">&lt;-</span>  </span>
-<span>  <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">ames_rec</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">add_model</span><span class="op">(</span><span class="fu"><a href="https://parsnip.tidymodels.org/reference/linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span><span class="op">)</span> </span>
+<span>  <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">ames_rec</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">add_model</span><span class="op">(</span><span class="fu"><a href="https://parsnip.tidymodels.org/reference/linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span><span class="op">)</span> </span>
 <span></span>
-<span><span class="va">lm_fit</span> <span class="op">&lt;-</span> <span class="va">lm_wflow</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ames_train</span><span class="op">)</span></span>
+<span><span class="va">lm_fit</span> <span class="op">&lt;-</span> <span class="va">lm_wflow</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ames_train</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Select the recipe: </span></span>
 <span><span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html">extract_recipe</a></span><span class="op">(</span><span class="va">lm_fit</span>, estimated <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -1902,7 +1919,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb61"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">get_model</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html">extract_fit_parsnip</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html">extract_fit_parsnip</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">get_model</span><span class="op">(</span><span class="va">lm_fit</span><span class="op">)</span></span>
@@ -1925,7 +1942,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu">control_resamples</span><span class="op">(</span>extract <span class="op">=</span> <span class="va">get_model</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">lm_res</span> <span class="op">&lt;-</span> <span class="va">lm_wflow</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span>  <span class="fu">fit_resamples</span><span class="op">(</span>resamples <span class="op">=</span> <span class="va">ames_folds</span>, control <span class="op">=</span> <span class="va">ctrl</span><span class="op">)</span></span>
+<span><span class="va">lm_res</span> <span class="op">&lt;-</span> <span class="va">lm_wflow</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="fu">fit_resamples</span><span class="op">(</span>resamples <span class="op">=</span> <span class="va">ames_folds</span>, control <span class="op">=</span> <span class="va">ctrl</span><span class="op">)</span></span>
 <span><span class="va">lm_res</span></span>
 <span><span class="co">#&gt; # Resampling results</span></span>
 <span><span class="co">#&gt; # 10-fold cross-validation </span></span>
@@ -2929,306 +2946,308 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb65-537"><a href="#cb65-537" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb65-538"><a href="#cb65-538" aria-hidden="true" tabindex="-1"></a>感兴趣 事件水平</span>
 <span id="cb65-539"><a href="#cb65-539" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-542"><a href="#cb65-542" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-543"><a href="#cb65-543" aria-hidden="true" tabindex="-1"></a><span class="fu">f_meas</span>(two_class_example, truth, predicted, <span class="at">event_level =</span> <span class="st">"second"</span>)</span>
-<span id="cb65-544"><a href="#cb65-544" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-545"><a href="#cb65-545" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-546"><a href="#cb65-546" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ROC，AUC</span></span>
+<span id="cb65-540"><a href="#cb65-540" aria-hidden="true" tabindex="-1"></a>第二级逻辑将结果编码为0/1（在这种情况下，第二个值是事件）</span>
+<span id="cb65-541"><a href="#cb65-541" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-544"><a href="#cb65-544" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-545"><a href="#cb65-545" aria-hidden="true" tabindex="-1"></a><span class="fu">f_meas</span>(two_class_example, truth, predicted, <span class="at">event_level =</span> <span class="st">"second"</span>)</span>
+<span id="cb65-546"><a href="#cb65-546" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb65-547"><a href="#cb65-547" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-548"><a href="#cb65-548" aria-hidden="true" tabindex="-1"></a>不使用预测类列,对于两类问题，感兴趣事件的概率列将传递到函数中</span>
+<span id="cb65-548"><a href="#cb65-548" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ROC，AUC</span></span>
 <span id="cb65-549"><a href="#cb65-549" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-552"><a href="#cb65-552" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-553"><a href="#cb65-553" aria-hidden="true" tabindex="-1"></a>two_class_curve <span class="ot">&lt;-</span> <span class="fu">roc_curve</span>(two_class_example, truth, Class1)</span>
-<span id="cb65-554"><a href="#cb65-554" aria-hidden="true" tabindex="-1"></a>two_class_curve</span>
-<span id="cb65-555"><a href="#cb65-555" aria-hidden="true" tabindex="-1"></a><span class="fu">roc_auc</span>(two_class_example, truth, Class1)</span>
-<span id="cb65-556"><a href="#cb65-556" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-557"><a href="#cb65-557" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-560"><a href="#cb65-560" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-561"><a href="#cb65-561" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(two_class_curve)<span class="sc">+</span></span>
-<span id="cb65-562"><a href="#cb65-562" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">"text"</span>,<span class="at">x=</span><span class="fl">0.5</span>,<span class="at">y=</span><span class="fl">0.25</span>,<span class="at">label=</span><span class="st">"AUC=0.939"</span>)</span>
-<span id="cb65-563"><a href="#cb65-563" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-564"><a href="#cb65-564" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-565"><a href="#cb65-565" aria-hidden="true" tabindex="-1"></a><span class="fu">### 多分类指标</span></span>
+<span id="cb65-550"><a href="#cb65-550" aria-hidden="true" tabindex="-1"></a>不使用预测类列,对于两类问题，感兴趣事件的概率列将传递到函数中</span>
+<span id="cb65-551"><a href="#cb65-551" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-554"><a href="#cb65-554" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-555"><a href="#cb65-555" aria-hidden="true" tabindex="-1"></a>two_class_curve <span class="ot">&lt;-</span> <span class="fu">roc_curve</span>(two_class_example, truth, Class1)</span>
+<span id="cb65-556"><a href="#cb65-556" aria-hidden="true" tabindex="-1"></a>two_class_curve</span>
+<span id="cb65-557"><a href="#cb65-557" aria-hidden="true" tabindex="-1"></a><span class="fu">roc_auc</span>(two_class_example, truth, Class1)</span>
+<span id="cb65-558"><a href="#cb65-558" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-559"><a href="#cb65-559" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-562"><a href="#cb65-562" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-563"><a href="#cb65-563" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(two_class_curve)<span class="sc">+</span></span>
+<span id="cb65-564"><a href="#cb65-564" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">"text"</span>,<span class="at">x=</span><span class="fl">0.5</span>,<span class="at">y=</span><span class="fl">0.25</span>,<span class="at">label=</span><span class="st">"AUC=0.939"</span>)</span>
+<span id="cb65-565"><a href="#cb65-565" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb65-566"><a href="#cb65-566" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-569"><a href="#cb65-569" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-570"><a href="#cb65-570" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(hpc_cv)</span>
-<span id="cb65-571"><a href="#cb65-571" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(hpc_cv)</span>
-<span id="cb65-572"><a href="#cb65-572" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-573"><a href="#cb65-573" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-576"><a href="#cb65-576" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-577"><a href="#cb65-577" aria-hidden="true" tabindex="-1"></a><span class="fu">accuracy</span>(hpc_cv, obs, pred)</span>
-<span id="cb65-578"><a href="#cb65-578" aria-hidden="true" tabindex="-1"></a><span class="fu">mcc</span>(hpc_cv, obs, pred)</span>
-<span id="cb65-579"><a href="#cb65-579" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-580"><a href="#cb65-580" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-581"><a href="#cb65-581" aria-hidden="true" tabindex="-1"></a>二分类可拓展到多分类</span>
+<span id="cb65-567"><a href="#cb65-567" aria-hidden="true" tabindex="-1"></a><span class="fu">### 多分类指标</span></span>
+<span id="cb65-568"><a href="#cb65-568" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-571"><a href="#cb65-571" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-572"><a href="#cb65-572" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(hpc_cv)</span>
+<span id="cb65-573"><a href="#cb65-573" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(hpc_cv)</span>
+<span id="cb65-574"><a href="#cb65-574" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-575"><a href="#cb65-575" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-578"><a href="#cb65-578" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-579"><a href="#cb65-579" aria-hidden="true" tabindex="-1"></a><span class="fu">accuracy</span>(hpc_cv, obs, pred)</span>
+<span id="cb65-580"><a href="#cb65-580" aria-hidden="true" tabindex="-1"></a><span class="fu">mcc</span>(hpc_cv, obs, pred)</span>
+<span id="cb65-581"><a href="#cb65-581" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb65-582"><a href="#cb65-582" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-585"><a href="#cb65-585" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-586"><a href="#cb65-586" aria-hidden="true" tabindex="-1"></a><span class="fu">sensitivity</span>(hpc_cv, obs, pred, <span class="at">estimator =</span> <span class="st">"macro"</span>)</span>
-<span id="cb65-587"><a href="#cb65-587" aria-hidden="true" tabindex="-1"></a><span class="fu">sensitivity</span>(hpc_cv, obs, pred, <span class="at">estimator =</span> <span class="st">"macro_weighted"</span>)</span>
-<span id="cb65-588"><a href="#cb65-588" aria-hidden="true" tabindex="-1"></a><span class="fu">sensitivity</span>(hpc_cv, obs, pred, <span class="at">estimator =</span> <span class="st">"micro"</span>)</span>
-<span id="cb65-589"><a href="#cb65-589" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-590"><a href="#cb65-590" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-591"><a href="#cb65-591" aria-hidden="true" tabindex="-1"></a>多分类</span>
+<span id="cb65-583"><a href="#cb65-583" aria-hidden="true" tabindex="-1"></a>二分类可拓展到多分类</span>
+<span id="cb65-584"><a href="#cb65-584" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-587"><a href="#cb65-587" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-588"><a href="#cb65-588" aria-hidden="true" tabindex="-1"></a><span class="fu">sensitivity</span>(hpc_cv, obs, pred, <span class="at">estimator =</span> <span class="st">"macro"</span>)</span>
+<span id="cb65-589"><a href="#cb65-589" aria-hidden="true" tabindex="-1"></a><span class="fu">sensitivity</span>(hpc_cv, obs, pred, <span class="at">estimator =</span> <span class="st">"macro_weighted"</span>)</span>
+<span id="cb65-590"><a href="#cb65-590" aria-hidden="true" tabindex="-1"></a><span class="fu">sensitivity</span>(hpc_cv, obs, pred, <span class="at">estimator =</span> <span class="st">"micro"</span>)</span>
+<span id="cb65-591"><a href="#cb65-591" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb65-592"><a href="#cb65-592" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-595"><a href="#cb65-595" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-596"><a href="#cb65-596" aria-hidden="true" tabindex="-1"></a><span class="fu">roc_auc</span>(hpc_cv, obs, VF, F, M, L)</span>
-<span id="cb65-597"><a href="#cb65-597" aria-hidden="true" tabindex="-1"></a><span class="fu">roc_auc</span>(hpc_cv, obs, VF, F, M, L, <span class="at">estimator =</span> <span class="st">"macro_weighted"</span>)</span>
-<span id="cb65-598"><a href="#cb65-598" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-599"><a href="#cb65-599" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-602"><a href="#cb65-602" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-603"><a href="#cb65-603" aria-hidden="true" tabindex="-1"></a>hpc_cv <span class="sc">%&gt;%</span> </span>
-<span id="cb65-604"><a href="#cb65-604" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Resample) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-605"><a href="#cb65-605" aria-hidden="true" tabindex="-1"></a>  <span class="fu">accuracy</span>(obs, pred)</span>
-<span id="cb65-606"><a href="#cb65-606" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-607"><a href="#cb65-607" aria-hidden="true" tabindex="-1"></a><span class="co"># Four 1-vs-all ROC curves for each fold</span></span>
-<span id="cb65-608"><a href="#cb65-608" aria-hidden="true" tabindex="-1"></a>hpc_cv <span class="sc">%&gt;%</span> </span>
-<span id="cb65-609"><a href="#cb65-609" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Resample) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-610"><a href="#cb65-610" aria-hidden="true" tabindex="-1"></a>  <span class="fu">roc_curve</span>(obs, VF, F, M, L) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-611"><a href="#cb65-611" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span>
-<span id="cb65-612"><a href="#cb65-612" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-613"><a href="#cb65-613" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-614"><a href="#cb65-614" aria-hidden="true" tabindex="-1"></a><span class="fu">## 重采样 `rsample`</span></span>
+<span id="cb65-593"><a href="#cb65-593" aria-hidden="true" tabindex="-1"></a>多分类</span>
+<span id="cb65-594"><a href="#cb65-594" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-597"><a href="#cb65-597" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-598"><a href="#cb65-598" aria-hidden="true" tabindex="-1"></a><span class="fu">roc_auc</span>(hpc_cv, obs, VF, F, M, L)</span>
+<span id="cb65-599"><a href="#cb65-599" aria-hidden="true" tabindex="-1"></a><span class="fu">roc_auc</span>(hpc_cv, obs, VF, F, M, L, <span class="at">estimator =</span> <span class="st">"macro_weighted"</span>)</span>
+<span id="cb65-600"><a href="#cb65-600" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-601"><a href="#cb65-601" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-604"><a href="#cb65-604" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-605"><a href="#cb65-605" aria-hidden="true" tabindex="-1"></a>hpc_cv <span class="sc">%&gt;%</span> </span>
+<span id="cb65-606"><a href="#cb65-606" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Resample) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-607"><a href="#cb65-607" aria-hidden="true" tabindex="-1"></a>  <span class="fu">accuracy</span>(obs, pred)</span>
+<span id="cb65-608"><a href="#cb65-608" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-609"><a href="#cb65-609" aria-hidden="true" tabindex="-1"></a><span class="co"># Four 1-vs-all ROC curves for each fold</span></span>
+<span id="cb65-610"><a href="#cb65-610" aria-hidden="true" tabindex="-1"></a>hpc_cv <span class="sc">%&gt;%</span> </span>
+<span id="cb65-611"><a href="#cb65-611" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Resample) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-612"><a href="#cb65-612" aria-hidden="true" tabindex="-1"></a>  <span class="fu">roc_curve</span>(obs, VF, F, M, L) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-613"><a href="#cb65-613" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span>
+<span id="cb65-614"><a href="#cb65-614" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb65-615"><a href="#cb65-615" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-618"><a href="#cb65-618" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-619"><a href="#cb65-619" aria-hidden="true" tabindex="-1"></a>ames_rec</span>
-<span id="cb65-620"><a href="#cb65-620" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-621"><a href="#cb65-621" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-624"><a href="#cb65-624" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-625"><a href="#cb65-625" aria-hidden="true" tabindex="-1"></a>rf_model <span class="ot">&lt;-</span> </span>
-<span id="cb65-626"><a href="#cb65-626" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rand_forest</span>(<span class="at">trees =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-627"><a href="#cb65-627" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"ranger"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-628"><a href="#cb65-628" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"regression"</span>)</span>
-<span id="cb65-629"><a href="#cb65-629" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-630"><a href="#cb65-630" aria-hidden="true" tabindex="-1"></a>rf_wflow <span class="ot">&lt;-</span> </span>
-<span id="cb65-631"><a href="#cb65-631" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb65-632"><a href="#cb65-632" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_formula</span>(</span>
-<span id="cb65-633"><a href="#cb65-633" aria-hidden="true" tabindex="-1"></a>    Sale_Price <span class="sc">~</span> Neighborhood <span class="sc">+</span> Gr_Liv_Area <span class="sc">+</span> Year_Built <span class="sc">+</span> Bldg_Type <span class="sc">+</span> </span>
-<span id="cb65-634"><a href="#cb65-634" aria-hidden="true" tabindex="-1"></a>      Latitude <span class="sc">+</span> Longitude) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-635"><a href="#cb65-635" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(rf_model) </span>
-<span id="cb65-636"><a href="#cb65-636" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-637"><a href="#cb65-637" aria-hidden="true" tabindex="-1"></a>rf_fit <span class="ot">&lt;-</span> rf_wflow <span class="sc">%&gt;%</span> <span class="fu">fit</span>(<span class="at">data =</span> ames_train)</span>
-<span id="cb65-638"><a href="#cb65-638" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-639"><a href="#cb65-639" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-642"><a href="#cb65-642" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-643"><a href="#cb65-643" aria-hidden="true" tabindex="-1"></a>estimate_perf <span class="ot">&lt;-</span> <span class="cf">function</span>(model, dat) {</span>
-<span id="cb65-644"><a href="#cb65-644" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Capture the names of the `model` and `dat` objects</span></span>
-<span id="cb65-645"><a href="#cb65-645" aria-hidden="true" tabindex="-1"></a>  cl <span class="ot">&lt;-</span> <span class="fu">match.call</span>()</span>
-<span id="cb65-646"><a href="#cb65-646" aria-hidden="true" tabindex="-1"></a>  obj_name <span class="ot">&lt;-</span> <span class="fu">as.character</span>(cl<span class="sc">$</span>model)</span>
-<span id="cb65-647"><a href="#cb65-647" aria-hidden="true" tabindex="-1"></a>  data_name <span class="ot">&lt;-</span> <span class="fu">as.character</span>(cl<span class="sc">$</span>dat)</span>
-<span id="cb65-648"><a href="#cb65-648" aria-hidden="true" tabindex="-1"></a>  data_name <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"ames_"</span>, <span class="st">""</span>, data_name)</span>
-<span id="cb65-649"><a href="#cb65-649" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb65-650"><a href="#cb65-650" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Estimate these metrics:</span></span>
-<span id="cb65-651"><a href="#cb65-651" aria-hidden="true" tabindex="-1"></a>  reg_metrics <span class="ot">&lt;-</span> <span class="fu">metric_set</span>(rmse, rsq)</span>
-<span id="cb65-652"><a href="#cb65-652" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb65-653"><a href="#cb65-653" aria-hidden="true" tabindex="-1"></a>  model <span class="sc">%&gt;%</span></span>
-<span id="cb65-654"><a href="#cb65-654" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict</span>(dat) <span class="sc">%&gt;%</span></span>
-<span id="cb65-655"><a href="#cb65-655" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_cols</span>(dat <span class="sc">%&gt;%</span> <span class="fu">select</span>(Sale_Price)) <span class="sc">%&gt;%</span></span>
-<span id="cb65-656"><a href="#cb65-656" aria-hidden="true" tabindex="-1"></a>    <span class="fu">reg_metrics</span>(Sale_Price, .pred) <span class="sc">%&gt;%</span></span>
-<span id="cb65-657"><a href="#cb65-657" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>.estimator) <span class="sc">%&gt;%</span></span>
-<span id="cb65-658"><a href="#cb65-658" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">object =</span> obj_name, <span class="at">data =</span> data_name)</span>
-<span id="cb65-659"><a href="#cb65-659" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb65-660"><a href="#cb65-660" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-661"><a href="#cb65-661" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_perf</span>(rf_fit, ames_train)</span>
-<span id="cb65-662"><a href="#cb65-662" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_perf</span>(lm_fit, ames_train)</span>
-<span id="cb65-663"><a href="#cb65-663" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-664"><a href="#cb65-664" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-667"><a href="#cb65-667" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-668"><a href="#cb65-668" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_perf</span>(rf_fit, ames_test)</span>
-<span id="cb65-669"><a href="#cb65-669" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-670"><a href="#cb65-670" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-671"><a href="#cb65-671" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="al">![](images/resampling.svg)</span><span class="ot">{fig-align="center"}</span><span class="co">](https://www.tmwr.org/premade/resampling.svg)</span></span>
+<span id="cb65-616"><a href="#cb65-616" aria-hidden="true" tabindex="-1"></a><span class="fu">## 重采样 `rsample`</span></span>
+<span id="cb65-617"><a href="#cb65-617" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-620"><a href="#cb65-620" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-621"><a href="#cb65-621" aria-hidden="true" tabindex="-1"></a>ames_rec</span>
+<span id="cb65-622"><a href="#cb65-622" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-623"><a href="#cb65-623" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-626"><a href="#cb65-626" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-627"><a href="#cb65-627" aria-hidden="true" tabindex="-1"></a>rf_model <span class="ot">&lt;-</span> </span>
+<span id="cb65-628"><a href="#cb65-628" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rand_forest</span>(<span class="at">trees =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-629"><a href="#cb65-629" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"ranger"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-630"><a href="#cb65-630" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"regression"</span>)</span>
+<span id="cb65-631"><a href="#cb65-631" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-632"><a href="#cb65-632" aria-hidden="true" tabindex="-1"></a>rf_wflow <span class="ot">&lt;-</span> </span>
+<span id="cb65-633"><a href="#cb65-633" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb65-634"><a href="#cb65-634" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_formula</span>(</span>
+<span id="cb65-635"><a href="#cb65-635" aria-hidden="true" tabindex="-1"></a>    Sale_Price <span class="sc">~</span> Neighborhood <span class="sc">+</span> Gr_Liv_Area <span class="sc">+</span> Year_Built <span class="sc">+</span> Bldg_Type <span class="sc">+</span> </span>
+<span id="cb65-636"><a href="#cb65-636" aria-hidden="true" tabindex="-1"></a>      Latitude <span class="sc">+</span> Longitude) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-637"><a href="#cb65-637" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(rf_model) </span>
+<span id="cb65-638"><a href="#cb65-638" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-639"><a href="#cb65-639" aria-hidden="true" tabindex="-1"></a>rf_fit <span class="ot">&lt;-</span> rf_wflow <span class="sc">%&gt;%</span> <span class="fu">fit</span>(<span class="at">data =</span> ames_train)</span>
+<span id="cb65-640"><a href="#cb65-640" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-641"><a href="#cb65-641" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-644"><a href="#cb65-644" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-645"><a href="#cb65-645" aria-hidden="true" tabindex="-1"></a>estimate_perf <span class="ot">&lt;-</span> <span class="cf">function</span>(model, dat) {</span>
+<span id="cb65-646"><a href="#cb65-646" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Capture the names of the `model` and `dat` objects</span></span>
+<span id="cb65-647"><a href="#cb65-647" aria-hidden="true" tabindex="-1"></a>  cl <span class="ot">&lt;-</span> <span class="fu">match.call</span>()</span>
+<span id="cb65-648"><a href="#cb65-648" aria-hidden="true" tabindex="-1"></a>  obj_name <span class="ot">&lt;-</span> <span class="fu">as.character</span>(cl<span class="sc">$</span>model)</span>
+<span id="cb65-649"><a href="#cb65-649" aria-hidden="true" tabindex="-1"></a>  data_name <span class="ot">&lt;-</span> <span class="fu">as.character</span>(cl<span class="sc">$</span>dat)</span>
+<span id="cb65-650"><a href="#cb65-650" aria-hidden="true" tabindex="-1"></a>  data_name <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"ames_"</span>, <span class="st">""</span>, data_name)</span>
+<span id="cb65-651"><a href="#cb65-651" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb65-652"><a href="#cb65-652" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Estimate these metrics:</span></span>
+<span id="cb65-653"><a href="#cb65-653" aria-hidden="true" tabindex="-1"></a>  reg_metrics <span class="ot">&lt;-</span> <span class="fu">metric_set</span>(rmse, rsq)</span>
+<span id="cb65-654"><a href="#cb65-654" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb65-655"><a href="#cb65-655" aria-hidden="true" tabindex="-1"></a>  model <span class="sc">%&gt;%</span></span>
+<span id="cb65-656"><a href="#cb65-656" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict</span>(dat) <span class="sc">%&gt;%</span></span>
+<span id="cb65-657"><a href="#cb65-657" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_cols</span>(dat <span class="sc">%&gt;%</span> <span class="fu">select</span>(Sale_Price)) <span class="sc">%&gt;%</span></span>
+<span id="cb65-658"><a href="#cb65-658" aria-hidden="true" tabindex="-1"></a>    <span class="fu">reg_metrics</span>(Sale_Price, .pred) <span class="sc">%&gt;%</span></span>
+<span id="cb65-659"><a href="#cb65-659" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>.estimator) <span class="sc">%&gt;%</span></span>
+<span id="cb65-660"><a href="#cb65-660" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">object =</span> obj_name, <span class="at">data =</span> data_name)</span>
+<span id="cb65-661"><a href="#cb65-661" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb65-662"><a href="#cb65-662" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-663"><a href="#cb65-663" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_perf</span>(rf_fit, ames_train)</span>
+<span id="cb65-664"><a href="#cb65-664" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_perf</span>(lm_fit, ames_train)</span>
+<span id="cb65-665"><a href="#cb65-665" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-666"><a href="#cb65-666" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-669"><a href="#cb65-669" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-670"><a href="#cb65-670" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_perf</span>(rf_fit, ames_test)</span>
+<span id="cb65-671"><a href="#cb65-671" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb65-672"><a href="#cb65-672" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-673"><a href="#cb65-673" aria-hidden="true" tabindex="-1"></a><span class="fu">### 交叉验证</span></span>
+<span id="cb65-673"><a href="#cb65-673" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="al">![](images/resampling.svg)</span><span class="ot">{fig-align="center"}</span><span class="co">](https://www.tmwr.org/premade/resampling.svg)</span></span>
 <span id="cb65-674"><a href="#cb65-674" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-675"><a href="#cb65-675" aria-hidden="true" tabindex="-1"></a>*V*-fold cross-validation，数据被随机划分为样本量大致相等的*V*组（称为折叠），例如10重交叉验证</span>
+<span id="cb65-675"><a href="#cb65-675" aria-hidden="true" tabindex="-1"></a><span class="fu">### 交叉验证</span></span>
 <span id="cb65-676"><a href="#cb65-676" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-679"><a href="#cb65-679" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-680"><a href="#cb65-680" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1001</span>)</span>
-<span id="cb65-681"><a href="#cb65-681" aria-hidden="true" tabindex="-1"></a><span class="co"># 10-fold cross-validation</span></span>
-<span id="cb65-682"><a href="#cb65-682" aria-hidden="true" tabindex="-1"></a>ames_folds <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(ames_train, <span class="at">v =</span> <span class="dv">10</span>)</span>
-<span id="cb65-683"><a href="#cb65-683" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-684"><a href="#cb65-684" aria-hidden="true" tabindex="-1"></a><span class="co"># 分析集/评估集</span></span>
-<span id="cb65-685"><a href="#cb65-685" aria-hidden="true" tabindex="-1"></a>ames_folds</span>
-<span id="cb65-686"><a href="#cb65-686" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-687"><a href="#cb65-687" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-688"><a href="#cb65-688" aria-hidden="true" tabindex="-1"></a><span class="co"># 检索分区数据</span></span>
-<span id="cb65-689"><a href="#cb65-689" aria-hidden="true" tabindex="-1"></a>ames_folds<span class="sc">$</span>splits[[<span class="dv">1</span>]] <span class="sc">%&gt;%</span> <span class="fu">analysis</span>() <span class="sc">|&gt;</span> <span class="fu">dim</span>()</span>
-<span id="cb65-690"><a href="#cb65-690" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-691"><a href="#cb65-691" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-692"><a href="#cb65-692" aria-hidden="true" tabindex="-1"></a><span class="in">`model_spec %&gt;% fit_resamples(formula, resamples, ...)`</span></span>
+<span id="cb65-677"><a href="#cb65-677" aria-hidden="true" tabindex="-1"></a>*V*-fold cross-validation，数据被随机划分为样本量大致相等的*V*组（称为折叠），例如10重交叉验证</span>
+<span id="cb65-678"><a href="#cb65-678" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-681"><a href="#cb65-681" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-682"><a href="#cb65-682" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1001</span>)</span>
+<span id="cb65-683"><a href="#cb65-683" aria-hidden="true" tabindex="-1"></a><span class="co"># 10-fold cross-validation</span></span>
+<span id="cb65-684"><a href="#cb65-684" aria-hidden="true" tabindex="-1"></a>ames_folds <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(ames_train, <span class="at">v =</span> <span class="dv">10</span>)</span>
+<span id="cb65-685"><a href="#cb65-685" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-686"><a href="#cb65-686" aria-hidden="true" tabindex="-1"></a><span class="co"># 分析集/评估集</span></span>
+<span id="cb65-687"><a href="#cb65-687" aria-hidden="true" tabindex="-1"></a>ames_folds</span>
+<span id="cb65-688"><a href="#cb65-688" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-689"><a href="#cb65-689" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-690"><a href="#cb65-690" aria-hidden="true" tabindex="-1"></a><span class="co"># 检索分区数据</span></span>
+<span id="cb65-691"><a href="#cb65-691" aria-hidden="true" tabindex="-1"></a>ames_folds<span class="sc">$</span>splits[[<span class="dv">1</span>]] <span class="sc">%&gt;%</span> <span class="fu">analysis</span>() <span class="sc">|&gt;</span> <span class="fu">dim</span>()</span>
+<span id="cb65-692"><a href="#cb65-692" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb65-693"><a href="#cb65-693" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-694"><a href="#cb65-694" aria-hidden="true" tabindex="-1"></a><span class="in">`model_spec %&gt;% fit_resamples(recipe, resamples, ...)`</span></span>
+<span id="cb65-694"><a href="#cb65-694" aria-hidden="true" tabindex="-1"></a><span class="in">`model_spec %&gt;% fit_resamples(formula, resamples, ...)`</span></span>
 <span id="cb65-695"><a href="#cb65-695" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-696"><a href="#cb65-696" aria-hidden="true" tabindex="-1"></a><span class="in">`workflow %&gt;% fit_resamples( resamples, ...)`</span></span>
+<span id="cb65-696"><a href="#cb65-696" aria-hidden="true" tabindex="-1"></a><span class="in">`model_spec %&gt;% fit_resamples(recipe, resamples, ...)`</span></span>
 <span id="cb65-697"><a href="#cb65-697" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-700"><a href="#cb65-700" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-701"><a href="#cb65-701" aria-hidden="true" tabindex="-1"></a>keep_pred <span class="ot">&lt;-</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>, <span class="at">save_workflow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb65-702"><a href="#cb65-702" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-703"><a href="#cb65-703" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1003</span>)</span>
-<span id="cb65-704"><a href="#cb65-704" aria-hidden="true" tabindex="-1"></a>rf_res <span class="ot">&lt;-</span> </span>
-<span id="cb65-705"><a href="#cb65-705" aria-hidden="true" tabindex="-1"></a>  rf_wflow <span class="sc">%&gt;%</span> </span>
-<span id="cb65-706"><a href="#cb65-706" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_resamples</span>(<span class="at">resamples =</span> ames_folds, <span class="at">control =</span> keep_pred)</span>
-<span id="cb65-707"><a href="#cb65-707" aria-hidden="true" tabindex="-1"></a>rf_res</span>
-<span id="cb65-708"><a href="#cb65-708" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(rf_res)</span>
-<span id="cb65-709"><a href="#cb65-709" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(rf_res,<span class="at">summarize =</span> F)</span>
-<span id="cb65-710"><a href="#cb65-710" aria-hidden="true" tabindex="-1"></a>assess_res <span class="ot">&lt;-</span> <span class="fu">collect_predictions</span>(rf_res)</span>
-<span id="cb65-711"><a href="#cb65-711" aria-hidden="true" tabindex="-1"></a>assess_res</span>
-<span id="cb65-712"><a href="#cb65-712" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-713"><a href="#cb65-713" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-716"><a href="#cb65-716" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-717"><a href="#cb65-717" aria-hidden="true" tabindex="-1"></a>assess_res <span class="sc">%&gt;%</span> </span>
-<span id="cb65-718"><a href="#cb65-718" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sale_Price, <span class="at">y =</span> .pred)) <span class="sc">+</span> </span>
-<span id="cb65-719"><a href="#cb65-719" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">15</span>) <span class="sc">+</span></span>
-<span id="cb65-720"><a href="#cb65-720" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> </span>
-<span id="cb65-721"><a href="#cb65-721" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_obs_pred</span>() <span class="sc">+</span> </span>
-<span id="cb65-722"><a href="#cb65-722" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Predicted"</span>)</span>
-<span id="cb65-723"><a href="#cb65-723" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-724"><a href="#cb65-724" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-727"><a href="#cb65-727" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-728"><a href="#cb65-728" aria-hidden="true" tabindex="-1"></a><span class="co"># 找到残差最大的2个</span></span>
-<span id="cb65-729"><a href="#cb65-729" aria-hidden="true" tabindex="-1"></a>over_predicted <span class="ot">&lt;-</span> </span>
-<span id="cb65-730"><a href="#cb65-730" aria-hidden="true" tabindex="-1"></a>  assess_res <span class="sc">%&gt;%</span> </span>
-<span id="cb65-731"><a href="#cb65-731" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">residual =</span> Sale_Price <span class="sc">-</span> .pred) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-732"><a href="#cb65-732" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(residual))) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-733"><a href="#cb65-733" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span>
-<span id="cb65-734"><a href="#cb65-734" aria-hidden="true" tabindex="-1"></a>over_predicted</span>
-<span id="cb65-735"><a href="#cb65-735" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-736"><a href="#cb65-736" aria-hidden="true" tabindex="-1"></a>ames_train <span class="sc">%&gt;%</span> </span>
-<span id="cb65-737"><a href="#cb65-737" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(over_predicted<span class="sc">$</span>.row) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-738"><a href="#cb65-738" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Gr_Liv_Area, Neighborhood, Year_Built, Bedroom_AbvGr, Full_Bath)</span>
-<span id="cb65-739"><a href="#cb65-739" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-740"><a href="#cb65-740" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-741"><a href="#cb65-741" aria-hidden="true" tabindex="-1"></a>重复交叉验证</span>
+<span id="cb65-698"><a href="#cb65-698" aria-hidden="true" tabindex="-1"></a><span class="in">`workflow %&gt;% fit_resamples( resamples, ...)`</span></span>
+<span id="cb65-699"><a href="#cb65-699" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-702"><a href="#cb65-702" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-703"><a href="#cb65-703" aria-hidden="true" tabindex="-1"></a>keep_pred <span class="ot">&lt;-</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>, <span class="at">save_workflow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb65-704"><a href="#cb65-704" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-705"><a href="#cb65-705" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1003</span>)</span>
+<span id="cb65-706"><a href="#cb65-706" aria-hidden="true" tabindex="-1"></a>rf_res <span class="ot">&lt;-</span> </span>
+<span id="cb65-707"><a href="#cb65-707" aria-hidden="true" tabindex="-1"></a>  rf_wflow <span class="sc">%&gt;%</span> </span>
+<span id="cb65-708"><a href="#cb65-708" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_resamples</span>(<span class="at">resamples =</span> ames_folds, <span class="at">control =</span> keep_pred)</span>
+<span id="cb65-709"><a href="#cb65-709" aria-hidden="true" tabindex="-1"></a>rf_res</span>
+<span id="cb65-710"><a href="#cb65-710" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(rf_res)</span>
+<span id="cb65-711"><a href="#cb65-711" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(rf_res,<span class="at">summarize =</span> F)</span>
+<span id="cb65-712"><a href="#cb65-712" aria-hidden="true" tabindex="-1"></a>assess_res <span class="ot">&lt;-</span> <span class="fu">collect_predictions</span>(rf_res)</span>
+<span id="cb65-713"><a href="#cb65-713" aria-hidden="true" tabindex="-1"></a>assess_res</span>
+<span id="cb65-714"><a href="#cb65-714" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-715"><a href="#cb65-715" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-718"><a href="#cb65-718" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-719"><a href="#cb65-719" aria-hidden="true" tabindex="-1"></a>assess_res <span class="sc">%&gt;%</span> </span>
+<span id="cb65-720"><a href="#cb65-720" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sale_Price, <span class="at">y =</span> .pred)) <span class="sc">+</span> </span>
+<span id="cb65-721"><a href="#cb65-721" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">15</span>) <span class="sc">+</span></span>
+<span id="cb65-722"><a href="#cb65-722" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> </span>
+<span id="cb65-723"><a href="#cb65-723" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_obs_pred</span>() <span class="sc">+</span> </span>
+<span id="cb65-724"><a href="#cb65-724" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Predicted"</span>)</span>
+<span id="cb65-725"><a href="#cb65-725" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-726"><a href="#cb65-726" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-729"><a href="#cb65-729" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-730"><a href="#cb65-730" aria-hidden="true" tabindex="-1"></a><span class="co"># 找到残差最大的2个</span></span>
+<span id="cb65-731"><a href="#cb65-731" aria-hidden="true" tabindex="-1"></a>over_predicted <span class="ot">&lt;-</span> </span>
+<span id="cb65-732"><a href="#cb65-732" aria-hidden="true" tabindex="-1"></a>  assess_res <span class="sc">%&gt;%</span> </span>
+<span id="cb65-733"><a href="#cb65-733" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">residual =</span> Sale_Price <span class="sc">-</span> .pred) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-734"><a href="#cb65-734" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(residual))) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-735"><a href="#cb65-735" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span>
+<span id="cb65-736"><a href="#cb65-736" aria-hidden="true" tabindex="-1"></a>over_predicted</span>
+<span id="cb65-737"><a href="#cb65-737" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-738"><a href="#cb65-738" aria-hidden="true" tabindex="-1"></a>ames_train <span class="sc">%&gt;%</span> </span>
+<span id="cb65-739"><a href="#cb65-739" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(over_predicted<span class="sc">$</span>.row) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-740"><a href="#cb65-740" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Gr_Liv_Area, Neighborhood, Year_Built, Bedroom_AbvGr, Full_Bath)</span>
+<span id="cb65-741"><a href="#cb65-741" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb65-742"><a href="#cb65-742" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-745"><a href="#cb65-745" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-746"><a href="#cb65-746" aria-hidden="true" tabindex="-1"></a><span class="co"># 10-fold cross-validation repeated 5 times </span></span>
-<span id="cb65-747"><a href="#cb65-747" aria-hidden="true" tabindex="-1"></a><span class="fu">vfold_cv</span>(ames_train, <span class="at">v =</span> <span class="dv">10</span>, <span class="at">repeats =</span> <span class="dv">5</span>)</span>
-<span id="cb65-748"><a href="#cb65-748" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-749"><a href="#cb65-749" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-743"><a href="#cb65-743" aria-hidden="true" tabindex="-1"></a>重复交叉验证</span>
+<span id="cb65-744"><a href="#cb65-744" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-747"><a href="#cb65-747" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-748"><a href="#cb65-748" aria-hidden="true" tabindex="-1"></a><span class="co"># 10-fold cross-validation repeated 5 times </span></span>
+<span id="cb65-749"><a href="#cb65-749" aria-hidden="true" tabindex="-1"></a><span class="fu">vfold_cv</span>(ames_train, <span class="at">v =</span> <span class="dv">10</span>, <span class="at">repeats =</span> <span class="dv">5</span>)</span>
 <span id="cb65-750"><a href="#cb65-750" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-751"><a href="#cb65-751" aria-hidden="true" tabindex="-1"></a>留一交叉验证</span>
+<span id="cb65-751"><a href="#cb65-751" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb65-752"><a href="#cb65-752" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-753"><a href="#cb65-753" aria-hidden="true" tabindex="-1"></a>leave-one-out (LOO) cross-validation</span>
+<span id="cb65-753"><a href="#cb65-753" aria-hidden="true" tabindex="-1"></a>留一交叉验证</span>
 <span id="cb65-754"><a href="#cb65-754" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-755"><a href="#cb65-755" aria-hidden="true" tabindex="-1"></a><span class="in">`loo_cv()`</span></span>
+<span id="cb65-755"><a href="#cb65-755" aria-hidden="true" tabindex="-1"></a>leave-one-out (LOO) cross-validation</span>
 <span id="cb65-756"><a href="#cb65-756" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-757"><a href="#cb65-757" aria-hidden="true" tabindex="-1"></a>蒙特卡罗交叉验证</span>
+<span id="cb65-757"><a href="#cb65-757" aria-hidden="true" tabindex="-1"></a><span class="in">`loo_cv()`</span></span>
 <span id="cb65-758"><a href="#cb65-758" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-759"><a href="#cb65-759" aria-hidden="true" tabindex="-1"></a>Monte Carlo cross-validation，MCCV，将固定比例的数据分配给分析集和评估集。该比例的数据每次都是随机选择的，导致评估集不相互排斥</span>
+<span id="cb65-759"><a href="#cb65-759" aria-hidden="true" tabindex="-1"></a>蒙特卡罗交叉验证</span>
 <span id="cb65-760"><a href="#cb65-760" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-763"><a href="#cb65-763" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-764"><a href="#cb65-764" aria-hidden="true" tabindex="-1"></a><span class="fu">mc_cv</span>(ames_train, <span class="at">prop =</span> <span class="dv">9</span><span class="sc">/</span><span class="dv">10</span>, <span class="at">times =</span> <span class="dv">20</span>)</span>
-<span id="cb65-765"><a href="#cb65-765" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-766"><a href="#cb65-766" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-767"><a href="#cb65-767" aria-hidden="true" tabindex="-1"></a><span class="fu">### 验证集</span></span>
+<span id="cb65-761"><a href="#cb65-761" aria-hidden="true" tabindex="-1"></a>Monte Carlo cross-validation，MCCV，将固定比例的数据分配给分析集和评估集。该比例的数据每次都是随机选择的，导致评估集不相互排斥</span>
+<span id="cb65-762"><a href="#cb65-762" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-765"><a href="#cb65-765" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-766"><a href="#cb65-766" aria-hidden="true" tabindex="-1"></a><span class="fu">mc_cv</span>(ames_train, <span class="at">prop =</span> <span class="dv">9</span><span class="sc">/</span><span class="dv">10</span>, <span class="at">times =</span> <span class="dv">20</span>)</span>
+<span id="cb65-767"><a href="#cb65-767" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb65-768"><a href="#cb65-768" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-771"><a href="#cb65-771" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-772"><a href="#cb65-772" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">101</span>)</span>
-<span id="cb65-773"><a href="#cb65-773" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-774"><a href="#cb65-774" aria-hidden="true" tabindex="-1"></a><span class="co"># To put 60% into training, 20% in validation, and remaining 20% in testing:</span></span>
-<span id="cb65-775"><a href="#cb65-775" aria-hidden="true" tabindex="-1"></a>ames_validation_split <span class="ot">&lt;-</span> <span class="fu">initial_validation_split</span>(ames, <span class="at">prop =</span> <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.2</span>))</span>
-<span id="cb65-776"><a href="#cb65-776" aria-hidden="true" tabindex="-1"></a>ames_validation_split</span>
-<span id="cb65-777"><a href="#cb65-777" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-778"><a href="#cb65-778" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-779"><a href="#cb65-779" aria-hidden="true" tabindex="-1"></a><span class="co"># Object used for resampling: </span></span>
-<span id="cb65-780"><a href="#cb65-780" aria-hidden="true" tabindex="-1"></a>val_set <span class="ot">&lt;-</span> <span class="fu">validation_set</span>(ames_validation_split)</span>
-<span id="cb65-781"><a href="#cb65-781" aria-hidden="true" tabindex="-1"></a>val_set</span>
-<span id="cb65-782"><a href="#cb65-782" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-783"><a href="#cb65-783" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-786"><a href="#cb65-786" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-787"><a href="#cb65-787" aria-hidden="true" tabindex="-1"></a>val_res <span class="ot">&lt;-</span> rf_wflow <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(<span class="at">resamples =</span> val_set)</span>
-<span id="cb65-788"><a href="#cb65-788" aria-hidden="true" tabindex="-1"></a>val_res</span>
-<span id="cb65-789"><a href="#cb65-789" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(val_res)</span>
-<span id="cb65-790"><a href="#cb65-790" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-791"><a href="#cb65-791" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-792"><a href="#cb65-792" aria-hidden="true" tabindex="-1"></a><span class="fu">### 自助法</span></span>
+<span id="cb65-769"><a href="#cb65-769" aria-hidden="true" tabindex="-1"></a><span class="fu">### 验证集</span></span>
+<span id="cb65-770"><a href="#cb65-770" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-773"><a href="#cb65-773" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-774"><a href="#cb65-774" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">101</span>)</span>
+<span id="cb65-775"><a href="#cb65-775" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-776"><a href="#cb65-776" aria-hidden="true" tabindex="-1"></a><span class="co"># To put 60% into training, 20% in validation, and remaining 20% in testing:</span></span>
+<span id="cb65-777"><a href="#cb65-777" aria-hidden="true" tabindex="-1"></a>ames_validation_split <span class="ot">&lt;-</span> <span class="fu">initial_validation_split</span>(ames, <span class="at">prop =</span> <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.2</span>))</span>
+<span id="cb65-778"><a href="#cb65-778" aria-hidden="true" tabindex="-1"></a>ames_validation_split</span>
+<span id="cb65-779"><a href="#cb65-779" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-780"><a href="#cb65-780" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-781"><a href="#cb65-781" aria-hidden="true" tabindex="-1"></a><span class="co"># Object used for resampling: </span></span>
+<span id="cb65-782"><a href="#cb65-782" aria-hidden="true" tabindex="-1"></a>val_set <span class="ot">&lt;-</span> <span class="fu">validation_set</span>(ames_validation_split)</span>
+<span id="cb65-783"><a href="#cb65-783" aria-hidden="true" tabindex="-1"></a>val_set</span>
+<span id="cb65-784"><a href="#cb65-784" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-785"><a href="#cb65-785" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-788"><a href="#cb65-788" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-789"><a href="#cb65-789" aria-hidden="true" tabindex="-1"></a>val_res <span class="ot">&lt;-</span> rf_wflow <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(<span class="at">resamples =</span> val_set)</span>
+<span id="cb65-790"><a href="#cb65-790" aria-hidden="true" tabindex="-1"></a>val_res</span>
+<span id="cb65-791"><a href="#cb65-791" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(val_res)</span>
+<span id="cb65-792"><a href="#cb65-792" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb65-793"><a href="#cb65-793" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-794"><a href="#cb65-794" aria-hidden="true" tabindex="-1"></a>Bootstrap resampling</span>
+<span id="cb65-794"><a href="#cb65-794" aria-hidden="true" tabindex="-1"></a><span class="fu">### 自助法</span></span>
 <span id="cb65-795"><a href="#cb65-795" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-796"><a href="#cb65-796" aria-hidden="true" tabindex="-1"></a>replacement</span>
+<span id="cb65-796"><a href="#cb65-796" aria-hidden="true" tabindex="-1"></a>Bootstrap resampling</span>
 <span id="cb65-797"><a href="#cb65-797" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-798"><a href="#cb65-798" aria-hidden="true" tabindex="-1"></a>*out-of-bag* sample</span>
+<span id="cb65-798"><a href="#cb65-798" aria-hidden="true" tabindex="-1"></a>replacement</span>
 <span id="cb65-799"><a href="#cb65-799" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-802"><a href="#cb65-802" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-803"><a href="#cb65-803" aria-hidden="true" tabindex="-1"></a><span class="fu">bootstraps</span>(ames_train, <span class="at">times =</span> <span class="dv">5</span>)</span>
-<span id="cb65-804"><a href="#cb65-804" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-805"><a href="#cb65-805" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-806"><a href="#cb65-806" aria-hidden="true" tabindex="-1"></a><span class="fu">### Rolling forecast origin resampling</span></span>
+<span id="cb65-800"><a href="#cb65-800" aria-hidden="true" tabindex="-1"></a>*out-of-bag* sample</span>
+<span id="cb65-801"><a href="#cb65-801" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-804"><a href="#cb65-804" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-805"><a href="#cb65-805" aria-hidden="true" tabindex="-1"></a><span class="fu">bootstraps</span>(ames_train, <span class="at">times =</span> <span class="dv">5</span>)</span>
+<span id="cb65-806"><a href="#cb65-806" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb65-807"><a href="#cb65-807" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-808"><a href="#cb65-808" aria-hidden="true" tabindex="-1"></a>滚动预测原点重采样</span>
+<span id="cb65-808"><a href="#cb65-808" aria-hidden="true" tabindex="-1"></a><span class="fu">### Rolling forecast origin resampling</span></span>
 <span id="cb65-809"><a href="#cb65-809" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-810"><a href="#cb65-810" aria-hidden="true" tabindex="-1"></a>时间序列数据</span>
+<span id="cb65-810"><a href="#cb65-810" aria-hidden="true" tabindex="-1"></a>滚动预测原点重采样</span>
 <span id="cb65-811"><a href="#cb65-811" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-814"><a href="#cb65-814" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-815"><a href="#cb65-815" aria-hidden="true" tabindex="-1"></a>time_slices <span class="ot">&lt;-</span> </span>
-<span id="cb65-816"><a href="#cb65-816" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">365</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-817"><a href="#cb65-817" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rolling_origin</span>(<span class="at">initial =</span> <span class="dv">6</span> <span class="sc">*</span> <span class="dv">30</span>, <span class="at">assess =</span> <span class="dv">30</span>, <span class="at">skip =</span> <span class="dv">29</span>, <span class="at">cumulative =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb65-818"><a href="#cb65-818" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-819"><a href="#cb65-819" aria-hidden="true" tabindex="-1"></a>data_range <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb65-820"><a href="#cb65-820" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(x, <span class="at">first =</span> <span class="fu">min</span>(x), <span class="at">last =</span> <span class="fu">max</span>(x))</span>
-<span id="cb65-821"><a href="#cb65-821" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb65-822"><a href="#cb65-822" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-823"><a href="#cb65-823" aria-hidden="true" tabindex="-1"></a><span class="fu">map_dfr</span>(time_slices<span class="sc">$</span>splits, <span class="sc">~</span>   <span class="fu">analysis</span>(.x) <span class="sc">%&gt;%</span> <span class="fu">data_range</span>())</span>
+<span id="cb65-812"><a href="#cb65-812" aria-hidden="true" tabindex="-1"></a>时间序列数据</span>
+<span id="cb65-813"><a href="#cb65-813" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-816"><a href="#cb65-816" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-817"><a href="#cb65-817" aria-hidden="true" tabindex="-1"></a>time_slices <span class="ot">&lt;-</span> </span>
+<span id="cb65-818"><a href="#cb65-818" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">365</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-819"><a href="#cb65-819" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rolling_origin</span>(<span class="at">initial =</span> <span class="dv">6</span> <span class="sc">*</span> <span class="dv">30</span>, <span class="at">assess =</span> <span class="dv">30</span>, <span class="at">skip =</span> <span class="dv">29</span>, <span class="at">cumulative =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb65-820"><a href="#cb65-820" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-821"><a href="#cb65-821" aria-hidden="true" tabindex="-1"></a>data_range <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb65-822"><a href="#cb65-822" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(x, <span class="at">first =</span> <span class="fu">min</span>(x), <span class="at">last =</span> <span class="fu">max</span>(x))</span>
+<span id="cb65-823"><a href="#cb65-823" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb65-824"><a href="#cb65-824" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-825"><a href="#cb65-825" aria-hidden="true" tabindex="-1"></a><span class="fu">map_dfr</span>(time_slices<span class="sc">$</span>splits, <span class="sc">~</span> <span class="fu">assessment</span>(.x) <span class="sc">%&gt;%</span> <span class="fu">data_range</span>())</span>
+<span id="cb65-825"><a href="#cb65-825" aria-hidden="true" tabindex="-1"></a><span class="fu">map_dfr</span>(time_slices<span class="sc">$</span>splits, <span class="sc">~</span>   <span class="fu">analysis</span>(.x) <span class="sc">%&gt;%</span> <span class="fu">data_range</span>())</span>
 <span id="cb65-826"><a href="#cb65-826" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-827"><a href="#cb65-827" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-827"><a href="#cb65-827" aria-hidden="true" tabindex="-1"></a><span class="fu">map_dfr</span>(time_slices<span class="sc">$</span>splits, <span class="sc">~</span> <span class="fu">assessment</span>(.x) <span class="sc">%&gt;%</span> <span class="fu">data_range</span>())</span>
 <span id="cb65-828"><a href="#cb65-828" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-829"><a href="#cb65-829" aria-hidden="true" tabindex="-1"></a><span class="fu">### 并行计算</span></span>
+<span id="cb65-829"><a href="#cb65-829" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb65-830"><a href="#cb65-830" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-833"><a href="#cb65-833" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-834"><a href="#cb65-834" aria-hidden="true" tabindex="-1"></a>parallel<span class="sc">::</span><span class="fu">detectCores</span>(<span class="at">logical =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb65-835"><a href="#cb65-835" aria-hidden="true" tabindex="-1"></a>parallel<span class="sc">::</span><span class="fu">detectCores</span>(<span class="at">logical =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb65-836"><a href="#cb65-836" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-837"><a href="#cb65-837" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-838"><a href="#cb65-838" aria-hidden="true" tabindex="-1"></a><span class="fu">### 保存重采样对象</span></span>
+<span id="cb65-831"><a href="#cb65-831" aria-hidden="true" tabindex="-1"></a><span class="fu">### 并行计算</span></span>
+<span id="cb65-832"><a href="#cb65-832" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-835"><a href="#cb65-835" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-836"><a href="#cb65-836" aria-hidden="true" tabindex="-1"></a>parallel<span class="sc">::</span><span class="fu">detectCores</span>(<span class="at">logical =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb65-837"><a href="#cb65-837" aria-hidden="true" tabindex="-1"></a>parallel<span class="sc">::</span><span class="fu">detectCores</span>(<span class="at">logical =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb65-838"><a href="#cb65-838" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb65-839"><a href="#cb65-839" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-842"><a href="#cb65-842" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-843"><a href="#cb65-843" aria-hidden="true" tabindex="-1"></a>ames_rec <span class="ot">&lt;-</span> </span>
-<span id="cb65-844"><a href="#cb65-844" aria-hidden="true" tabindex="-1"></a>  <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> Neighborhood <span class="sc">+</span> Gr_Liv_Area <span class="sc">+</span> Year_Built <span class="sc">+</span> Bldg_Type <span class="sc">+</span> </span>
-<span id="cb65-845"><a href="#cb65-845" aria-hidden="true" tabindex="-1"></a>           Latitude <span class="sc">+</span> Longitude, <span class="at">data =</span> ames_train) <span class="sc">%&gt;%</span></span>
-<span id="cb65-846"><a href="#cb65-846" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_other</span>(Neighborhood, <span class="at">threshold =</span> <span class="fl">0.01</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-847"><a href="#cb65-847" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(<span class="fu">all_nominal_predictors</span>()) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-848"><a href="#cb65-848" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_interact</span>( <span class="sc">~</span> Gr_Liv_Area<span class="sc">:</span><span class="fu">starts_with</span>(<span class="st">"Bldg_Type_"</span>) ) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-849"><a href="#cb65-849" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_ns</span>(Latitude, Longitude, <span class="at">deg_free =</span> <span class="dv">20</span>)</span>
-<span id="cb65-850"><a href="#cb65-850" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-851"><a href="#cb65-851" aria-hidden="true" tabindex="-1"></a>lm_wflow <span class="ot">&lt;-</span>  </span>
-<span id="cb65-852"><a href="#cb65-852" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb65-853"><a href="#cb65-853" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(ames_rec) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-854"><a href="#cb65-854" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(<span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span> <span class="fu">set_engine</span>(<span class="st">"lm"</span>)) </span>
-<span id="cb65-855"><a href="#cb65-855" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-856"><a href="#cb65-856" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> lm_wflow <span class="sc">%&gt;%</span> <span class="fu">fit</span>(<span class="at">data =</span> ames_train)</span>
+<span id="cb65-840"><a href="#cb65-840" aria-hidden="true" tabindex="-1"></a><span class="fu">### 保存重采样对象</span></span>
+<span id="cb65-841"><a href="#cb65-841" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-844"><a href="#cb65-844" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-845"><a href="#cb65-845" aria-hidden="true" tabindex="-1"></a>ames_rec <span class="ot">&lt;-</span> </span>
+<span id="cb65-846"><a href="#cb65-846" aria-hidden="true" tabindex="-1"></a>  <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> Neighborhood <span class="sc">+</span> Gr_Liv_Area <span class="sc">+</span> Year_Built <span class="sc">+</span> Bldg_Type <span class="sc">+</span> </span>
+<span id="cb65-847"><a href="#cb65-847" aria-hidden="true" tabindex="-1"></a>           Latitude <span class="sc">+</span> Longitude, <span class="at">data =</span> ames_train) <span class="sc">%&gt;%</span></span>
+<span id="cb65-848"><a href="#cb65-848" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_other</span>(Neighborhood, <span class="at">threshold =</span> <span class="fl">0.01</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-849"><a href="#cb65-849" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(<span class="fu">all_nominal_predictors</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-850"><a href="#cb65-850" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_interact</span>( <span class="sc">~</span> Gr_Liv_Area<span class="sc">:</span><span class="fu">starts_with</span>(<span class="st">"Bldg_Type_"</span>) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-851"><a href="#cb65-851" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_ns</span>(Latitude, Longitude, <span class="at">deg_free =</span> <span class="dv">20</span>)</span>
+<span id="cb65-852"><a href="#cb65-852" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-853"><a href="#cb65-853" aria-hidden="true" tabindex="-1"></a>lm_wflow <span class="ot">&lt;-</span>  </span>
+<span id="cb65-854"><a href="#cb65-854" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb65-855"><a href="#cb65-855" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(ames_rec) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-856"><a href="#cb65-856" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(<span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span> <span class="fu">set_engine</span>(<span class="st">"lm"</span>)) </span>
 <span id="cb65-857"><a href="#cb65-857" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-858"><a href="#cb65-858" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the recipe: </span></span>
-<span id="cb65-859"><a href="#cb65-859" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_recipe</span>(lm_fit, <span class="at">estimated =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb65-860"><a href="#cb65-860" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-861"><a href="#cb65-861" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-864"><a href="#cb65-864" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-865"><a href="#cb65-865" aria-hidden="true" tabindex="-1"></a>get_model <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb65-866"><a href="#cb65-866" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_fit_parsnip</span>(x) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span>
-<span id="cb65-867"><a href="#cb65-867" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb65-868"><a href="#cb65-868" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-869"><a href="#cb65-869" aria-hidden="true" tabindex="-1"></a><span class="fu">get_model</span>(lm_fit)</span>
-<span id="cb65-870"><a href="#cb65-870" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-871"><a href="#cb65-871" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-874"><a href="#cb65-874" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-875"><a href="#cb65-875" aria-hidden="true" tabindex="-1"></a>ctrl <span class="ot">&lt;-</span> <span class="fu">control_resamples</span>(<span class="at">extract =</span> get_model)</span>
-<span id="cb65-876"><a href="#cb65-876" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-877"><a href="#cb65-877" aria-hidden="true" tabindex="-1"></a>lm_res <span class="ot">&lt;-</span> lm_wflow <span class="sc">%&gt;%</span>  <span class="fu">fit_resamples</span>(<span class="at">resamples =</span> ames_folds, <span class="at">control =</span> ctrl)</span>
-<span id="cb65-878"><a href="#cb65-878" aria-hidden="true" tabindex="-1"></a>lm_res</span>
-<span id="cb65-879"><a href="#cb65-879" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-880"><a href="#cb65-880" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-883"><a href="#cb65-883" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-884"><a href="#cb65-884" aria-hidden="true" tabindex="-1"></a>lm_res<span class="sc">$</span>.extracts[[<span class="dv">1</span>]]</span>
-<span id="cb65-885"><a href="#cb65-885" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-886"><a href="#cb65-886" aria-hidden="true" tabindex="-1"></a>lm_res<span class="sc">$</span>.extracts[[<span class="dv">1</span>]][[<span class="dv">1</span>]]</span>
-<span id="cb65-887"><a href="#cb65-887" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-888"><a href="#cb65-888" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-891"><a href="#cb65-891" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-892"><a href="#cb65-892" aria-hidden="true" tabindex="-1"></a>all_coef <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(lm_res<span class="sc">$</span>.extracts, <span class="sc">~</span> .x[[<span class="dv">1</span>]][[<span class="dv">1</span>]])</span>
-<span id="cb65-893"><a href="#cb65-893" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the replicates for a single predictor:</span></span>
-<span id="cb65-894"><a href="#cb65-894" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(all_coef, term <span class="sc">==</span> <span class="st">"Year_Built"</span>)</span>
-<span id="cb65-895"><a href="#cb65-895" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-858"><a href="#cb65-858" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> lm_wflow <span class="sc">%&gt;%</span> <span class="fu">fit</span>(<span class="at">data =</span> ames_train)</span>
+<span id="cb65-859"><a href="#cb65-859" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-860"><a href="#cb65-860" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the recipe: </span></span>
+<span id="cb65-861"><a href="#cb65-861" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_recipe</span>(lm_fit, <span class="at">estimated =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb65-862"><a href="#cb65-862" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-863"><a href="#cb65-863" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-866"><a href="#cb65-866" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-867"><a href="#cb65-867" aria-hidden="true" tabindex="-1"></a>get_model <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb65-868"><a href="#cb65-868" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_fit_parsnip</span>(x) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span>
+<span id="cb65-869"><a href="#cb65-869" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb65-870"><a href="#cb65-870" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-871"><a href="#cb65-871" aria-hidden="true" tabindex="-1"></a><span class="fu">get_model</span>(lm_fit)</span>
+<span id="cb65-872"><a href="#cb65-872" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-873"><a href="#cb65-873" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-876"><a href="#cb65-876" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-877"><a href="#cb65-877" aria-hidden="true" tabindex="-1"></a>ctrl <span class="ot">&lt;-</span> <span class="fu">control_resamples</span>(<span class="at">extract =</span> get_model)</span>
+<span id="cb65-878"><a href="#cb65-878" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-879"><a href="#cb65-879" aria-hidden="true" tabindex="-1"></a>lm_res <span class="ot">&lt;-</span> lm_wflow <span class="sc">%&gt;%</span>  <span class="fu">fit_resamples</span>(<span class="at">resamples =</span> ames_folds, <span class="at">control =</span> ctrl)</span>
+<span id="cb65-880"><a href="#cb65-880" aria-hidden="true" tabindex="-1"></a>lm_res</span>
+<span id="cb65-881"><a href="#cb65-881" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-882"><a href="#cb65-882" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-885"><a href="#cb65-885" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-886"><a href="#cb65-886" aria-hidden="true" tabindex="-1"></a>lm_res<span class="sc">$</span>.extracts[[<span class="dv">1</span>]]</span>
+<span id="cb65-887"><a href="#cb65-887" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-888"><a href="#cb65-888" aria-hidden="true" tabindex="-1"></a>lm_res<span class="sc">$</span>.extracts[[<span class="dv">1</span>]][[<span class="dv">1</span>]]</span>
+<span id="cb65-889"><a href="#cb65-889" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-890"><a href="#cb65-890" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-893"><a href="#cb65-893" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-894"><a href="#cb65-894" aria-hidden="true" tabindex="-1"></a>all_coef <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(lm_res<span class="sc">$</span>.extracts, <span class="sc">~</span> .x[[<span class="dv">1</span>]][[<span class="dv">1</span>]])</span>
+<span id="cb65-895"><a href="#cb65-895" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the replicates for a single predictor:</span></span>
+<span id="cb65-896"><a href="#cb65-896" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(all_coef, term <span class="sc">==</span> <span class="st">"Year_Built"</span>)</span>
+<span id="cb65-897"><a href="#cb65-897" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
