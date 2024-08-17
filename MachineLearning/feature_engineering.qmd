@@ -1,0 +1,307 @@
+# 特征工程
+
+变量是特征的广义描述，它可以在不同的数据集或应用中有不同的定义和用途。特征是指数据集中描述每个实例或样本的一种属性，而值是这个属性的具体表现形式。变量和特征在概念上非常接近，通常可以互换使用，但在机器学习中，特征更常用于描述模型的输入。
+
+特征工程（Feature Engineering）是机器学习中一项关键的步骤，旨在通过对原始数据进行处理和转换，生成更适合于模型训练的特征。这些特征有助于提高模型的预测能力和性能。
+
+包括
+
+1.  特征选择 从原始数据中选择最具信息量的特征，以减少冗余信息和噪声。
+
+2.  特征构造 基于现有数据生成新的特征，。
+
+3.  特征变换 对现有特征进行数学运算或其他处理，使其更适合模型学习。例如：**标准化与归一化**、**对数变换**、**类别编码**。
+
+4.  特征降维 通过减少特征数量来降低模型复杂性，同时保持数据的主要信息。例如：**主成分分析（PCA）**、**线性判别分析（LDA）**（最大化类间方差和最小化类内方差）
+
+5.  特征提取 从原始数据中提取有意义的特征，特别是在图像、文本等非结构化数据中。
+
+```{r}
+#| code-fold: true
+#| code-summary: "前情回顾"
+library(tidymodels)
+data(ames,package = "modeldata")
+ames <- ames |>mutate(Sale_Price = log10(Sale_Price))
+set.seed(100)
+ames_split <- initial_split(ames, prop = 0.80, strata = Sale_Price)
+ames_split
+
+ames_train <- training(ames_split)
+ames_test  <-  testing(ames_split)
+dim(ames_train)
+lm_spec <- linear_reg() |> 
+    set_engine("lm") |> 
+    set_mode(mode = "regression")
+lm_spec
+```
+
+## 特征工程 `recipes`
+
+*Recipe = Inputs + Operations*
+
+```{r}
+
+# Input 6 roles 1+5
+basic_rec <-  recipe(
+    Sale_Price ~ Neighborhood + Gr_Liv_Area + Year_Built + Bldg_Type + Longitude + Latitude,
+    data = ames_train ) %>%
+    step_other(all_nominal_predictors(), threshold = 0.05) 
+
+ames_train %>% select(Sale_Price ,
+                      Neighborhood ,
+                      Gr_Liv_Area ,
+                      Year_Built ,
+                      Bldg_Type,
+                      Longitude,
+                      Latitude)
+basic_rec 
+```
+
+
+
+### 缺失值插补
+
+```{r}
+impute_rec <- basic_rec %>% 
+    step_impute_knn() %>% 
+    step_impute_bag() %>% 
+    step_filter_missing()  # 删除含 NA 的列
+impute_rec
+```
+
+
+
+
+
+
+### 特征变换
+
+**标准化与归一化**，**对数变换**，**类别编码、生成虚拟变量**。
+
+```{r}
+transform_rec <- 
+    basic_rec %>%
+    step_normalize(all_double_predictors()) %>% 
+    step_log(Gr_Liv_Area, base = 10) %>% 
+    step_dummy(all_nominal_predictors())  # 因子或字符变量，名义nominal
+
+
+# 跨模型循环使用
+transform_rec
+
+
+# 查看变换后的数据
+transform_rec %>% 
+    prep() %>% 
+    bake(new_data = NULL )
+```
+
+```{r}
+ggplot(ames_train, aes(x = Gr_Liv_Area, y = 10^Sale_Price)) + 
+  geom_point(alpha = .2) + 
+  facet_wrap(~ Bldg_Type) + 
+  geom_smooth(method = lm, formula = y ~ x, se = FALSE, color = "blue") + 
+  scale_x_log10() + 
+  scale_y_log10() + 
+  labs(x = "Gross Living Area", y = "Sale Price (USD)")
+```
+
+### 特征构造
+
+#### 交互项
+
+`step_interact(~ interaction terms)` , `+`分隔不同交互效应
+
+```{r}
+interact_rec <- basic_rec %>% 
+  step_interact( ~ Gr_Liv_Area:starts_with("Bldg_Type_") )
+
+interact_rec
+```
+
+#### mutate
+
+```{r}
+basic_rec %>%    
+    step_mutate(prop = Longitude/Latitude,
+                root_area = sqrt(Gr_Liv_Area),
+                poly = Longitude^2
+                )  
+```
+
+
+#### 多项式
+
+```{r}
+workflow() %>%
+    add_recipe(basic_rec) %>%
+    step_poly(all_numeric_predictors(),
+              degree = 2,
+              all_terms = F) %>% 
+    add_model(lm_spec) %>% 
+    fit(ames_train) %>% extract_fit_parsnip() %>% tidy()
+```
+
+
+#### 自然样条函数
+
+自然样条函数是一种在两端添加了边界限制的回归样条，它通过在自变量的取值两端添加线性约束来减少预测的方差，使得边界的预测更加准确。这种回归样条通常称为“自然样条”（natural spline），与普通回归样条（如B样条）相比，在x的边界处得到的结果更加稳健，尤其在x的两端，自然样条的预测区间更窄
+
+```{r}
+basic_rec %>%
+  step_ns(Latitude, deg_free = 20)
+```
+
+
+```{r}
+library(patchwork)
+library(splines)
+plot_smoother <- function(deg_free) {
+  ggplot(ames_train, aes(x = Latitude, y = 10^Sale_Price)) + 
+    geom_point(alpha = .2) + 
+    scale_y_log10() +
+    geom_smooth(
+      method = lm,
+      formula = y ~ ns(x, df = deg_free),# natural splines.
+      color = "lightblue",
+      se = FALSE
+    ) +
+    labs(title = paste(deg_free, "Spline Terms"),
+         y = "Sale Price (USD)")
+}
+
+( plot_smoother(1) + plot_smoother(5) ) / ( plot_smoother(20) + plot_smoother(100) )
+```
+
+
+### 特征降维
+
+PCA
+
+```{r}
+recipe(Sale_Price ~ Neighborhood + Gr_Liv_Area + Year_Built + Bldg_Type + Latitude+Total_Bsmt_SF+First_Flr_SF+Gr_Liv_Area,
+         data = ames_train) %>%
+    step_pca(matches("(SF$)|(Gr_Liv)")) 
+```
+
+### 行采样
+
+Downsampling，Upsampling，Hybrid
+
+`step_filter()` `step_sample()` `step_slice()` `step_arrange()` `skip` `TRUE`
+
+```{r eval=FALSE}
+library(themis)
+step_downsample(outcome_column_name)
+```
+
+
+
+### 列角色
+
+role: outcome ，predictor ，... 
+
+```{r}
+basic_rec %>% update_role(Year_Built, new_role = "Street")
+```
+
+### 自然语言处理
+
+[textrecipes](https://textrecipes.tidymodels.org/)
+
+## 工作流 `workflows`
+
+工作流 ***workflow*** = 预处理器 ***Preprocessor*** （ None，Recipe，Formula，Variables）+ 模型 ***Model***
+
+```{r}
+lm_wflow <- 
+  workflow() %>% 
+  add_model(lm_spec)%>% 
+  add_recipe(transform_rec)
+
+lm_wflow
+
+lm_wflow %>% fit(ames_train) %>% 
+  extract_recipe(estimated = TRUE)
+```
+
+一次只能有一种预处理器，需要在添加新配方之前删除现有的预处理器,否则会报错
+
+```{r error=TRUE}
+
+# Recipe
+
+lm_wflow %>%
+    update_formula(Sale_Price ~ Longitude)
+lm_wflow <- lm_wflow %>%
+    remove_recipe()
+
+# None
+lm_wflow
+
+lm_wflow <- lm_wflow %>%
+    add_formula(Sale_Price ~ Longitude)
+
+
+
+# Formula
+lm_wflow <- lm_wflow |> 
+    update_formula(Sale_Price ~ Longitude + Latitude)  # 直接更新
+lm_wflow
+
+
+#  Variables
+lm_wflow <- 
+  lm_wflow %>% 
+  remove_formula() %>%  # 先移除公式再添加 变量
+  add_variables(outcomes  = Sale_Price, predictors = c(Longitude, Latitude)) 
+
+lm_wflow
+
+#  拟合
+lm_fit <- fit(lm_wflow, ames_train)
+lm_fit
+
+predict(lm_fit, ames_test,type = "conf_int")
+
+# 提取模型信息
+
+lm_fit %>% 
+  extract_fit_parsnip() %>% 
+  tidy()
+
+```
+
+## 工作流集 `workflowsets`
+
+```{r}
+location <- list(
+  longitude = Sale_Price ~ Longitude,
+  latitude = Sale_Price ~ Latitude,
+  coords = Sale_Price ~ Longitude + Latitude,
+  neighborhood = Sale_Price ~ Neighborhood
+)
+
+library(workflowsets)
+location_models <- workflow_set(preproc = location, models = list(lm = lm_spec))
+location_models
+location_models$info[[1]]
+extract_workflow(location_models, id = "coords_lm")
+
+
+location_models <-
+   location_models %>%
+   mutate(fit = map(info, ~ fit(.x$workflow[[1]], ames_train)))
+location_models
+
+location_models$fit[[1]]
+```
+
+```{r}
+final_lm_res <- last_fit(lm_wflow, ames_split)
+final_lm_res
+extract_workflow(final_lm_res)
+
+collect_metrics(final_lm_res)
+collect_predictions(final_lm_res) %>% slice(1:5)
+```

@@ -10,10 +10,26 @@ library(vip)
 ## 决策树 （分类）
 
 ```{r}
-df <- read_csv("data/breast-cancer-wisconsin.data",col_names = F,na = c("","NA","?"))
+df <- read_csv(
+    "data/breast-cancer-wisconsin.data",
+    col_names = F,
+    na = c("", "NA", "?")
+)
 
-colnames(df) <- c("id","肿块厚度","细胞大小均匀性","细胞形状均匀性","边际附着力","单个上皮细胞大小",
-               "裸核","bland_chromatin","正常核","有丝分裂","class")
+colnames(df) <- c(
+    "sample_id",
+    "肿块厚度",
+    "细胞大小一致性",
+    "细胞形态一致性",
+    "边际粘附力",
+    "单上皮细胞大小",
+    "裸核",
+    "染色质颜色",
+    "正常核仁",
+    "有丝分裂",
+    "class"
+)# 2 for benign, 4 for malignant
+
 
 df <- df |>
     select(-1) |>

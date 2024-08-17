@@ -1,0 +1,138 @@
+# 模型选择
+
+```{r}
+#| code-fold: true
+#| code-summary: "前情回顾"
+library(tidymodels)
+data(ames,package = "modeldata")
+ames <- ames |>mutate(Sale_Price = log10(Sale_Price))
+set.seed(100)
+ames_split <- initial_split(ames, prop = 0.80, strata = Sale_Price)
+ames_split
+
+ames_train <- training(ames_split)
+ames_test  <-  testing(ames_split)
+dim(ames_train)
+```
+
+## 模型规范
+
+通过 `parsnip_addin()` 查看 `tidymodels` 规范
+
+```{r eval=FALSE}
+parsnip_addin()
+```
+
+```{r}
+show_engines('linear_reg')
+show_engines("logistic_reg")
+```
+
+## `parsnip` 模型
+
+### 线性回归
+
+```{r}
+lm_model <- linear_reg() |> 
+    set_engine("lm") |> 
+    set_mode(mode = "regression")
+lm_model
+
+```
+
+### 逻辑回归
+
+```{r}
+logistic_reg() |>
+  set_mode("classification") |>
+  set_engine("glm") 
+
+
+```
+
+### 决策树
+
+```{r}
+
+decision_tree(min_n = 2) |>
+  set_engine("rpart") |>
+  set_mode("regression")
+
+decision_tree(min_n = 2) |>
+  set_engine("rpart") |>
+  set_mode("classification")
+```
+
+### 随机森林
+
+```{r}
+rand_forest(trees = 500 , min_n = 5) |>
+  set_engine("randomForest", verbose = TRUE) |>
+  set_mode("regression") 
+
+rand_forest(trees = 500 , min_n = 5) |>
+  set_engine("randomForest", verbose = TRUE) |>
+  set_mode("classification") 
+```
+
+
+## 拓展模型
+
+### 泊松回归 
+
+```{r}
+poisson_reg_glm_spec <-
+  poisson_reg() %>%
+  set_engine('glm') %>% translate()
+poisson_reg_glm_spec
+```
+
+### 多级模型 `multilevelmod`
+
+```{r}
+library(multilevelmod)
+# 线性混合效应模型
+
+set.seed(1234)
+data(sleepstudy, package = "lme4")
+
+mixed_model_spec <- linear_reg() %>% set_engine("lmer")
+
+mixed_model_fit <- 
+  mixed_model_spec %>% 
+  fit(Reaction ~ Days + (Days | Subject), data = sleepstudy)
+
+mixed_model_fit
+
+
+# 广义估计方程
+poisson_reg_gee_spec <-
+  poisson_reg() %>%
+  set_engine('gee') %>% 
+  translate()
+poisson_reg_gee_spec
+
+
+poisson_reg() %>% 
+  set_engine("gee", corstr = "exchangeable") %>% 
+  fit(y ~ time + x + id_var(subject), data = longitudinal_counts)
+```
+
+### 生存模型 `censored`
+
+`type = "time"  type = "survival"   type = "linear_pred"   type = "quantile"   type = "hazard"`
+
+```{r}
+library(censored)
+
+parametric_spec <- survival_reg()
+
+parametric_workflow <- 
+  workflow() %>% 
+  add_variables(outcome = c(fustat, futime), predictors = c(age, rx)) %>% 
+  add_model(parametric_spec, 
+            formula = Surv(futime, fustat) ~ age + strata(rx))
+
+parametric_fit <- fit(parametric_workflow, data = ovarian)
+parametric_fit
+```

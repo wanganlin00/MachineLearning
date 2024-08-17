@@ -1,0 +1,273 @@
+# 重采样`rsample`
+
+```{r}
+#| code-fold: true
+#| code-summary: "前情回顾"
+library(tidymodels)
+data(ames,package = "modeldata")
+ames <- ames |>mutate(Sale_Price = log10(Sale_Price))
+set.seed(100)
+ames_split <- initial_split(ames, prop = 0.80, strata = Sale_Price)
+ames_split
+
+ames_train <- training(ames_split)
+ames_test  <-  testing(ames_split)
+
+lm_spec <- linear_reg() |> 
+    set_engine("lm") |> 
+    set_mode(mode = "regression")
+
+ames_rec <-   recipe(
+    Sale_Price ~ Neighborhood + Gr_Liv_Area + Year_Built + Bldg_Type + Latitude + Longitude,
+    data = ames_train) %>%
+    step_log(Gr_Liv_Area, base = 10, id = "log10") %>%
+    step_other(Neighborhood, threshold = 0.01, id="other_id") %>%
+    step_dummy(all_nominal_predictors()) %>%
+    step_interact(~ Gr_Liv_Area:starts_with("Bldg_Type_")) %>%
+    step_ns(Latitude, Longitude, deg_free = 20)
+lm_wflow <-
+    workflow() %>%
+    add_model(lm_spec) %>%
+    add_recipe(recipe = ames_rec)
+
+#  拟合
+lm_fit <- fit(lm_wflow, ames_train)
+```
+
+```{r}
+ames_rec
+```
+
+```{r}
+rf_model <- 
+  rand_forest(trees = 1000) %>% 
+  set_engine("ranger") %>% 
+  set_mode("regression")
+
+rf_wflow <- 
+  workflow() %>% 
+  add_formula(
+    Sale_Price ~ Neighborhood + Gr_Liv_Area + Year_Built + Bldg_Type + 
+      Latitude + Longitude) %>% 
+  add_model(rf_model) 
+
+rf_fit <- rf_wflow %>% fit(data = ames_train)
+```
+
+```{r}
+estimate_perf <- function(model, dat) {
+  # Capture the names of the `model` and `dat` objects
+  cl <- match.call()
+  obj_name <- as.character(cl$model)
+  data_name <- as.character(cl$dat)
+  data_name <- gsub("ames_", "", data_name)
+  
+  # Estimate these metrics:
+  reg_metrics <- metric_set(rmse, rsq)
+  
+  model %>%
+    predict(dat) %>%
+    bind_cols(dat %>% select(Sale_Price)) %>%
+    reg_metrics(Sale_Price, .pred) %>%
+    select(-.estimator) %>%
+    mutate(object = obj_name, data = data_name)
+}
+
+estimate_perf(rf_fit, ames_train)
+estimate_perf(lm_fit, ames_train)
+```
+
+```{r}
+estimate_perf(rf_fit, ames_test)
+```
+
+[![](images/resampling.svg){fig-align="center"}](https://www.tmwr.org/premade/resampling.svg)
+
+## 交叉验证
+
+### V 重交叉验证
+
+*V*-fold cross-validation，数据被随机划分为样本量大致相等的*V*组（称为折叠），例如10重交叉验证
+
+```{r}
+set.seed(1001)
+# 10-fold cross-validation
+ames_folds <- vfold_cv(ames_train, v = 10)
+
+# 分析集/评估集
+ames_folds
+
+
+# 检索分区数据
+ames_folds$splits[[1]] %>% analysis() |> dim()
+```
+
+`model_spec %>% fit_resamples(formula, resamples, ...)`
+
+`model_spec %>% fit_resamples(recipe, resamples, ...)`
+
+`workflow %>% fit_resamples( resamples, ...)`
+
+```{r}
+keep_pred <- control_resamples(save_pred = TRUE, save_workflow = TRUE)
+
+set.seed(1003)
+rf_res <- 
+  rf_wflow %>% 
+  fit_resamples(resamples = ames_folds, control = keep_pred)
+rf_res
+collect_metrics(rf_res)
+collect_metrics(rf_res,summarize = F)
+assess_res <- collect_predictions(rf_res)
+assess_res
+```
+
+```{r}
+assess_res %>% 
+  ggplot(aes(x = Sale_Price, y = .pred)) + 
+  geom_point(alpha = .15) +
+  geom_abline(color = "red") + 
+  coord_obs_pred() + 
+  ylab("Predicted")
+```
+
+```{r}
+# 找到残差最大的2个
+over_predicted <- 
+  assess_res %>% 
+  mutate(residual = Sale_Price - .pred) %>% 
+  arrange(desc(abs(residual))) %>% 
+  slice(1:2)
+over_predicted
+
+ames_train %>% 
+  slice(over_predicted$.row) %>% 
+  select(Gr_Liv_Area, Neighborhood, Year_Built, Bedroom_AbvGr, Full_Bath)
+```
+
+### 重复交叉验证
+
+```{r}
+# 10-fold cross-validation repeated 5 times 
+vfold_cv(ames_train, v = 10, repeats = 5)
+```
+
+### 留一交叉验证
+
+leave-one-out (LOO) cross-validation
+
+`loo_cv()`
+
+### 蒙特卡罗交叉验证
+
+Monte Carlo cross-validation，MCCV，将固定比例的数据分配给分析集和评估集。该比例的数据每次都是随机选择的，导致评估集不相互排斥
+
+```{r}
+mc_cv(ames_train, prop = 9/10, times = 20)
+```
+
+## 验证集
+
+```{r}
+set.seed(101)
+
+# To put 60% into training, 20% in validation, and remaining 20% in testing:
+ames_validation_split <- initial_validation_split(ames, prop = c(0.6, 0.2))
+ames_validation_split
+
+
+# Object used for resampling: 
+val_set <- validation_set(ames_validation_split)
+val_set
+```
+
+```{r}
+val_res <- rf_wflow %>% fit_resamples(resamples = val_set)
+val_res
+collect_metrics(val_res)
+```
+
+## 自助法
+
+Bootstrap resampling
+
+replacement
+
+*out-of-bag* sample
+
+```{r}
+bootstraps(ames_train, times = 5)
+```
+
+## Rolling forecast origin resampling
+
+滚动预测原点重采样
+
+时间序列数据
+
+```{r}
+time_slices <- 
+  tibble(x = 1:365) %>% 
+  rolling_origin(initial = 6 * 30, assess = 30, skip = 29, cumulative = FALSE)
+
+data_range <- function(x) {
+  summarize(x, first = min(x), last = max(x))
+}
+
+map_dfr(time_slices$splits, ~   analysis(.x) %>% data_range())
+
+map_dfr(time_slices$splits, ~ assessment(.x) %>% data_range())
+
+```
+
+## 保存重采样对象
+
+```{r}
+ames_rec <- 
+  recipe(Sale_Price ~ Neighborhood + Gr_Liv_Area + Year_Built + Bldg_Type + 
+           Latitude + Longitude, data = ames_train) %>%
+  step_other(Neighborhood, threshold = 0.01) %>% 
+  step_dummy(all_nominal_predictors()) %>% 
+  step_interact( ~ Gr_Liv_Area:starts_with("Bldg_Type_") ) %>% 
+  step_ns(Latitude, Longitude, deg_free = 20)
+
+lm_wflow <-  
+  workflow() %>% 
+  add_recipe(ames_rec) %>% 
+  add_model(linear_reg() %>% set_engine("lm")) 
+
+lm_fit <- lm_wflow %>% fit(data = ames_train)
+
+# Select the recipe: 
+extract_recipe(lm_fit, estimated = TRUE)
+```
+
+```{r}
+get_model <- function(x) {
+  extract_fit_parsnip(x) %>% tidy()
+}
+
+get_model(lm_fit)
+```
+
+```{r}
+ctrl <- control_resamples(extract = get_model)
+
+lm_res <- lm_wflow %>%  
+    fit_resamples(resamples = ames_folds, control = ctrl)
+
+lm_res
+```
+
+```{r}
+lm_res$.extracts[[1]]
+
+lm_res$.extracts[[1]][[1]]
+```
+
+```{r}
+all_coef <- map_dfr(lm_res$.extracts, ~ .x[[1]][[1]])
+# Show the replicates for a single predictor:
+all_coef %>% 
+    dplyr::filter( term == "Year_Built")
+```

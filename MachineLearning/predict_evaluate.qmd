@@ -1,0 +1,222 @@
+# 模型评估
+
+```{r}
+#| code-fold: true
+#| code-summary: "前情回顾"
+library(tidymodels)
+data(ames,package = "modeldata")
+ames <- ames |>mutate(Sale_Price = log10(Sale_Price))
+set.seed(100)
+ames_split <- initial_split(ames, prop = 0.80, strata = Sale_Price)
+ames_split
+
+ames_train <- training(ames_split)
+ames_test  <-  testing(ames_split)
+
+lm_spec <- linear_reg() |> 
+    set_engine("lm") |> 
+    set_mode(mode = "regression")
+
+rec <-   recipe(
+    Sale_Price ~ Neighborhood + Gr_Liv_Area + Year_Built + Bldg_Type + Latitude + Longitude,
+    data = ames_train) %>%
+    step_log(Gr_Liv_Area, base = 10, id = "log10") %>%
+    step_other(Neighborhood, threshold = 0.01, id="other_id") %>%
+    step_dummy(all_nominal_predictors()) %>%
+    step_interact(~ Gr_Liv_Area:starts_with("Bldg_Type_")) %>%
+    step_ns(Latitude, Longitude, deg_free = 20)
+lm_wflow <-
+    workflow() %>%
+    add_model(lm_spec) %>%
+    add_recipe(recipe = rec)
+
+#  拟合
+lm_fit <- fit(lm_wflow, ames_train)
+```
+
+## 预测
+
+`predict(object, new_data, type = NULL, opts = list(), ...)`
+
+### 回归
+
+"raw"，"numeric" ，"conf_int"，"pred_int"
+
+```{r}
+predict(lm_fit,new_data =  ames_test,type ="conf_int")
+```
+
+### 分类
+
+```{r}
+# 分类  "class", "prob",
+```
+
+### 生存
+
+censored regression
+
+```{r}
+#  "time"，"hazard","survival"，"linear_pred"
+```
+
+### 特殊
+
+```{r}
+# "quantile", "raw"
+```
+
+## 添加
+
+`augment(x = fit, new_data, eval_time = NULL, ...)`
+
+```{r}
+augment(lm_fit, new_data = ames_test) %>% select(1:2,Sale_Price)
+```
+
+## `tidy()`
+
+```{r}
+tidy
+tidy(rec)
+tidy(rec,id = "other_id")
+tidy(rec, number = 2)
+```
+
+```{r}
+tidy(lm_fit)
+
+```
+
+## 回归指标
+
+```{r}
+ames_test_res <- predict(lm_fit, new_data = ames_test %>% select(-Sale_Price))
+ames_test_res
+
+ames_test_res <- bind_cols(ames_test_res, ames_test %>% select(Sale_Price))
+ames_test_res
+```
+
+```{r}
+ggplot(ames_test_res, aes(x = Sale_Price, y = .pred)) + 
+  # Create a diagonal line:
+  geom_abline(lty = 2) + 
+  geom_point(alpha = 0.5) + 
+  labs(y = "Predicted Sale Price (log10)", x = "Sale Price (log10)") +
+  # Scale and size the x- and y-axis uniformly:
+  coord_obs_pred()
+
+```
+
+#### 均方根误差RMSE
+
+```{r}
+rmse(ames_test_res, truth = Sale_Price, estimate = .pred)
+```
+
+#### 决定系数R^2^，平均绝对误差MAE
+
+```{r}
+metrics <- metric_set(rmse, rsq, mae)
+metrics(ames_test_res, truth = Sale_Price, estimate = .pred)
+```
+
+## 分类指标
+
+### 二分类
+
+```{r}
+data(two_class_example)
+tibble(two_class_example)
+```
+
+```{r}
+# 混淆矩阵
+# A confusion matrix: 
+conf_mat(two_class_example, truth = truth, estimate = predicted)
+```
+
+```{r}
+# Accuracy:
+accuracy(two_class_example, truth, predicted)
+```
+
+```{r}
+# Matthews correlation coefficient:
+mcc(two_class_example, truth, predicted)
+```
+
+```{r}
+# F1 metric:
+f_meas(two_class_example, truth, predicted)
+```
+
+```{r}
+# Combining these three classification metrics together
+classification_metrics <- metric_set(accuracy, mcc, f_meas)
+classification_metrics(two_class_example, truth = truth, estimate = predicted)
+```
+
+感兴趣 事件水平
+
+第二级逻辑将结果编码为0/1（在这种情况下，第二个值是事件）
+
+```{r}
+f_meas(two_class_example, truth, predicted, event_level = "second")
+```
+
+#### ROC，AUC
+
+不使用预测类列,对于两类问题，感兴趣事件的概率列将传递到函数中
+
+```{r}
+two_class_curve <- roc_curve(two_class_example, truth, Class1)
+two_class_curve
+roc_auc(two_class_example, truth, Class1)
+```
+
+```{r}
+autoplot(two_class_curve)+
+    annotate("text",x=0.5,y=0.25,label="AUC=0.939")
+```
+
+### 多分类
+
+```{r}
+data(hpc_cv)
+tibble(hpc_cv)
+```
+
+```{r}
+accuracy(hpc_cv, obs, pred)
+mcc(hpc_cv, obs, pred)
+```
+
+二分类可拓展到多分类
+
+```{r}
+sensitivity(hpc_cv, obs, pred, estimator = "macro")
+sensitivity(hpc_cv, obs, pred, estimator = "macro_weighted")
+sensitivity(hpc_cv, obs, pred, estimator = "micro")
+```
+
+多分类
+
+```{r}
+roc_auc(hpc_cv, obs, VF, F, M, L)
+roc_auc(hpc_cv, obs, VF, F, M, L, estimator = "macro_weighted")
+```
+
+```{r}
+hpc_cv %>% 
+  group_by(Resample) %>% 
+  accuracy(obs, pred)
+
+# Four 1-vs-all ROC curves for each fold
+hpc_cv %>% 
+  group_by(Resample) %>% 
+  roc_curve(obs, VF, F, M, L) %>% 
+  autoplot()
+
+```

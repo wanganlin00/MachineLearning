@@ -1,0 +1,157 @@
+# 数据处理
+
+## 数据清洗 `tidyverse`
+
+### 重编码
+
+### 缺失值插补
+
+完全随机缺失：某变量的缺失与其他变量都无关
+
+随机缺失：某变量的缺失与其他观测变量有关，与它自己的未观测值无关
+
+非随机缺失：不属于上述两类的缺失
+
+#### 识别缺失值
+
+```{r}
+data(sleep,package = "VIM")
+
+# 列出有缺失值的行
+sleep[!complete.cases(sleep),]
+
+mice::md.pattern(sleep,rotate.names = T)
+```
+
+#### 删除
+
+不建议
+
+#### 简单插补
+
+用某个值（均值，中位数，中数）来替换变量中的缺失值。不建议。
+
+#### k最近邻插补
+
+根据其他所有变量，在数据集中查找与此观测最近邻（最相似，Gower 距离）的k个观测，将这k个观测的相应变量值进行汇总，如取中位数（连续型）或众数（类别型），将汇总值替换均值。
+
+对于观测数＜1000的数据集是个不错的选择。
+
+```{r}
+sleep_knn_imp <- VIM::kNN(data = sleep,k = 5,
+                      imp_var = F)
+sleep_knn_imp
+```
+
+#### 随机森林插补
+
+对于大型数据集（\>500），随机森林法
+
+1.  使用均值替代连续型NA，使用众数替代分类变量的NA。同时记录NA的位置
+
+2.  返回第一个变量 X1 的缺失数据。创建在此变量上没有缺失值的观测值的训练集。使用训练集生成随机森林模型，用该模型预测X1 。用预测值插补NA
+
+3.  对X2 到 Xp 重复步骤2
+
+4.  重复步骤2 和3 ，直到插补值的变化不超过指定的阈值
+
+```{r}
+library(missForest)
+set.seed(10)
+(sleep_rf_imp <- missForest(sleep)$ximp)
+```
+
+## 
+
+#### 多重插补
+
+多重插补（multiple imputation）是一种基于重复模拟（蒙特卡罗法）的处理方法，考虑了缺失值引起的不确定性，适用于假设检验
+
+mice包利用链式方程（chained equation）进行多元插补
+
+```{r}
+library(mice)
+sleep_mice_imp <- mice(sleep,m=5,seed = 100)
+
+# 默认连续型用 lm，glm，gam，分类变量用 （多元）logistic回归 
+fit <- with(sleep_mice_imp, lm(Dream ~ Span + Gest))
+pooled <- pool(fit)
+
+summary(pooled)
+
+sleep_mice_imp$imp$Dream
+
+mi_imp_3rd <- complete(sleep_mice_imp,action = 3)
+mi_imp_3rd
+```
+
+## 探索性数据分析
+
+```{r}
+library(tidymodels)
+data(ames,package = "modeldata")
+
+# 右偏
+moments::skewness(ames$Sale_Price)
+moments::agostino.test(ames$Sale_Price)
+ggplot(ames, aes(x = Sale_Price)) + 
+  geom_histogram(bins = 50, col= "white")
+
+
+# 常用对数变换
+ames <- ames |>mutate(Sale_Price = log10(Sale_Price))
+
+# 近似正态
+moments::skewness(ames$Sale_Price)
+moments::agostino.test(ames$Sale_Price)
+ggplot(ames, aes(x = Sale_Price)) + 
+  geom_histogram(bins = 50, col= "white")+
+    geom_vline(xintercept =quantile(ames$Sale_Price),lty=5 )
+
+
+```
+
+## 数据拆分 `rsample`
+
+一般来说，拆分为训练集和测试集即可。
+
+### 简单抽样
+
+```{r}
+set.seed(10)
+ames_split <- initial_split(ames, prop = c(0.8))
+ames_split
+
+ames_train <- training(ames_split)
+ames_test  <-  testing(ames_split)
+dim(ames_train)
+```
+
+### 分层抽样
+
+```{r}
+set.seed(100)
+ames_split <- initial_split(ames, prop = 0.80, strata = Sale_Price)
+ames_split
+
+ames_train <- training(ames_split)
+ames_test  <-  testing(ames_split)
+dim(ames_train)
+```
+
+### 验证集
+
+如果需要提前验证，可拆分为训练集、验证集和测试集
+
+```{r}
+set.seed(101)
+
+# To put 60% into training, 20% in validation, and remaining 20% in testing:
+ames_split3 <- initial_validation_split(ames, prop = c(0.6, 0.2),
+                                       strata = Sale_Price)
+ames_split3
+
+ames_train3 <- training(ames_split3)
+ames_test3 <- testing(ames_split3)
+ames_valid3 <- validation(ames_split3)
+```
