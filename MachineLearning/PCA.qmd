@@ -2,6 +2,8 @@
 
 主成分分析(Principal component analysis，PCA) 是一种线性降维方法。
 
+高维数据通过线性变换成为保留主要信息的低维数据。
+
 <https://bryanhanson.github.io/LearnPCA/articles//Vig_04_Scores_Loadings.html>
 
 对于一组变量$X_1,X_2,...,X_p$,存在它们的线性组合 **Y**，令$Var(y_1)$最大，得到$y_1$，再找$y_2$，$y_2$与$y_1$正交，以此类推，找到一组无关主成分 **Y**。
@@ -66,6 +68,34 @@ S
 cov(df_center)
 ```
 
+### 特征值与特征向量
+
+协方差矩阵的特征值代表方差大小
+
+特征向量代表方差方向
+
+$$
+\begin{aligned}
+&Covariance\ Matrix\ *\ Eigenvector = Eigenvalue\ *\ Eigenvector\\
+&Eigenvector\ *\ (Covariance\ Matrix\ -\ Eigenvalue\ *\ I)=\mathbf{0}\\
+&det (Covariance\ Matrix\ -\ Eigenvalue\ *\ I)=0\\
+\end{aligned}
+$$
+
+每个变量一个特征值-特征向量对，每个变量一个主成分
+
+```{r}
+eig <- eigen(S)
+
+eig$vectors
+```
+
+即 *PC1= **x1**\*（ -0.5358995 ）+ **x2**\*（-0.5831836）+ **x3**\*（-0.2781909）+**x4**\*（-0.5434321）*
+
+```{r}
+eig$values
+```
+
 ### 计算相关系数矩阵
 
 相关系数矩阵 $R=(r_{ij})$ 的公式为：
@@ -96,7 +126,7 @@ r(df)
 cor(df_center)
 ```
 
-### 总方差
+### 总方差与特征值
 
 总方差T=所有特征值的总和=样本方差的总和=协方差矩阵的迹(对角线的总和)
 
@@ -115,7 +145,7 @@ sum(y$values)
 sum(diag(AA_T))
 ```
 
-### 奇异值分解与主成分推导
+### 奇异值分解
 
 SVD公式：
 
@@ -141,6 +171,10 @@ $$ PC=A\cdot V=U \Sigma  $$
 
 svd <- svd(df_center)
 svd$d
+
+svd$d^2  
+y$values
+
 svd$u
 svd$v
 # 奇异值的平方和
@@ -361,4 +395,52 @@ tidy(df_pca, matrix = "eigenvalues") |>
     geom_point(color = "red") +
     geom_line()+
     scale_y_continuous(labels = scales::percent)
+```
+
+## 案例
+
+```{r}
+library(MASS)
+data("biopsy")
+summary(biopsy)
+biopsy
+df <- biopsy %>% drop_na() %>% select(-c(1,11)) %>% as_tibble()
+df
+
+biopsy_pca <- prcomp(df, scale =T)
+summary(biopsy_pca)
+
+names(biopsy_pca)
+# 标准差
+biopsy_pca$sdev
+# 特征向量
+biopsy_pca$rotation
+# 变量的标准差和均值
+biopsy_pca$center
+biopsy_pca$scale
+
+# 主成分得分
+biopsy_pca$x %>% as_tibble()
+
+```
+
+```{r}
+library(factoextra)
+
+# 方差碎石图
+fviz_eig(biopsy_pca,addlabels = T)+
+    ylim(c(0,100))
+```
+
+```{r}
+fviz_pca_biplot(biopsy_pca)
+fviz_pca_biplot(biopsy_pca,
+                label = "var")
+fviz_pca_biplot(biopsy_pca,
+                label = "var",habillage = drop_na(biopsy)$class)
+
+fviz_pca_biplot(biopsy_pca,
+                label = "var",habillage = drop_na(biopsy)$class,
+                col.var = "black")+
+    scale_color_manual(values = c("orange","purple"))
 ```
