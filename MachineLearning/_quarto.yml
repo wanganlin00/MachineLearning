@@ -41,6 +41,7 @@ website:
             - predict_evaluate.qmd
             - resample.qmd
             - cross_validation.qmd
+            # - tune_hyperparameters.qmd
 
         - section: "监督学习（Supervised Learning）"
           contents:
