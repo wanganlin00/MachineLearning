@@ -42,6 +42,9 @@ website:
             - resample.qmd
             - cross_validation.qmd
             # - tune_hyperparameters.qmd
+        - section: "Lazy Learning"
+          contents:
+            - kNN.qmd
 
         - section: "监督学习（Supervised Learning）"
           contents:
@@ -64,7 +67,7 @@ website:
 # 袋装法（Bagging）：如随机森林，通过训练多个样本子集的模型进行预测。
 # 提升法（Boosting）：如梯度提升决策树（GBDT），通过逐步改进模型进行预测。
 # 堆叠法（Stacking）：通过组合多个基础模型的输出进行预测。
-        
+# Gradient boosting
     - title: "描述性模型"
       contents: 
         - descriptive_models.qmd

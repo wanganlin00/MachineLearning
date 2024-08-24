@@ -1,0 +1,283 @@
+# K-Nearest Neighbors
+
+k Nearest Neighbors
+
+## 距离函数
+
+欧几里得距离
+
+曼哈顿距离
+
+## k
+
+训练数据过度拟合和欠拟合之间的平衡是一个称为偏差-方差权衡的问题 bias-variance tradeoff
+
+## normalization
+
+连续数据
+
+min-max normalization
+
+\$\$ X\_{new}=\frac{X-min(X)}{max(X)-min(X)}
+
+\$\$
+
+z-score standardization
+
+\$\$ X\_{new}=\frac{X-Mean(X)}{StdDev(X)}
+
+\$\$ 分类数据
+
+dummy coding ：通过为特征的 n - 1 个级别创建二进制指示变量，可以对 n 个水平的名义型特征进行虚拟编码。
+
+one-hot encoding ：为所有n个水平特征创建二进制特征。只有一个属性被编码为 1，而其他属性被设置为 0。
+
+## 数据来源
+
+[ ](http://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic)
+
+```{r}
+wbcd <- read.csv("data/wisc_bc_data.csv")
+glimpse(wbcd)
+wbcd <- wbcd %>% 
+    select(-1) %>% 
+    mutate(
+        diagnosis = factor(diagnosis, levels = c("B", "M"),
+                           labels = c("Benign", "Malignant")),
+        
+    )
+
+
+table(wbcd$diagnosis)
+round(prop.table(table(wbcd$diagnosis)) * 100, digits = 2)
+
+# normalization
+
+normalize <- function(x) {
+      return ((x - min(x)) / (max(x) - min(x)))
+}
+
+wbcd %>% 
+    mutate(
+        across(2:31,normalize)
+    ) -> wbcd_n
+
+
+
+```
+
+## 模型训练
+
+```{r}
+library(tidymodels)
+
+
+set.seed(123)
+wbcd_split <- initial_split(data = wbcd_n, prop = 0.825,strata = diagnosis)
+
+wbcd_train <- training(wbcd_split)
+wbcd_test <- testing(wbcd_split)
+
+knn_spec <-
+  nearest_neighbor(neighbors = 21) %>%
+  set_engine('kknn') %>%
+  set_mode('classification')
+
+
+
+knn_model <- knn_spec |>
+  fit(diagnosis ~ ., data = wbcd_train)
+
+knn_model
+
+```
+
+## 模型性能
+
+### 预测结果
+
+```{r}
+train_pred <- 
+  predict(knn_model, wbcd_train) %>% 
+  bind_cols(predict(knn_model, wbcd_train, type = "prob")) %>% 
+  # Add the true outcome data back in
+  bind_cols(wbcd_train %>% 
+              select(diagnosis))
+train_pred %>% head()
+
+
+
+```
+
+### 测试集
+
+```{r}
+test_pred <- 
+  predict(knn_model, wbcd_test) %>% 
+  bind_cols(predict(knn_model, wbcd_test, type = "prob")) %>% 
+  # Add the true outcome data back in
+  bind_cols(wbcd_test %>% 
+              select(diagnosis))
+test_pred %>% head()
+
+augment(knn_model, wbcd_test) %>% head()
+```
+
+```{r}
+test_pred %>% 
+  conf_mat(truth = diagnosis, estimate = .pred_class)
+```
+
+```{r}
+test_pred %>% 
+   accuracy(truth = diagnosis, estimate = .pred_class)
+
+```
+
+```{r}
+test_pred %>% 
+    roc_curve(truth = diagnosis,.pred_Malignant,event_level = "second") %>% 
+    autoplot()
+
+test_pred %>% 
+    roc_auc(truth = diagnosis,.pred_Malignant, event_level = "second")
+```
+
+## 重采样
+
+```{r}
+set.seed(345)
+folds <- vfold_cv(wbcd_train, v = 10,strata = diagnosis)
+folds
+```
+
+```{r}
+analysis(folds$splits[[1]]) %>% head()  # 分析集
+assessment(folds$splits[[1]]) %>% head() # 评估集
+```
+
+```{r}
+knn_wf <- 
+  workflow() %>%
+  add_model(knn_spec) %>%
+  add_formula(diagnosis ~ .)
+
+set.seed(456)
+knn_resample <- 
+  knn_wf %>% 
+  fit_resamples(folds)
+
+knn_resample 
+```
+
+```{r}
+collect_metrics(knn_resample)
+```
+
+## 超参数优化
+
+```{r}
+args(nearest_neighbor)
+```
+
+```{r}
+knn_tune_spec <-
+  nearest_neighbor(neighbors = tune(), weight_func = tune(), dist_power = tune()) %>%
+  set_engine('kknn') %>%
+  set_mode('classification')
+
+
+knn_grid <- grid_regular(neighbors(),
+                         weight_func(),
+                         dist_power(),
+                          levels = 5)
+knn_grid
+```
+
+```{r}
+set.seed(234)
+tune_folds <- vfold_cv(wbcd_train)
+
+
+set.seed(345)
+
+knn_tune_wf <- workflow() %>%
+  add_model(knn_tune_spec) %>%
+  add_formula(diagnosis ~ .)
+
+knn_results <- knn_tune_wf %>%
+    tune_grid(resamples = tune_folds, grid = knn_grid)
+
+knn_results
+
+```
+
+### 结果
+
+```{r}
+knn_results %>% 
+  collect_metrics() %>% 
+    head()
+```
+
+```{r}
+knn_results %>%
+  collect_metrics() %>%
+  mutate(neighbors = factor(neighbors)) %>%
+  ggplot(aes(neighbors , mean, color = weight_func)) +
+  geom_line(linewidth = 1.5, alpha = 0.6) +
+  geom_point(size = 2) +
+  facet_wrap(~ .metric, scales = "free", nrow = 2) +
+#  scale_x_log10(labels = scales::label_number()) +
+  scale_color_viridis_d(option = "plasma", begin = .9, end = 0)
+```
+
+```{r}
+knn_results %>% 
+    show_best(metric = "accuracy")
+
+knn_results %>% 
+    show_best(metric = "brier_class")
+
+knn_results %>% 
+    show_best(metric = "roc_auc")
+
+
+knn_results %>% 
+    select_best(metric = "accuracy")
+
+best_nn <-
+    knn_results %>%
+    select_best(metric = "accuracy")
+```
+
+### 最终模型
+
+```{r}
+final_wf <- 
+  knn_tune_wf %>% 
+  finalize_workflow(best_nn)
+
+final_wf
+```
+
+```{r}
+final_fit <- 
+  final_wf %>%
+  last_fit(wbcd_split) 
+
+final_fit %>%
+  collect_metrics()
+
+final_fit %>%
+  collect_predictions() %>% 
+  roc_curve(diagnosis, .pred_Benign) %>% 
+  autoplot()
+```
+
+```{r}
+extract_workflow(final_fit)
+
+
+
+```

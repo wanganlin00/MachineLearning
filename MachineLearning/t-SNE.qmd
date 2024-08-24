@@ -23,3 +23,57 @@ pca_iris = princomp(iris[,1:4])$scores[,1:2]
 plot(pca_iris, t='n')
 text(pca_iris, labels=iris$Species,col=colors[iris$Species])
 ```
+
+
+###  示例
+
+```{r}
+library(tidyverse)
+set.seed(123)
+sns_sample <- read_csv("snsdata.csv") |>
+    slice_sample(n = 5000)
+```
+
+即使样本相对较小，标准 t-SNE 实现仍然可能相当缓慢。
+相反，我们将使用一个更快的版本，称为 **Barnes-Hut implementation**。
+Barnes-Hut 算法最初是为了模拟所谓的“n 体”问题而开发的，
+即一组 n 个天体之间出现的复杂引力关系系统。因为每个物体都
+会对其他物体施加一个力，所以精确计算每个物体的合力需要 n × n = n2计算。
+由于宇宙的范围和其中几乎无限数量的物体，这在天文尺度上的计算变得不可行。
+Barnes-Hut 使用启发式方法简化了这个问题，
+该启发式方法将更远的对象视为由其质心标识的一组，
+并且仅对比希腊字母 theta 表示的阈值更近的对象执行精确计算。
+较大的 theta 值会大大减少执行仿真所需的计算次数，
+而将 theta 设置为零会执行精确计算。
+
+因为 t-SNE 的作用可以想象为在空间中定位点的 n 体问题，
+每个点对二维空间中其他点的吸引力取决于它与高维空间中相同点的相似程度，
+因此可以应用 Barnes-Hut 简化来简化系统的引力计算。
+这提供了一种 t-SNE 实现，该实现在大型数据集上的速度要快得多，扩展性也要好得多。
+
+
+```{r}
+library(Rtsne)
+set.seed(123)
+sns_tsne <- sns_sample |>
+    select(basketball:drugs) |>
+    Rtsne(check_duplicates = FALSE)
+```
+
+```{r}
+library(ggplot2)
+data.frame(sns_tsne$Y) |>
+    ggplot(aes(X1, X2)) + geom_point(size = 2, shape = 1)
+
+sns_sample_tsne <- sns_sample |>
+    bind_cols(data.frame(sns_tsne$Y)) |> # add the t-SNE data
+    rowwise() |>
+    mutate(n_terms = sum(c_across(basketball:drugs))) |>
+    ungroup() |>
+    mutate(`Terms Used` = if_else(n_terms > 0, "1+", "0"))
+
+sns_sample_tsne |>
+    ggplot(aes(X1, X2, shape = `Terms Used`, color = `Terms Used`)) +
+    geom_point(size = 2) +
+    scale_shape(solid = FALSE)
+```
