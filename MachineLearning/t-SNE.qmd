@@ -54,6 +54,8 @@ Barnes-Hut 使用启发式方法简化了这个问题，
 
 ```{r}
 library(Rtsne)
+
+sns_sample <- read_csv("data/snsdata.csv")
 set.seed(123)
 sns_tsne <- sns_sample |>
     select(basketball:drugs) |>

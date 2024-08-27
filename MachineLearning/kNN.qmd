@@ -8,6 +8,8 @@ k Nearest Neighbors
 
 曼哈顿距离
 
+![](images/d4d750e2bda0ef0f93b7bdc9724f7d0.png)
+
 ## k
 
 训练数据过度拟合和欠拟合之间的平衡是一个称为偏差-方差权衡的问题 bias-variance tradeoff
@@ -18,23 +20,23 @@ k Nearest Neighbors
 
 min-max normalization
 
-\$\$ X\_{new}=\frac{X-min(X)}{max(X)-min(X)}
-
-\$\$
+$$
+X_{new}=\frac{X-min(X)}{max(X)-min(X)}
+$$
 
 z-score standardization
 
-\$\$ X\_{new}=\frac{X-Mean(X)}{StdDev(X)}
+$$
+ X_{new}=\frac{X-Mean(X)}{StdDev(X)}
+$$
 
-\$\$ 分类数据
+分类数据
 
-dummy coding ：通过为特征的 n - 1 个级别创建二进制指示变量，可以对 n 个水平的名义型特征进行虚拟编码。
+-   dummy coding ：通过为特征的 n - 1 个级别创建二进制指示变量，可以对 n 个水平的名义型特征进行虚拟编码。
 
-one-hot encoding ：为所有n个水平特征创建二进制特征。只有一个属性被编码为 1，而其他属性被设置为 0。
+-   one-hot encoding ：为所有n个水平特征创建二进制特征。只有一个属性被编码为 1，而其他属性被设置为 0。
 
 ## 数据来源
-
-[ ](http://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic)
 
 ```{r}
 wbcd <- read.csv("data/wisc_bc_data.csv")

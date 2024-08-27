@@ -1,0 +1,25 @@
+# 图像数据
+
+```{r eval=FALSE}
+BiocManager::install("EBImage")
+
+library("EBImage")
+
+me = readImage("H:/个人信息/digital_photo.jpg")
+
+EBImage::display(me,method = "raster")
+text(x = 85, y = 800, label = "It's me.", adj = 0, col = "orange", cex = 1.5)
+```
+
+```{r}
+hist(me)
+```
+
+```{r}
+EBImage::display(me < 0.5)
+me_0.5 <- me < 0.5
+```
+
+```{r}
+writeImage(me_0.5, "H:/个人信息/digital_photo.png", quality = 100)
+```

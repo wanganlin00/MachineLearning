@@ -122,6 +122,12 @@ metrics <- metric_set(rmse, rsq, mae)
 metrics(ames_test_res, truth = Sale_Price, estimate = .pred)
 ```
 
+```{r}
+MAE <- function(actual, predicted) { 
+    mean(abs(actual - predicted)) 
+    }
+```
+
 ## 分类指标
 
 ### 二分类
@@ -131,26 +137,59 @@ data(two_class_example)
 tibble(two_class_example)
 ```
 
-```{r}
-# 混淆矩阵
-# A confusion matrix: 
-conf_mat(two_class_example, truth = truth, estimate = predicted)
-```
+#### Cohen 的 kappa 系数
 
-```{r}
-# Accuracy:
-accuracy(two_class_example, truth, predicted)
-```
+-   **一致性差 = 小于 0.2**
+
+-   **公平协议 = 0.2 到 0.4**
+
+-   **中等一致性 = 0.4 至 0.6**
+
+-   **一致性良好 = 0.6 至 0.8**
+
+-   **一致性非常好 = 0.8 到 1.0**
+
+![](images/c48e5bd0a08984bfdf42f4e4814cd75.png)
+
+Pr（*a*） 是指实际一致性的比例，Pr（*e*） 是指在假设分类器是随机选择的下，分类器与真实值之间的预期一致性：
+
+#### Matthews correlation coefficient:
 
 ```{r}
 # Matthews correlation coefficient:
 mcc(two_class_example, truth, predicted)
 ```
 
+Matthews 相关系数 （MCC）
+
+![](images/8025c7bff5cfee41b41976254df65fa.png)
+
+-   **完全错误 = -1.0**
+
+-   **严重错误 = -0.5 到 -1.0**
+
+-   **中度错误 = -0.3 到 -0.5**
+
+-   **弱错误 = -0.1 到 0.3**
+
+-   **随机正确 = -0.1 到 0.1**
+
+-   **弱正确 = 0.1 到 0.3**
+
+-   **中等正确率 = 0.3 到 0.5**
+
+-   **强校正 = 0.5 到 1.0**
+
+-   **完全正确 = 1.0**
+
+#### F1 metric
+
 ```{r}
 # F1 metric:
 f_meas(two_class_example, truth, predicted)
 ```
+
+![](images/12cdfc7836eff3ce3756da9664e9a46.png)
 
 ```{r}
 # Combining these three classification metrics together
@@ -166,13 +205,36 @@ classification_metrics(two_class_example, truth = truth, estimate = predicted)
 f_meas(two_class_example, truth, predicted, event_level = "second")
 ```
 
-#### ROC，AUC
+#### 混淆矩阵
+
+![](images/ elbow_method.png){fig-align="center"}
+
+```{r}
+
+# A confusion matrix: 
+conf_mat(two_class_example, truth = truth, estimate = predicted)
+```
+
+![](images/c5d2cb9e91121942fa9b2e5c5c15c6d.png)
+
+![](images/45de5f2f8b49259f75c8f1b7cd0dc6e.png)
+
+![](images/be1d5f0965376bec982e6e9176d8eb7.png)
+
+```{r}
+# Accuracy:
+accuracy(two_class_example, truth, predicted)
+```
 
 不使用预测类列,对于两类问题，感兴趣事件的概率列将传递到函数中
 
+![](images/e887d8369f215ed3bac8bc894d846f5.png)
+
+![](images/0d9fbd6ac8cc21cc506bcda14d77b06.png)
+
 ```{r}
 two_class_curve <- roc_curve(two_class_example, truth, Class1)
-two_class_curve
+two_class_curve %>% head()
 roc_auc(two_class_example, truth, Class1)
 ```
 
@@ -185,7 +247,7 @@ autoplot(two_class_curve)+
 
 ```{r}
 data(hpc_cv)
-tibble(hpc_cv)
+tibble(hpc_cv) %>% head()
 ```
 
 ```{r}
@@ -220,3 +282,170 @@ hpc_cv %>%
   autoplot()
 
 ```
+
+## 示例
+
+```{r}
+sms_results <- read.csv("data/sms_results.csv", stringsAsFactors = TRUE)
+
+head(sms_results)
+table(sms_results$actual_type, sms_results$predict_type)
+```
+
+```{r}
+# 准确度
+(152 + 1203) / (152 + 1203 + 4 + 31)
+
+# 错误率
+(4 + 31) / (152 + 1203 + 4 + 31)
+```
+
+```{r}
+library(gmodels)
+CrossTable(sms_results$actual_type,sms_results$predict_type)
+```
+
+，每个单元格中的底部值表示落入该单元格的所有实例的比例。因此，要计算观察到的一致性 Pr（*a*），我们只需将预测类型和实际 SMS 类型一致的所有实例的比例相加即可。
+
+```{r}
+ pr_a <- 0.865 + 0.109
+ 
+ pr_e <- 0.868 * 0.888 + 0.132 * 0.112
+ 
+ k <- (pr_a - pr_e) / (1 - pr_e) 
+ k
+```
+
+```{r}
+library(vcd)
+Kappa(table(sms_results$actual_type, sms_results$predict_type))
+```
+
+```{r eval=FALSE}
+library(mltools)
+mcc(sms_results$actual_type, sms_results$predict_type)
+```
+
+```{r}
+(152 * 1203 - 4 * 31) /
+    sqrt((152 + 4) * (152 + 31) * (1203 + 4) * (1203 + 31))
+```
+
+```{r}
+sens <- 152 / (152 + 31)
+
+spec <- 1203 / (1203 + 4)
+
+prec <- 152 / (152 + 4)
+rec <- 152 / (152 + 31)
+```
+
+```{r}
+library(caret)
+caret::sensitivity(sms_results$predict_type, sms_results$actual_type,
+              positive = "spam")
+
+caret::specificity(sms_results$predict_type, sms_results$actual_type,
+              negative = "ham")
+posPredValue(sms_results$predict_type, sms_results$actual_type,
+               positive = "spam")
+
+```
+
+```{r}
+f <- (2 * prec * rec) / (prec + rec) 
+f
+
+ f <- (2 * 152) / (2 * 152 + 4 + 31)
+```
+
+![](images/clipboard-3606103053.png)
+
+为了创建曲线，分类器的预测将按模型对正类的估计概率降序排序，最大值在前，如表所示。然后，从图的原点开始，每个预测对真阳性率和假阳性率的影响将导致每个正例的曲线垂直跟踪和每个负例的水平曲线跟踪
+
+```{r}
+
+set.seed(123)
+tibble(
+    Truth= sample(c("阴性","阳性"),10,replace = T),
+    prop_阳性 = runif(10) %>% sort()
+)
+```
+
+要手动计算ROC曲线相关的敏感性（Sensitivity）、特异性（Specificity）、精确度（Accuracy）、召回率（Recall）等指标，我们需要以下步骤和公式。我们假设阈值为0.5，来将prop列中的值分为预测的阳性或阴性。
+
+| Truth | prop | Prediction (Threshold = 0.5) | Classification |
+|-------|------|------------------------------|----------------|
+
+|      |        |      |     |
+|------|--------|------|-----|
+| 阴性 | 0.0246 | 阴性 | TN  |
+
+|      |       |      |     |
+|------|-------|------|-----|
+| 阳性 | 0.216 | 阴性 | FN  |
+
+|      |       |      |     |
+|------|-------|------|-----|
+| 阴性 | 0.232 | 阴性 | TN  |
+
+|      |       |      |     |
+|------|-------|------|-----|
+| 阴性 | 0.318 | 阴性 | TN  |
+
+|      |       |      |     |
+|------|-------|------|-----|
+| 阴性 | 0.478 | 阴性 | TN  |
+
+|      |       |      |     |
+|------|-------|------|-----|
+| 阴性 | 0.691 | 阳性 | FP  |
+
+|      |       |      |     |
+|------|-------|------|-----|
+| 阳性 | 0.758 | 阳性 | TP  |
+
+|      |       |      |     |
+|------|-------|------|-----|
+| 阳性 | 0.795 | 阳性 | TP  |
+
+|      |       |      |     |
+|------|-------|------|-----|
+| 阴性 | 0.902 | 阳性 | FP  |
+
+|      |       |      |     |
+|------|-------|------|-----|
+| 阳性 | 0.963 | 阳性 | TP  |
+
+所以，得到的混淆矩阵如下：
+
+|                     | 实际阳性 (Positive) | 实际阴性 (Negative) |
+|---------------------|---------------------|---------------------|
+| 预测阳性 (Positive) | TP = 3              | FP = 2              |
+| 预测阴性 (Negative) | FN = 1              | TN = 4              |
+
+### 2. 计算敏感性（Sensitivity, 召回率 Recall）
+
+敏感性是指模型正确预测为阳性的比例，也称为召回率：
+
+Sensitivity (Recall)=TPTP+FN=33+1=0.75\text{Sensitivity (Recall)} = \frac{TP}{TP + FN} = \frac{3}{3 + 1} = 0.75Sensitivity (Recall)=TP+FNTP​=3+13​=0.75
+
+### 3. 计算特异性（Specificity）
+
+特异性是指模型正确预测为阴性的比例：
+
+Specificity=TNTN+FP=44+2=46≈0.667\text{Specificity} = \frac{TN}{TN + FP} = \frac{4}{4 + 2} = \frac{4}{6} \approx 0.667Specificity=TN+FPTN​=4+24​=64​≈0.667
+
+### 4. 计算精确度（Accuracy）
+
+精确度是指模型正确预测（无论阳性或阴性）的比例：
+
+Accuracy=TP+TNTP+TN+FP+FN=3+43+4+2+1=710=0.7\text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN} = \frac{3 + 4}{3 + 4 + 2 + 1} = \frac{7}{10} = 0.7Accuracy=TP+TN+FP+FNTP+TN​=3+4+2+13+4​=107​=0.7
+
+### 5. 计算ROC曲线的坐标
+
+ROC曲线的一个点可以由敏感性和1-特异性构成。这里给出当前的ROC点：
+
+ROC点=(1−Specificity,Sensitivity)=(1−0.667,0.75)=(0.333,0.75)\text{ROC点} = (1 - \text{Specificity}, \text{Sensitivity}) = (1 - 0.667, 0.75) = (0.333, 0.75)ROC点=(1−Specificity,Sensitivity)=(1−0.667,0.75)=(0.333,0.75)
+
+通过改变阈值，可以重新计算TP、FP、TN、FN，进而获得多个点来绘制ROC曲线。最终，通过连接这些点，可以得到ROC曲线。
