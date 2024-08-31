@@ -4,10 +4,11 @@
 
 ```{r}
 library(tidymodels)
+library(rpart.plot)
 library(vip)
 ```
 
-## 决策树 （分类）
+## 分类树
 
 ```{r}
 df <- read_csv(
@@ -69,7 +70,16 @@ cdtree
 rpart::plotcp(cdtree$fit)
 cdtree %>%
     extract_fit_engine() %>%
-    rpart.plot::rpart.plot(roundint = F)
+    rpart.plot()
+
+
+cdtree %>% 
+    vip(geom = "col",
+        aesthetics = list(
+            color="black",
+            fill = "palegreen",
+            alpha = .5
+        ))
 ```
 
 ### 模型性能评估
@@ -90,7 +100,7 @@ augment(cdtree, new_data = test) %>%
 cf_spec_class <-
     rand_forest(#mtry = .cols(), 
         trees = 500 ,min_n = 1) %>%
-    set_engine('randomForest', importance = TRUE) %>%
+    set_engine('randomForest') %>%
     set_mode('classification')
 
 class_rf_fit <- cf_spec_class |> 
@@ -116,11 +126,18 @@ Mean Decrease in Gini (MDG) 这种方法通过衡量某个特征对分类纯度�
 
 ```{r}
 class_rf_fit %>% vip::vi()
-class_rf_fit %>% vip::vip()
+
+class_rf_fit %>% 
+    vip(geom = "col",
+        aesthetics = list(
+            color="black",
+            fill = "palegreen",
+            alpha = .5
+        ))
 ```
 
 ```{r}
-class_rf_fit$fit$importance
+class_rf_fit$fit$importance 
 ```
 
 ```{r}
@@ -175,6 +192,31 @@ rf_fit_eg <- cf_spec_class |>
     fit(class ~ . , data = train)
 rf_fit_eg
 
+```
+
+## 回归树
+
+```{r}
+bmd <- read_csv("data/bmd.csv")
+bmd %>% head()
+```
+
+```{r}
+library(rpart)
+reg_tree_spec <- decision_tree() %>%
+    set_engine("rpart", 
+               control = rpart.control(minsplit = 1, minbucket = 1, cp = 0.02)) %>%
+    set_mode("regression") 
+
+reg_tree_model <- reg_tree_spec %>% 
+    fit(bmd ~ age, data= bmd)
+reg_tree_model
+
+
+rpart::printcp(reg_tree_model$fit)
+reg_tree_model %>%
+    extract_fit_engine() %>%
+    rpart.plot::rpart.plot(roundint = T)
 ```
 
 ## 随机森林 （回归）

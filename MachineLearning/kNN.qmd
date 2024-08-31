@@ -198,18 +198,22 @@ knn_grid
 
 ```{r}
 set.seed(234)
-tune_folds <- vfold_cv(wbcd_train)
+tune_folds <- vfold_cv(wbcd_train, v = 10 )
+tune_folds 
 
-
-set.seed(345)
 
 knn_tune_wf <- workflow() %>%
   add_model(knn_tune_spec) %>%
   add_formula(diagnosis ~ .)
 
-knn_results <- knn_tune_wf %>%
-    tune_grid(resamples = tune_folds, grid = knn_grid)
+doParallel::registerDoParallel(cores = 6)
 
+set.seed(345)
+knn_results <- knn_tune_wf %>%
+    tune_grid(resamples = tune_folds, 
+              grid = knn_grid)
+
+doParallel::stopImplicitCluster()
 knn_results
 
 ```

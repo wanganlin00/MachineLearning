@@ -46,14 +46,14 @@ website:
           contents:
             - kNN.qmd
 
-        - section: "监督学习（Supervised Learning）"
+        - section: "Supervised Learning"
           contents:
             - Regression.qmd
             - Classification.qmd
             - tree-based_models.qmd
             - survival.qmd
             
-        - section: "无监督学习（Unsupervised Learning）"
+        - section: "Unsupervised Learning"
           contents:
             - Clustering.qmd
             - LDA.qmd
