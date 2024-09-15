@@ -207,7 +207,7 @@ f_meas(two_class_example, truth, predicted, event_level = "second")
 
 #### 混淆矩阵
 
-![](images/ elbow_method.png){fig-align="center"}
+![](images/%20elbow_method.png){fig-align="center"}
 
 ```{r}
 

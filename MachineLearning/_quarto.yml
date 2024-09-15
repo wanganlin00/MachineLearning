@@ -38,7 +38,7 @@ website:
             - data_spilt.qmd
             - model_selection.qmd
             - feature_engineering.qmd
-            - predict_evaluate.qmd
+            - predict_performance.qmd
             - resample.qmd
             - cross_validation.qmd
             # - tune_hyperparameters.qmd
