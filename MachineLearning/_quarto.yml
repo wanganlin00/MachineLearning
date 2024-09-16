@@ -35,6 +35,7 @@ website:
 
         - section: machine_learning.qmd
           contents: 
+            - imputation.qmd
             - data_spilt.qmd
             - model_selection.qmd
             - feature_engineering.qmd
