@@ -18,6 +18,12 @@ $$
 
 ## 自定义 PCA 步骤
 
+<https://www.icourse163.org/course/JNU-1002335007>
+
+![](images/clipboard-4269868006.png)
+
+![](images/clipboard-3707845441.png)
+
 ### 数据标准化
 
 R中数据框 n个观测，p个变量
