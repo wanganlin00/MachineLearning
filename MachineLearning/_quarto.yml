@@ -20,8 +20,6 @@ website:
       - text: "推断性模型"
         href: inferential_models.qmd
 
-
-
   sidebar:
     - title: "预测性模型"
       style: "docked"
@@ -43,6 +41,7 @@ website:
             - resample.qmd
             - cross_validation.qmd
             # - tune_hyperparameters.qmd
+       
         - section: "Lazy Learning"
           contents:
             - kNN.qmd
@@ -63,7 +62,7 @@ website:
             - UMAP.qmd
             
         - section: "集成学习（Ensemble Learning）"
-#         集成学习通过组合多个基学习器提高模型性能。主要包括以下几类：
+# 集成学习通过组合多个基学习器提高模型性能。主要包括以下几类：
 # 
 # 袋装法（Bagging）：如随机森林，通过训练多个样本子集的模型进行预测。
 # 提升法（Boosting）：如梯度提升决策树（GBDT），通过逐步改进模型进行预测。
@@ -89,22 +88,24 @@ knitr:
 execute:
   cache: true
   message: false
-  warning: true
-
+  warning: false
+  
+toc: true
 toc-depth: 4
 number-sections: true
 number-depth: 4
+
+code-summary: "展开"
 code-fold: show
 code-link: true
 code-tools: true
+
+fig-format: svg
 
 format:
   html:
     theme: cosmo
     css: styles.css
-    toc: true
-    fig-format: svg
-
 editor: visual
 
 

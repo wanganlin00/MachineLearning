@@ -1,10 +1,217 @@
-# **推断性模型** {.unnumbered}
+# 推断性模型 {.unnumbered}
 
 推断性模型（Inferential Models）是用于从样本数据中推断总体特征或作出关于总体的结论的统计工具和方法。这些模型不仅仅是描述数据特征，而是利用数据来进行推断、预测或测试假设。推断性模型通常关注于确定数据中变量之间的关系、评估因果关系、做出预测和进行统计推断。
 
 推断性模型通过假设检验、置信区间估计、回归分析等方法，对总体做出结论或预测：
 
-1.  线性回归模型
-2.  广义线性模型，如 t 检验，方差分析（ANOVA）
-3.  卡方检验
-4.  生存分析
+-   线性模型，如 t检验，相关性，卡方，方差分析（ANOVA）<https://lindeloev.github.io/tests-as-linear/>
+-    重复测量方差分析（RMANOVA）
+-   广义线性模型
+
+## 单变量回归 `lm(y ~ 1+x)`
+
+```{r}
+set.seed(123)
+df <- tibble(
+    y = rnorm(100,172, 5),
+    x = rnorm(100, 60, 10)
+)
+x <- df$x
+y <- df$y
+```
+
+### 相关性
+
+-   **Pearson相关性**
+
+$$
+y = \beta_0 + \beta_1 x \qquad \mathcal{H}_0: \beta_1 = 0
+$$
+
+```{r}
+cor.test(y, x, method = "pearson") 
+lm(y ~ 1 + x) %>% summary()
+lm(scale(y) ~ 1 + scale(x)) %>% summary()
+```
+
+-   **Spearman 秩相关性**
+
+$$
+rank(y) = \beta_0 + \beta_1 \cdot rank(x) \qquad \mathcal{H}_0: \beta_1 = 0
+$$
+
+```{r}
+cor.test(y, x, method = "spearman") 
+lm(rank(y) ~ 1 + rank(x)) %>% summary()
+```
+
+### 单样本
+
+-   t检验
+
+```{r}
+t.test(y)
+
+lm(y ~ 1) %>% summary()
+```
+
+-   Wilcoxon signed-rank test
+
+```{r 符号秩}
+signed_rank = function(x) sign(x) * rank(abs(x))
+
+signed_rank(c(1,2,3,-2,-5,4))
+```
+
+```{r}
+wilcox.test(y)
+lm(signed_rank(y) ~ 1) %>% summary()
+```
+
+### 配对样本
+
+```{r}
+t.test(y, x, paired = TRUE)
+lm(y - x ~ 1)
+```
+
+```{r}
+wilcox.test(y, x, paired = TRUE)
+
+lm(signed_rank(y - x) ~ 1)
+
+# 与单样本t检验相同
+t.test(signed_rank(y - x))
+```
+
+### 两样本
+
+-   **t-test**
+
+$$
+y_i = \beta_0 + \beta_1 x_i \qquad \mathcal{H}_0: \beta_1 = 0
+$$
+
+```{r}
+t.test(y, x, var.equal = TRUE)
+
+
+value <- c(y,x)
+group <- rep(c('y', 'x'), each = 100)
+group_x <- ifelse(group == 'x', 1, 0)
+
+lm(value ~ 1 + group_x) %>% summary()
+```
+
+-   **Mann-Whitney U（Wilcoxon rank-sum test）**
+
+$$
+rank(y_i) = \beta_0 + \beta_1 x_i \qquad \mathcal{H}_0: \beta_1 = 0
+$$
+
+```{r}
+wilcox.test(y, x)
+
+lm(rank(value) ~ 1 + group_x)
+```
+
+-   **Welch’s t-test**
+
+```{r}
+t.test(y, x, var.equal=FALSE)
+
+
+
+nlme::gls(value ~ 1 + group_x, weights = nlme::varIdent(form=~1|group), method="ML") %>% summary()
+```
+
+## 多变量回归
+
+### 多样本
+
+```{r}
+three <- ToothGrowth %>% 
+    select(dose, len) %>% 
+    arrange(dose) %>% 
+    mutate(dose = as.factor(dose),
+           group_1 = rep(c(0, 1, 0), each = 20),
+           group_2 = rep(c(0, 0, 1), each = 20))
+```
+
+#### **单因素方差分析和 Kruskal-Wallis**
+
+```{r}
+car::Anova(aov(len ~ dose, data = three))
+lm(len ~ 1 + group_1 + group_2, data = three)
+```
+
+```{r}
+kruskal.test(len ~ dose, data = three) 
+lm(rank(len) ~ 1 + group_1 + group_2, data = three)  
+car::Anova(aov(rank(len) ~ dose, data = three))
+```
+
+### 卡方
+
+**对数线性模型**
+
+-   **拟合优度**
+
+```{r}
+D = data.frame(mood = c('happy', 'sad', 'meh'),
+               counts = c(60, 90, 70))
+
+# Dummy coding for the linear model
+D$mood_happy = ifelse(D$mood == 'happy', 1, 0)
+D$mood_sad = ifelse(D$mood == 'sad', 1, 0)
+
+
+chisq.test(D$counts)
+```
+
+```{r}
+full = glm(counts ~ 1 + mood_happy + mood_sad, data = D, family = poisson())
+null = glm(counts ~ 1, data = D, family = poisson())
+
+anova(null, full, test = 'Rao')
+
+glm(counts ~ mood, data = D, family = poisson())
+```
+
+**列联表**
+
+```{r}
+D = data.frame(
+  mood = c('happy', 'happy', 'meh', 'meh', 'sad', 'sad'),
+  sex = c('male', 'female', 'male', 'female', 'male', 'female'),
+  Freq = c(100, 70, 30, 32, 110, 120)
+)
+
+# ... and as table for chisq.test
+D_table = D %>%
+  spread(key = mood, value = Freq) %>%  # Mood to columns
+  select(-sex) %>%  # Remove sex column
+  as.matrix()
+
+# Dummy coding of D for linear model (skipping mood=="sad" and gender=="female")
+# We could also use model.matrix(D$Freq~D$mood*D$sex)
+D$mood_happy = ifelse(D$mood == 'happy', 1, 0)
+D$mood_meh = ifelse(D$mood == 'meh', 1, 0)
+D$sex_male = ifelse(D$sex == 'male', 1, 0)
+```
+
+```{r}
+chisq.test(D_table)
+
+# Using glm to do a log-linear model, we get identical results when testing the interaction term:
+full = glm(Freq ~ 1 + mood_happy + mood_meh + sex_male + mood_happy*sex_male + mood_meh*sex_male, data = D, family = poisson())
+null = glm(Freq ~ 1 + mood_happy + mood_meh + sex_male, data = D, family = poisson())
+
+anova(null, full, test = 'Rao')  # Could also use test='LRT' or test='Chisq'
+
+# Note: let glm do the dummy coding for you
+full = glm(Freq ~ mood * sex, family = poisson(), data = D)
+anova(full, test = 'Rao')
+
+MASS::loglm(Freq ~ mood + sex, D)
+```
